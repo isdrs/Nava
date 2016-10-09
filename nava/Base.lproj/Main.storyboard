@@ -1,58 +1,111 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--First-->
+        <!--Shahadat View Controller-->
+        <scene sceneID="8xi-nS-edl">
+            <objects>
+                <viewController storyboardIdentifier="ShahadatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jkl-YR-Q3a" customClass="ShahadatViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y5g-ns-xPl"/>
+                        <viewControllerLayoutGuide type="bottom" id="ue3-xB-Nn6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GLU-EQ-bjd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="0.0099468241870000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nB3-aL-z6M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-353" y="-1174"/>
+        </scene>
+        <!--Music-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MusicViewController" title="Music" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pv-A4-QxB" customClass="MusicViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by FirstViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esc-aP-rTN"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pEt-cF-8O4" customClass="ButtonBarView" customModule="XLPagerTabStrip">
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="jbe-OV-ZIH"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="OlC-Lh-HEn">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="kUh-YO-xp9">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="6BV-lF-sBN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
-                            <constraint firstAttribute="centerY" secondItem="KQZ-1w-vlD" secondAttribute="centerY" id="exm-UA-ej4"/>
+                            <constraint firstItem="pEt-cF-8O4" firstAttribute="leading" secondItem="esc-aP-rTN" secondAttribute="leading" id="3hI-Zg-aqI"/>
+                            <constraint firstItem="pEt-cF-8O4" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="N3O-zB-OpR"/>
+                            <constraint firstItem="esc-aP-rTN" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" id="fV3-7r-eWa"/>
+                            <constraint firstItem="pEt-cF-8O4" firstAttribute="top" secondItem="esc-aP-rTN" secondAttribute="top" id="fZL-9D-byp"/>
+                            <constraint firstItem="esc-aP-rTN" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="gm5-rK-7oP"/>
+                            <constraint firstItem="pEt-cF-8O4" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="kfh-6G-fIU"/>
+                            <constraint firstItem="pEt-cF-8O4" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="khr-Jb-HTn"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="موسیقی" image="MusicTab" id="acW-dT-cKf" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="yOffSet">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="animation" destination="GUf-ra-KEY" id="h7l-Xk-7dm"/>
+                        </connections>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="buttonBarView" destination="pEt-cF-8O4" id="ezW-Wc-MzY"/>
+                        <outlet property="containerView" destination="esc-aP-rTN" id="n5C-aF-1Pe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+                <customObject id="GUf-ra-KEY" customClass="RAMFlipLeftTransitionItemAnimations" customModule="RAMAnimatedTabBarController"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="749.60000000000002" y="-320.68965517241384"/>
         </scene>
-        <!--Second-->
+        <!--Video-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoViewController" title="Video" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8rJ-Kc-sve" customClass="VideoViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
@@ -75,34 +128,260 @@
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="ویدئو" image="VideoTab" id="cPa-gy-q4n" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="animation" destination="c5e-Xo-kDg" id="FYA-4u-fah"/>
+                        </connections>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
+                <customObject id="c5e-Xo-kDg" customClass="RAMFlipTopTransitionItemAnimations" customModule="RAMAnimatedTabBarController"/>
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Animated Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBar" useStoryboardIdentifierAsRestorationIdentifier="YES" id="49e-Tb-3d3" customClass="RAMAnimatedTabBarController" customModule="RAMAnimatedTabBarController" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.0099468241870000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="diA-mk-bPb"/>
+                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="QsJ-qf-9my"/>
+                        <segue destination="aOw-Cs-G3p" kind="relationship" relationship="viewControllers" id="NYk-wu-kPF"/>
+                        <segue destination="488-hX-qUN" kind="relationship" relationship="viewControllers" id="MDS-DA-R9U"/>
+                        <segue destination="ffC-IY-lXI" kind="relationship" relationship="viewControllers" id="Ezr-SX-yPS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-444" y="-32"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="lSH-sZ-2rc">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" title="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aOw-Cs-G3p" customClass="HomeViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nBG-1q-ss1"/>
+                        <viewControllerLayoutGuide type="bottom" id="Tdo-Bz-Xxb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="K3G-ld-8R7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ivF-1B-Ple">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV7-ul-cDi">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="EV7-ul-cDi" firstAttribute="centerX" secondItem="ivF-1B-Ple" secondAttribute="centerX" id="595-Xk-h6j"/>
+                            <constraint firstAttribute="centerY" secondItem="ivF-1B-Ple" secondAttribute="centerY" id="Tsr-EV-0Qz"/>
+                            <constraint firstItem="EV7-ul-cDi" firstAttribute="top" secondItem="ivF-1B-Ple" secondAttribute="bottom" constant="8" symbolic="YES" id="lhH-R9-aI1"/>
+                            <constraint firstAttribute="centerX" secondItem="ivF-1B-Ple" secondAttribute="centerX" id="ozN-W1-bcc"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="خانه" image="HomeTab" id="Tf1-l5-DWs" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="animation" destination="AQk-V2-vOV" id="UDg-x7-b2a"/>
+                        </connections>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vI0-I8-qWl" sceneMemberID="firstResponder"/>
+                <customObject id="AQk-V2-vOV" customClass="RAMBounceAnimation" customModule="RAMAnimatedTabBarController"/>
+            </objects>
+            <point key="canvasLocation" x="38" y="761"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="3U1-nn-3sC">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" title="Search" useStoryboardIdentifierAsRestorationIdentifier="YES" id="488-hX-qUN" customClass="SearchViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BTD-es-7C6"/>
+                        <viewControllerLayoutGuide type="bottom" id="ke6-SK-x3r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="C8G-HP-Cx9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="WBH-4P-StX">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bee-vI-9Rw">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Bee-vI-9Rw" firstAttribute="top" secondItem="WBH-4P-StX" secondAttribute="bottom" constant="8" symbolic="YES" id="8Bu-uj-nSZ"/>
+                            <constraint firstAttribute="centerX" secondItem="WBH-4P-StX" secondAttribute="centerX" id="RSr-kd-bb8"/>
+                            <constraint firstItem="Bee-vI-9Rw" firstAttribute="centerX" secondItem="WBH-4P-StX" secondAttribute="centerX" id="XbR-N2-pGm"/>
+                            <constraint firstAttribute="centerY" secondItem="WBH-4P-StX" secondAttribute="centerY" id="lhc-na-2Ww"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="جستجو" image="SearchTab" id="5kr-4B-VOe" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="animation" destination="ny4-2M-hIx" id="cub-bG-Diy"/>
+                        </connections>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6g6-E6-GdF" sceneMemberID="firstResponder"/>
+                <customObject id="ny4-2M-hIx" customClass="RAMFlipBottomTransitionItemAnimations" customModule="RAMAnimatedTabBarController"/>
+            </objects>
+            <point key="canvasLocation" x="-722" y="761"/>
+        </scene>
+        <!--Downloaded-->
+        <scene sceneID="3v5-pk-zvK">
+            <objects>
+                <viewController storyboardIdentifier="DownloadedViewController" title="Downloaded" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ffC-IY-lXI" customClass="DownloadedViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cO7-1K-23M"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wna-th-CJU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zdl-Fs-btK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zvF-vN-CKu">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0kk-dE-LPg">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0kk-dE-LPg" firstAttribute="centerX" secondItem="zvF-vN-CKu" secondAttribute="centerX" id="Gs8-n1-ubG"/>
+                            <constraint firstItem="0kk-dE-LPg" firstAttribute="top" secondItem="zvF-vN-CKu" secondAttribute="bottom" constant="8" symbolic="YES" id="YSb-Y3-jeM"/>
+                            <constraint firstAttribute="centerY" secondItem="zvF-vN-CKu" secondAttribute="centerY" id="dJI-Dd-ffc"/>
+                            <constraint firstAttribute="centerX" secondItem="zvF-vN-CKu" secondAttribute="centerX" id="k2b-AI-KSI"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="دانلود ها" image="DownloadedTab" id="eNT-nV-zkT" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="animation" destination="YGW-6C-yhZ" id="NZs-HQ-tY0"/>
+                        </connections>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RB7-Xj-CHE" sceneMemberID="firstResponder"/>
+                <customObject id="YGW-6C-yhZ" customClass="RAMFlipRightTransitionItemAnimations" customModule="RAMAnimatedTabBarController"/>
+            </objects>
+            <point key="canvasLocation" x="-1468" y="742"/>
+        </scene>
+        <!--Ayad View Controller-->
+        <scene sceneID="b7L-nm-N8i">
+            <objects>
+                <viewController storyboardIdentifier="AyadViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ubP-AQ-nS8" customClass="AyadViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="j4P-Ln-sh3"/>
+                        <viewControllerLayoutGuide type="bottom" id="jbe-2A-DtZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="20h-ie-67D">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y9D-6g-lbV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="350" y="-1174"/>
+        </scene>
+        <!--Moharram View Controller-->
+        <scene sceneID="RvH-Jc-DKo">
+            <objects>
+                <viewController storyboardIdentifier="MoharramViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="S7s-Mc-rYJ" customClass="MoharramViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RuU-mg-Reo"/>
+                        <viewControllerLayoutGuide type="bottom" id="GwQ-LF-LEe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DiF-m0-HvV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.079707748270265721" green="1" blue="0.12645658587257835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Qz-hv-frU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1178" y="-1174"/>
+        </scene>
+        <!--Favorites View Controller-->
+        <scene sceneID="Z5K-kv-2Qg">
+            <objects>
+                <viewController storyboardIdentifier="FavoritesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WLi-Oh-sf4" customClass="FavoritesViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dC7-h6-o2n"/>
+                        <viewControllerLayoutGuide type="bottom" id="gmD-Dm-5CX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ot6-g1-s1E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.96675542127150182" green="1" blue="0.19255002558774215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I7c-EC-afE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1958" y="-1174"/>
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="DownloadedTab" width="48" height="32"/>
+        <image name="HomeTab" width="48" height="32"/>
+        <image name="MusicTab" width="48" height="32"/>
+        <image name="SearchTab" width="48" height="32"/>
+        <image name="VideoTab" width="48" height="32"/>
     </resources>
 </document>

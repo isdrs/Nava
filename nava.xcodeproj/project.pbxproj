@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		843E05941DAA8E1600306DCC /* ShahadatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E05931DAA8E1600306DCC /* ShahadatViewController.swift */; };
+		843E05991DAA8E7C00306DCC /* AyadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E05961DAA8E7C00306DCC /* AyadViewController.swift */; };
+		843E059A1DAA8E7C00306DCC /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E05971DAA8E7C00306DCC /* FavoritesViewController.swift */; };
+		843E059B1DAA8E7C00306DCC /* MoharramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E05981DAA8E7C00306DCC /* MoharramViewController.swift */; };
+		844A804F1DAA5B7800EF7A0C /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A804E1DAA5B7800EF7A0C /* MusicViewController.swift */; };
+		844A80511DAA5B8A00EF7A0C /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A80501DAA5B8A00EF7A0C /* VideoViewController.swift */; };
+		844A80531DAA5B9800EF7A0C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A80521DAA5B9800EF7A0C /* HomeViewController.swift */; };
+		844A80551DAA5BAD00EF7A0C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A80541DAA5BAD00EF7A0C /* SearchViewController.swift */; };
+		844A80571DAA5BBD00EF7A0C /* DownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A80561DAA5BBD00EF7A0C /* DownloadedViewController.swift */; };
 		84D377F61DAA50A40085C05D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D377F51DAA50A40085C05D /* AppDelegate.swift */; };
-		84D377F81DAA50A40085C05D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D377F71DAA50A40085C05D /* FirstViewController.swift */; };
-		84D377FA1DAA50A40085C05D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D377F91DAA50A40085C05D /* SecondViewController.swift */; };
 		84D377FD1DAA50A40085C05D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D377FB1DAA50A40085C05D /* Main.storyboard */; };
 		84D377FF1DAA50A40085C05D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84D377FE1DAA50A40085C05D /* Assets.xcassets */; };
 		84D378021DAA50A40085C05D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D378001DAA50A40085C05D /* LaunchScreen.storyboard */; };
@@ -31,10 +38,17 @@
 /* Begin PBXFileReference section */
 		09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.release.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.release.xcconfig"; sourceTree = "<group>"; };
 		3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nava.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		843E05931DAA8E1600306DCC /* ShahadatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShahadatViewController.swift; path = ViewControllers/MusicTabViewControllers/ShahadatViewController.swift; sourceTree = "<group>"; };
+		843E05961DAA8E7C00306DCC /* AyadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AyadViewController.swift; path = ViewControllers/MusicTabViewControllers/AyadViewController.swift; sourceTree = "<group>"; };
+		843E05971DAA8E7C00306DCC /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritesViewController.swift; path = ViewControllers/MusicTabViewControllers/FavoritesViewController.swift; sourceTree = "<group>"; };
+		843E05981DAA8E7C00306DCC /* MoharramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoharramViewController.swift; path = ViewControllers/MusicTabViewControllers/MoharramViewController.swift; sourceTree = "<group>"; };
+		844A804E1DAA5B7800EF7A0C /* MusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicViewController.swift; path = ViewControllers/MusicViewController.swift; sourceTree = "<group>"; };
+		844A80501DAA5B8A00EF7A0C /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoViewController.swift; path = ViewControllers/VideoViewController.swift; sourceTree = "<group>"; };
+		844A80521DAA5B9800EF7A0C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = ViewControllers/HomeViewController.swift; sourceTree = "<group>"; };
+		844A80541DAA5BAD00EF7A0C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = ViewControllers/SearchViewController.swift; sourceTree = "<group>"; };
+		844A80561DAA5BBD00EF7A0C /* DownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadedViewController.swift; path = ViewControllers/DownloadedViewController.swift; sourceTree = "<group>"; };
 		84D377F21DAA50A40085C05D /* nava.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nava.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D377F51DAA50A40085C05D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84D377F71DAA50A40085C05D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		84D377F91DAA50A40085C05D /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		84D377FC1DAA50A40085C05D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84D377FE1DAA50A40085C05D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84D378011DAA50A40085C05D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,6 +88,45 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		843E05951DAA8E1B00306DCC /* MusicTabsViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				843E05961DAA8E7C00306DCC /* AyadViewController.swift */,
+				843E05971DAA8E7C00306DCC /* FavoritesViewController.swift */,
+				843E05981DAA8E7C00306DCC /* MoharramViewController.swift */,
+				843E05931DAA8E1600306DCC /* ShahadatViewController.swift */,
+			);
+			name = MusicTabsViewControllers;
+			sourceTree = "<group>";
+		};
+		844A804D1DAA5B4D00EF7A0C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				843E05951DAA8E1B00306DCC /* MusicTabsViewControllers */,
+				844A804E1DAA5B7800EF7A0C /* MusicViewController.swift */,
+				844A80501DAA5B8A00EF7A0C /* VideoViewController.swift */,
+				844A80521DAA5B9800EF7A0C /* HomeViewController.swift */,
+				844A80541DAA5BAD00EF7A0C /* SearchViewController.swift */,
+				844A80561DAA5BBD00EF7A0C /* DownloadedViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		844A80581DAA737F00EF7A0C /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				844A80591DAA738B00EF7A0C /* Items */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		844A80591DAA738B00EF7A0C /* Items */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Items;
+			sourceTree = "<group>";
+		};
 		84D377E91DAA50A40085C05D = {
 			isa = PBXGroup;
 			children = (
@@ -98,9 +151,9 @@
 		84D377F41DAA50A40085C05D /* nava */ = {
 			isa = PBXGroup;
 			children = (
+				844A80581DAA737F00EF7A0C /* Classes */,
+				844A804D1DAA5B4D00EF7A0C /* ViewControllers */,
 				84D377F51DAA50A40085C05D /* AppDelegate.swift */,
-				84D377F71DAA50A40085C05D /* FirstViewController.swift */,
-				84D377F91DAA50A40085C05D /* SecondViewController.swift */,
 				84D377FB1DAA50A40085C05D /* Main.storyboard */,
 				84D377FE1DAA50A40085C05D /* Assets.xcassets */,
 				84D378001DAA50A40085C05D /* LaunchScreen.storyboard */,
@@ -284,9 +337,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84D377FA1DAA50A40085C05D /* SecondViewController.swift in Sources */,
+				844A80551DAA5BAD00EF7A0C /* SearchViewController.swift in Sources */,
+				843E059A1DAA8E7C00306DCC /* FavoritesViewController.swift in Sources */,
+				843E05991DAA8E7C00306DCC /* AyadViewController.swift in Sources */,
+				844A80571DAA5BBD00EF7A0C /* DownloadedViewController.swift in Sources */,
+				844A804F1DAA5B7800EF7A0C /* MusicViewController.swift in Sources */,
+				843E059B1DAA8E7C00306DCC /* MoharramViewController.swift in Sources */,
 				84D377F61DAA50A40085C05D /* AppDelegate.swift in Sources */,
-				84D377F81DAA50A40085C05D /* FirstViewController.swift in Sources */,
+				844A80511DAA5B8A00EF7A0C /* VideoViewController.swift in Sources */,
+				843E05941DAA8E1600306DCC /* ShahadatViewController.swift in Sources */,
+				844A80531DAA5B9800EF7A0C /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,9 +6,9 @@ target 'nava' do
 pod 'Alamofire', '~> 4.0'
 pod 'AlamofireImage', '~> 3.1'
 pod 'RAMAnimatedTabBarController'
-pod 'ColorMatchTabs', '~> 1.0'
 pod 'SlideMenuControllerSwift'
 pod 'SwiftyJSON'
+pod 'XLPagerTabStrip', :git => 'https://github.com/KelvinJin/XLPagerTabStrip', :branch => 'swift3'
 end
 
 post_install do |installer|

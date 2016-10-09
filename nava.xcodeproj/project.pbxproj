@@ -14,6 +14,8 @@
 		84D377FF1DAA50A40085C05D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84D377FE1DAA50A40085C05D /* Assets.xcassets */; };
 		84D378021DAA50A40085C05D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D378001DAA50A40085C05D /* LaunchScreen.storyboard */; };
 		84D3780D1DAA50A40085C05D /* navaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D3780C1DAA50A40085C05D /* navaTests.swift */; };
+		84D378181DAA50DF0085C05D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 84D378171DAA50DF0085C05D /* Podfile */; };
+		B3E6A3320ED6520C81232DCD /* Pods_nava.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.release.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.release.xcconfig"; sourceTree = "<group>"; };
+		3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nava.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D377F21DAA50A40085C05D /* nava.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nava.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D377F51DAA50A40085C05D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84D377F71DAA50A40085C05D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +42,8 @@
 		84D378081DAA50A40085C05D /* navaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = navaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D3780C1DAA50A40085C05D /* navaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = navaTests.swift; sourceTree = "<group>"; };
 		84D3780E1DAA50A40085C05D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84D378171DAA50DF0085C05D /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		CB24BF433A81DB82853B7BA1 /* Pods-nava.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.debug.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3E6A3320ED6520C81232DCD /* Pods_nava.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +65,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C91AB23F5E05FAE9A5A5C0B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CB24BF433A81DB82853B7BA1 /* Pods-nava.debug.xcconfig */,
+				09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		84D377E91DAA50A40085C05D = {
 			isa = PBXGroup;
 			children = (
+				84D378171DAA50DF0085C05D /* Podfile */,
 				84D377F41DAA50A40085C05D /* nava */,
 				84D3780B1DAA50A40085C05D /* navaTests */,
 				84D377F31DAA50A40085C05D /* Products */,
+				1C91AB23F5E05FAE9A5A5C0B /* Pods */,
+				E380BC93C22EE1A05830F75A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +118,14 @@
 			path = navaTests;
 			sourceTree = "<group>";
 		};
+		E380BC93C22EE1A05830F75A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +133,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84D378111DAA50A40085C05D /* Build configuration list for PBXNativeTarget "nava" */;
 			buildPhases = (
+				4B18BE94BB0BE8F1E7834235 /* [CP] Check Pods Manifest.lock */,
 				84D377EE1DAA50A40085C05D /* Sources */,
 				84D377EF1DAA50A40085C05D /* Frameworks */,
 				84D377F01DAA50A40085C05D /* Resources */,
+				728E7B9E433CD34ACB359E8A /* [CP] Embed Pods Frameworks */,
+				E916DE4E01B42643AF0A8FDE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,10 +179,13 @@
 				TargetAttributes = {
 					84D377F11DAA50A40085C05D = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = HUB9ZQ7NS4;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					84D378071DAA50A40085C05D = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 84D377F11DAA50A40085C05D;
 					};
@@ -184,6 +217,7 @@
 			files = (
 				84D378021DAA50A40085C05D /* LaunchScreen.storyboard in Resources */,
 				84D377FF1DAA50A40085C05D /* Assets.xcassets in Resources */,
+				84D378181DAA50DF0085C05D /* Podfile in Resources */,
 				84D377FD1DAA50A40085C05D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,6 +230,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4B18BE94BB0BE8F1E7834235 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		728E7B9E433CD34ACB359E8A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-nava/Pods-nava-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E916DE4E01B42643AF0A8FDE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-nava/Pods-nava-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		84D377EE1DAA50A40085C05D /* Sources */ = {
@@ -264,6 +346,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -314,6 +397,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -341,9 +425,13 @@
 		};
 		84D378121DAA50A40085C05D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB24BF433A81DB82853B7BA1 /* Pods-nava.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HUB9ZQ7NS4;
 				INFOPLIST_FILE = nava/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manshor.nava;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -353,9 +441,13 @@
 		};
 		84D378131DAA50A40085C05D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HUB9ZQ7NS4;
 				INFOPLIST_FILE = nava/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manshor.nava;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -410,6 +502,7 @@
 				84D378131DAA50A40085C05D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84D378141DAA50A40085C05D /* Build configuration list for PBXNativeTarget "navaTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +511,7 @@
 				84D378161DAA50A40085C05D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

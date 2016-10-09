@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (4.0.1)
+  - AlamofireImage (3.1.0):
+    - Alamofire (~> 4.0)
+  - ColorMatchTabs (1.0.8)
+  - RAMAnimatedTabBarController (2.0.1)
+  - SlideMenuControllerSwift (3.0.0)
+  - SwiftyJSON (3.1.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - AlamofireImage (~> 3.1)
+  - ColorMatchTabs (~> 1.0)
+  - RAMAnimatedTabBarController
+  - SlideMenuControllerSwift
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
+  ColorMatchTabs: 3ebdd22200924163e3c3f4d6c4cbabc1d83db316
+  RAMAnimatedTabBarController: 1d20343a6fca7eb433ad67b6e1599dd6e9213292
+  SlideMenuControllerSwift: 9c0a84f9a3fba51681debd7be77617094562ebcc
+  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
+
+PODFILE CHECKSUM: e8a51d6fcf7c5f9f70b322f87f3d755d07f6018d
+
+COCOAPODS: 1.0.1

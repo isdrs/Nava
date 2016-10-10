@@ -18,6 +18,10 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
         self.settings.style.buttonBarLeftContentInset = 0
         self.settings.style.buttonBarRightContentInset = 0
         self.settings.style.buttonBarItemLeftRightMargin = 0
+        self.settings.style.selectedBarBackgroundColor = .red
+        self.settings.style.buttonBarItemBackgroundColor = .black
+        self.settings.style.selectedBarHeight = 0.5
+        
 
         super.viewDidLoad()
         // Do any additional setup after loading the view.

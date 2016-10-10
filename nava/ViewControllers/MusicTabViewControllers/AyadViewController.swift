@@ -9,7 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
-class AyadViewController: UIViewController, IndicatorInfoProvider {
+class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,22 @@ class AyadViewController: UIViewController, IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return IndicatorInfo(title: "اعیاد")
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicCell") as! MusicTableViewCell
+        
+        return cell
+    }
+    
+    
     /*
     // MARK: - Navigation
 

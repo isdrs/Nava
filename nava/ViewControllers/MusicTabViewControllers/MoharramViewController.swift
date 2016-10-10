@@ -9,7 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
-class MoharramViewController: UIViewController, IndicatorInfoProvider {
+class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,19 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider {
         return IndicatorInfo(title: "محرم")
     }
     
-
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicCell") as! MusicTableViewCell
+        
+        return cell
+    }
     /*
     // MARK: - Navigation
 

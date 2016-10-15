@@ -229,6 +229,8 @@ open class RAMAnimatedTabBarController: UITabBarController {
     self.setViewControllers(viewControllers, animated: false)
     
     self.initializeContainers()
+    
+    
   }
   
   /**
@@ -251,6 +253,8 @@ open class RAMAnimatedTabBarController: UITabBarController {
     self.didLoadView = true
     
     self.initializeContainers()
+    
+    setSelectIndex(from: 0, to: 3)
   }
   
   fileprivate func initializeContainers() {

@@ -58,7 +58,7 @@ open class RAMItemAnimation: NSObject, RAMItemAnimationProtocol {
   @IBInspectable open var textSelectedColor: UIColor = UIColor.init(red: 0, green: 0.478431, blue: 1, alpha: 1)
   
   ///  The icon color in selected state.
-  @IBInspectable open var iconSelectedColor: UIColor!
+  @IBInspectable open var iconSelectedColor: UIColor = .red
   
    /**
    Start animation, method call when UITabBarItem is selected

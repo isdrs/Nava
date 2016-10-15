@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RAMAnimatedTabBarController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

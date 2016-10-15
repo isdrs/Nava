@@ -37,8 +37,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var updateTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: Selector(("updateTime")), userInfo: nil, repeats: true)
-        var timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(MusicPlayerViewController.updateSlider), userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(MusicPlayerViewController.updateTime), userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(MusicPlayerViewController.updateSlider), userInfo: nil, repeats: true)
         
         let pathString = Bundle.main.path(forResource: "agnes", ofType: "mp3")
         
@@ -72,7 +72,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let currentTime = Int(musicPlayer.currentTime)
         let duration = Int(musicPlayer.duration)
         let total = currentTime - duration
-        let totalString = String(total)
+        _ = String(total)
         
         let minutes = currentTime/60
         let seconds = currentTime - minutes / 60

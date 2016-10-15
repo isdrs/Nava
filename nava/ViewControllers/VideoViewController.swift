@@ -7,29 +7,59 @@
 //
 
 import UIKit
+import XLPagerTabStrip
 
-class VideoViewController: UIViewController {
-
+class VideoViewController: ButtonBarPagerTabStripViewController {
+    
     override func viewDidLoad() {
+        
+        
+        self.settings.style.buttonBarItemsShouldFillAvailiableWidth = true
+        self.settings.style.buttonBarLeftContentInset = 0
+        self.settings.style.buttonBarRightContentInset = 0
+        self.settings.style.buttonBarItemLeftRightMargin = 0
+        self.settings.style.selectedBarBackgroundColor = .red
+        self.settings.style.buttonBarItemBackgroundColor = .black
+        self.settings.style.selectedBarHeight = 0.5
+        
+        
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        moveToViewControllerAtIndex(3)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewDidAppear(_ animated: Bool) {
+        print(self.view.frame.origin.y)
     }
-    */
+    
+    override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
+        let stb = UIStoryboard(name: "Main", bundle: nil)
+        let page_Shahadat = stb.instantiateViewController(withIdentifier: "ShahadatViewController") as! ShahadatViewController
+        let page_Ayad = stb.instantiateViewController(withIdentifier: "AyadViewController") as! AyadViewController
+        let page_Moharram = stb.instantiateViewController(withIdentifier: "MoharramViewController") as! MoharramViewController
+        let page_Favorites = stb.instantiateViewController(withIdentifier: "FavoritesViewController") as! FavoritesViewController
+        
+        return [page_Favorites, page_Moharram, page_Ayad, page_Shahadat ]//[page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
+    }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 
 }

@@ -25,7 +25,9 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
 
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        moveToViewControllerAtIndex(3)
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -43,7 +45,7 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
         let page_Moharram = stb.instantiateViewController(withIdentifier: "MoharramViewController") as! MoharramViewController
         let page_Favorites = stb.instantiateViewController(withIdentifier: "FavoritesViewController") as! FavoritesViewController
         
-        return [page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
+        return [page_Favorites, page_Moharram, page_Ayad, page_Shahadat ]//[page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
     }
 
     /*

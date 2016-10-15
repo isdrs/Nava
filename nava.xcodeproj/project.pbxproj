@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841322991DB2442400BE67C0 /* MusicDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841322981DB2442400BE67C0 /* MusicDownloadedViewController.swift */; };
+		8413229B1DB2443400BE67C0 /* VideoDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413229A1DB2443400BE67C0 /* VideoDownloadedViewController.swift */; };
 		843E05941DAA8E1600306DCC /* ShahadatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E05931DAA8E1600306DCC /* ShahadatViewController.swift */; };
 		843E05991DAA8E7C00306DCC /* AyadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E05961DAA8E7C00306DCC /* AyadViewController.swift */; };
 		843E059A1DAA8E7C00306DCC /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E05971DAA8E7C00306DCC /* FavoritesViewController.swift */; };
@@ -16,6 +18,7 @@
 		844A80531DAA5B9800EF7A0C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A80521DAA5B9800EF7A0C /* HomeViewController.swift */; };
 		844A80551DAA5BAD00EF7A0C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A80541DAA5BAD00EF7A0C /* SearchViewController.swift */; };
 		844A80571DAA5BBD00EF7A0C /* DownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A80561DAA5BBD00EF7A0C /* DownloadedViewController.swift */; };
+		84539E7C1DAF8D6300363617 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84539E7B1DAF8D6300363617 /* ServiceManager.swift */; };
 		84D377F61DAA50A40085C05D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D377F51DAA50A40085C05D /* AppDelegate.swift */; };
 		84D377FD1DAA50A40085C05D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D377FB1DAA50A40085C05D /* Main.storyboard */; };
 		84D377FF1DAA50A40085C05D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84D377FE1DAA50A40085C05D /* Assets.xcassets */; };
@@ -42,6 +45,8 @@
 /* Begin PBXFileReference section */
 		09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.release.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.release.xcconfig"; sourceTree = "<group>"; };
 		3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nava.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		841322981DB2442400BE67C0 /* MusicDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicDownloadedViewController.swift; path = ViewControllers/DownloadedViewControllers/MusicDownloadedViewController.swift; sourceTree = "<group>"; };
+		8413229A1DB2443400BE67C0 /* VideoDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoDownloadedViewController.swift; path = ViewControllers/DownloadedViewControllers/VideoDownloadedViewController.swift; sourceTree = "<group>"; };
 		843E05931DAA8E1600306DCC /* ShahadatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShahadatViewController.swift; path = ViewControllers/MusicTabViewControllers/ShahadatViewController.swift; sourceTree = "<group>"; };
 		843E05961DAA8E7C00306DCC /* AyadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AyadViewController.swift; path = ViewControllers/MusicTabViewControllers/AyadViewController.swift; sourceTree = "<group>"; };
 		843E05971DAA8E7C00306DCC /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritesViewController.swift; path = ViewControllers/MusicTabViewControllers/FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +56,7 @@
 		844A80521DAA5B9800EF7A0C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = ViewControllers/HomeViewController.swift; sourceTree = "<group>"; };
 		844A80541DAA5BAD00EF7A0C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = ViewControllers/SearchViewController.swift; sourceTree = "<group>"; };
 		844A80561DAA5BBD00EF7A0C /* DownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadedViewController.swift; path = ViewControllers/DownloadedViewController.swift; sourceTree = "<group>"; };
+		84539E7B1DAF8D6300363617 /* ServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceManager.swift; path = Classes/Managers/ServiceManager.swift; sourceTree = "<group>"; };
 		84D377F21DAA50A40085C05D /* nava.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nava.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D377F51DAA50A40085C05D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84D377FC1DAA50A40085C05D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -96,6 +102,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		841322971DB243ED00BE67C0 /* DownloadedViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				841322981DB2442400BE67C0 /* MusicDownloadedViewController.swift */,
+				8413229A1DB2443400BE67C0 /* VideoDownloadedViewController.swift */,
+			);
+			name = DownloadedViewControllers;
+			sourceTree = "<group>";
+		};
 		843E05951DAA8E1B00306DCC /* MusicTabsViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +126,7 @@
 		844A804D1DAA5B4D00EF7A0C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				841322971DB243ED00BE67C0 /* DownloadedViewControllers */,
 				843E05951DAA8E1B00306DCC /* MusicTabsViewControllers */,
 				844A804E1DAA5B7800EF7A0C /* MusicViewController.swift */,
 				844A80501DAA5B8A00EF7A0C /* VideoViewController.swift */,
@@ -124,6 +140,7 @@
 		844A80581DAA737F00EF7A0C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				84539E7A1DAF8D3500363617 /* Managers */,
 				84E0FE311DAB6C8B00C4878A /* DataProvider */,
 				844A80591DAA738B00EF7A0C /* Items */,
 			);
@@ -137,6 +154,14 @@
 				84E0FE2F1DAB6B1C00C4878A /* MusicTableViewCell.swift */,
 			);
 			name = Items;
+			sourceTree = "<group>";
+		};
+		84539E7A1DAF8D3500363617 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				84539E7B1DAF8D6300363617 /* ServiceManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		84D377E91DAA50A40085C05D = {
@@ -364,13 +389,16 @@
 				844A80571DAA5BBD00EF7A0C /* DownloadedViewController.swift in Sources */,
 				844A804F1DAA5B7800EF7A0C /* MusicViewController.swift in Sources */,
 				84E0FE2E1DAB6A8100C4878A /* MusicTableView.swift in Sources */,
+				841322991DB2442400BE67C0 /* MusicDownloadedViewController.swift in Sources */,
 				84E0FE331DAB6CB900C4878A /* MusicObj.swift in Sources */,
 				843E059B1DAA8E7C00306DCC /* MoharramViewController.swift in Sources */,
 				84D377F61DAA50A40085C05D /* AppDelegate.swift in Sources */,
 				844A80511DAA5B8A00EF7A0C /* VideoViewController.swift in Sources */,
+				8413229B1DB2443400BE67C0 /* VideoDownloadedViewController.swift in Sources */,
 				843E05941DAA8E1600306DCC /* ShahadatViewController.swift in Sources */,
 				844A80531DAA5B9800EF7A0C /* HomeViewController.swift in Sources */,
 				84E0FE301DAB6B1C00C4878A /* MusicTableViewCell.swift in Sources */,
+				84539E7C1DAF8D6300363617 /* ServiceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +481,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -498,7 +526,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

@@ -7,21 +7,50 @@
 //
 
 import UIKit
+import XLPagerTabStrip
 
-class DownloadedViewController: UIViewController {
-
+class DownloadedViewController: ButtonBarPagerTabStripViewController{
+    
     override func viewDidLoad() {
+        
+        
+        self.settings.style.buttonBarItemsShouldFillAvailiableWidth = true
+        self.settings.style.buttonBarLeftContentInset = 0
+        self.settings.style.buttonBarRightContentInset = 0
+        self.settings.style.buttonBarItemLeftRightMargin = 0
+        self.settings.style.selectedBarBackgroundColor = .red
+        self.settings.style.buttonBarItemBackgroundColor = .black
+        self.settings.style.selectedBarHeight = 0.5
+        
+        
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        moveToViewControllerAtIndex(1)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        print(self.view.frame.origin.y)
+    }
+    
+    override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
+        let stb = UIStoryboard(name: "Main", bundle: nil)
+        
+        let page_Music = stb.instantiateViewController(withIdentifier: "MusicDownloadedViewController") as! MusicDownloadedViewController
+        let page_Video = stb.instantiateViewController(withIdentifier: "VideoDownloadedViewController") as! VideoDownloadedViewController
+        
+        
+        return [page_Video, page_Music ]//[page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
+    }
+    
     /*
     // MARK: - Navigation
 

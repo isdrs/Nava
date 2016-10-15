@@ -2,7 +2,8 @@ PODS:
   - Alamofire (4.0.1)
   - AlamofireImage (3.1.0):
     - Alamofire (~> 4.0)
-  - RAMAnimatedTabBarController (2.0.1)
+  - Jukebox (0.2.0)
+  - RAMAnimatedTabBarController (2.0.2)
   - SlideMenuControllerSwift (3.0.0)
   - SwiftyJSON (3.1.1)
   - XLPagerTabStrip (5.0.0)
@@ -10,6 +11,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.0)
   - AlamofireImage (~> 3.1)
+  - Jukebox (~> 0.2.0)
   - RAMAnimatedTabBarController
   - SlideMenuControllerSwift
   - SwiftyJSON
@@ -28,11 +30,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
-  RAMAnimatedTabBarController: 1d20343a6fca7eb433ad67b6e1599dd6e9213292
+  Jukebox: 7526061487018bb66e687cd38abf8c637901b78f
+  RAMAnimatedTabBarController: 8b4b7e41d1d6c76ebf6482233f4bc528231db437
   SlideMenuControllerSwift: 9c0a84f9a3fba51681debd7be77617094562ebcc
   SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
   XLPagerTabStrip: 87b8b705f9a7178e76a063ffaa2d70045944a965
 
-PODFILE CHECKSUM: b831f2f2f26085bc994bf0ddba8349bc70735f7d
+PODFILE CHECKSUM: 5da3b0eb7b72190ddf44631824a1cba691e8ee08
 
 COCOAPODS: 1.0.1

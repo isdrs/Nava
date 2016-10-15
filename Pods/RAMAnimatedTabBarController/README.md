@@ -6,6 +6,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Ramotion/animated-tab-bar)
 [![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
 [![Travis](https://img.shields.io/travis/Ramotion/animated-tab-bar.svg)](https://travis-ci.org/Ramotion/animated-tab-bar)
+[![Analytics](https://ga-beacon.appspot.com/UA-84973210-1/ramotion/animated-tab-bar)](https://github.com/igrigorik/ga-beacon)
 
 
 
@@ -39,7 +40,9 @@ pod 'RAMAnimatedTabBarController'
 
 or [Carthage](https://github.com/Carthage/Carthage) users can simply add to their `Cartfile`:
 ```
-github "Ramotion/animated-tab-bar"
+github "Ramotion/animated-tab-bar", "~> 1.5.3"  swift 2.2
+
+github "Ramotion/animated-tab-bar", "~> 2.0.1"  swift 3
 ```
 
 

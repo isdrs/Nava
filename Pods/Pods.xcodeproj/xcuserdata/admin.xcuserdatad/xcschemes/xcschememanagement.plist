@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Jukebox.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-nava.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,12 +52,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0C534B2D7E12CC953E07B63FB479C38B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>11BDB601C82189A603B1050B8886D859</key>
+		<key>1F91AC0153406D9CC2CEED206B6F0AD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,12 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>61EA80E7D742790FFB4D8AE43865C828</key>
+		<key>3786A7706AECB7B545F9BBB4C1F65131</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>747D8E17E253AA3FFC5B13DF915F9F3B</key>
+		<key>3C4D77BFD2517A8BD7EB39861D6F9650</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>568AC9A0D3A2061092219F8AF71119F5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +82,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B65B138929DDCFA49B0ECD088B40FBB6</key>
+		<key>7DB9A44E029968BCADE8A226E980ECC9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD72008288EABC0AD77B82FBC86D3D0E</key>
+		<key>8D0B2BDA6AA603611A5865DE4C386DE2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9B299EBD1A9D11FF4A09E04A1963F5D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

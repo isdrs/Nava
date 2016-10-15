@@ -9,6 +9,7 @@ pod 'RAMAnimatedTabBarController'
 pod 'SlideMenuControllerSwift'
 pod 'SwiftyJSON'
 pod 'XLPagerTabStrip', :git => 'https://github.com/KelvinJin/XLPagerTabStrip', :branch => 'swift3'
+pod 'Jukebox', '~> 0.2.0'
 end
 
 post_install do |installer|

@@ -6,10 +6,12 @@
 //  Copyright © 1395 manshor. All rights reserved.
 //
 
+import Foundation
 import UIKit
-import AVFoundation
+import MediaPlayer
+import Jukebox
 
-class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, JukeboxDelegate {
 
     @IBOutlet weak var viwPlayerController: UIView!
     @IBOutlet weak var lblMusicTotalTime: UILabel!
@@ -19,6 +21,9 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var lblSinger: UILabel!
     @IBOutlet weak var imgMusicImage: UIImageView!
     @IBOutlet weak var btnLikeOutlet: UIButton!
+    @IBOutlet weak var btnPlayPause: UIButton!
+    
+    var jukebox : Jukebox!
     
     @IBAction func LikeAction(_ sender: AnyObject) {
     }
@@ -28,57 +33,145 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func MusicSliderValueChange(_ sender: AnyObject)
     {
-        musicPlayer.play(atTime: TimeInterval((sender as! UISlider).value))
+        if let duration = jukebox.currentItem?.meta.duration {
+            jukebox.seek(toSecond: Int(Double(slrMusicDuration.value) * duration))
+        }
     }
-    var musicPlayer : AVAudioPlayer = AVAudioPlayer()
-    var musicObj : MusicObj?
+    @IBAction func NextTrack(_ sender: AnyObject)
+    {
+        jukebox.playNext()
+    }
     
-    
+    @IBAction func PlayTrack(_ sender: AnyObject)
+    {
+        switch jukebox.state {
+        case .ready :
+            jukebox.play(atIndex: 0)
+        case .playing :
+            jukebox.pause()
+        case .paused :
+            jukebox.play()
+        default:
+            jukebox.stop()
+        }
+    }
+
+    @IBAction func PrevTrack(_ sender: AnyObject)
+    {
+        if let time = jukebox.currentItem?.currentTime, time > 5.0 || jukebox.playIndex == 0 {
+            jukebox.replayCurrentItem()
+        } else {
+            jukebox.playPrevious()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        _ = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(MusicPlayerViewController.updateTime), userInfo: nil, repeats: true)
-        _ = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(MusicPlayerViewController.updateSlider), userInfo: nil, repeats: true)
         
-        let pathString = Bundle.main.path(forResource: "agnes", ofType: "mp3")
+        configureUI()
+        // begin receiving remote events
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+    }
+    
+    func configureUI ()
+    {
+        resetUI()
         
-        if let pathString = pathString {
-            
-            let pathURL = NSURL(fileURLWithPath: pathString)
-            
-            do {
-                
-                try musicPlayer = AVAudioPlayer(contentsOf: pathURL as URL)
-                
-            } catch {
-                
-                print("error")
+        let color = UIColor(red:0.84, green:0.09, blue:0.1, alpha:1)
+        
+        //slrMusicDuration.setThumbImage(UIImage(named: "sliderThumb"), for: UIControlState())
+        slrMusicDuration.minimumTrackTintColor = color
+        slrMusicDuration.maximumTrackTintColor = UIColor.black
+    }
+    
+    func resetUI()
+    {
+        lblMusicTotalTime.text = "00:00"
+        lblMusicCurrentTime.text = "00:00"
+        slrMusicDuration.value = 0
+    }
+    
+    func populateLabelWithTime(_ label : UILabel, time: Double) {
+        let minutes = Int(time / 60)
+        let seconds = Int(time) - minutes * 60
+        
+        label.text = String(format: "%02d", minutes) + ":" + String(format: "%02d", seconds)
+    }
+    
+    // MARK:- JukeboxDelegate -
+    
+    func jukeboxDidLoadItem(_ jukebox: Jukebox, item: JukeboxItem) {
+        print("Jukebox did load: \(item.URL.lastPathComponent)")
+    }
+    
+    func jukeboxPlaybackProgressDidChange(_ jukebox: Jukebox) {
+        
+        if let currentTime = jukebox.currentItem?.currentTime, let duration = jukebox.currentItem?.meta.duration {
+            let value = Float(currentTime / duration)
+            slrMusicDuration.value = value
+            populateLabelWithTime(lblMusicCurrentTime, time: currentTime)
+            populateLabelWithTime(lblMusicTotalTime, time: duration)
+        } else {
+            resetUI()
+        }
+    }
+    
+    func jukeboxStateDidChange(_ jukebox: Jukebox) {
+        
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.btnPlayPause.alpha = jukebox.state == .loading ? 0 : 1
+            self.btnPlayPause.isEnabled = jukebox.state == .loading ? false : true
+        })
+        
+        if jukebox.state == .ready {
+            btnPlayPause.setImage(UIImage(named: "Play"), for: UIControlState())
+        } else if jukebox.state == .loading  {
+            btnPlayPause.setImage(UIImage(named: "Pause"), for: UIControlState())
+        } else {
+            let imageName: String
+            switch jukebox.state {
+            case .playing, .loading:
+                imageName = "Pause"
+            case .paused, .failed, .ready:
+                imageName = "Play"
             }
-            
-            
+            btnPlayPause.setImage(UIImage(named: imageName), for: UIControlState())
         }
         
-        slrMusicDuration.maximumValue = Float(musicPlayer.duration)
+        print("Jukebox state changed to \(jukebox.state)")
     }
     
-    func updateSlider() {
-        slrMusicDuration.value = Float(musicPlayer.currentTime)
+    func jukeboxDidUpdateMetadata(_ jukebox: Jukebox, forItem: JukeboxItem) {
+        print("Item updated:\n\(forItem)")
+    }
+    
+    
+    override func remoteControlReceived(with event: UIEvent?) {
+        if event?.type == .remoteControl {
+            switch event!.subtype {
+            case .remoteControlPlay :
+                jukebox.play()
+            case .remoteControlPause :
+                jukebox.pause()
+            case .remoteControlNextTrack :
+                jukebox.playNext()
+            case .remoteControlPreviousTrack:
+                jukebox.playPrevious()
+            case .remoteControlTogglePlayPause:
+                if jukebox.state == .playing {
+                    jukebox.pause()
+                } else {
+                    jukebox.play()
+                }
+            default:
+                break
+            }
+        }
     }
     
     
 
     
-    func updateTime() {
-        let currentTime = Int(musicPlayer.currentTime)
-        let duration = Int(musicPlayer.duration)
-        let total = currentTime - duration
-        _ = String(total)
-        
-        let minutes = currentTime/60
-        let seconds = currentTime - minutes / 60
-        
-        lblMusicCurrentTime.text = NSString(format: "%02d:%02d", minutes,seconds) as String
-    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

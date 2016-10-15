@@ -73,7 +73,7 @@ open class RAMAnimatedTabBarItem: UITabBarItem {
   @IBInspectable open var textColor: UIColor = UIColor.black
   
   /// The tint color of the UITabBarItem icon.
-  @IBInspectable open var iconColor: UIColor = UIColor.clear // if alpha color is 0 color ignoring
+  @IBInspectable open var iconColor: UIColor = UIColor.red // if alpha color is 0 color ignoring
   
   var bgDefaultColor: UIColor = UIColor.clear // background color
   var bgSelectedColor: UIColor = UIColor.clear
@@ -229,8 +229,6 @@ open class RAMAnimatedTabBarController: UITabBarController {
     self.setViewControllers(viewControllers, animated: false)
     
     self.initializeContainers()
-    
-    
   }
   
   /**

@@ -5,11 +5,13 @@ use_frameworks!
 target 'nava' do
 pod 'Alamofire', '~> 4.0'
 pod 'AlamofireImage', '~> 3.1'
+pod 'AlamofireNetworkActivityIndicator', '~> 2.0'
 pod 'RAMAnimatedTabBarController'
 pod 'SlideMenuControllerSwift'
 pod 'SwiftyJSON'
 pod 'XLPagerTabStrip', :git => 'https://github.com/KelvinJin/XLPagerTabStrip', :branch => 'swift3'
 pod 'Jukebox', '~> 0.2.0'
+pod 'SCLAlertView-Objective-C'
 end
 
 post_install do |installer|

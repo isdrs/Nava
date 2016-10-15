@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AlamofireNetworkActivityIndicator.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Jukebox.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -25,6 +30,11 @@
 			<false/>
 		</dict>
 		<key>RAMAnimatedTabBarController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SCLAlertView-Objective-C.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,27 +62,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1F91AC0153406D9CC2CEED206B6F0AD8</key>
+		<key>228FFC4E78F899B58C33C57F31513A8E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>333E47F1004946B94926B19979768D18</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3786A7706AECB7B545F9BBB4C1F65131</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3C4D77BFD2517A8BD7EB39861D6F9650</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>568AC9A0D3A2061092219F8AF71119F5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,12 +82,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8D0B2BDA6AA603611A5865DE4C386DE2</key>
+		<key>9EFDF2AA4729833910C794707C32921B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9B299EBD1A9D11FF4A09E04A1963F5D6</key>
+		<key>A24E4FF0992F0FFBC3EDC03E39DCBC08</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A8B610F76C67D3C41DA2CB6DEC65884F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ADCF2AFBFD9A40486D7FE0F662B53BF5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C093E6307C84C906B3E3A0E188301007</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB73E8178C7748A8F643C2ACAC97414E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F102351FB7D41AB4454567C7B268B741</key>
 		<dict>
 			<key>primary</key>
 			<true/>

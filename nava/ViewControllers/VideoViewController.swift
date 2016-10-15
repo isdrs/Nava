@@ -24,12 +24,13 @@ class VideoViewController: ButtonBarPagerTabStripViewController {
         
         
         super.viewDidLoad()
+        moveToViewControllerAtIndex(3)
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        moveToViewControllerAtIndex(3)
+        //moveToViewControllerAtIndex(3)
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,10 +44,18 @@ class VideoViewController: ButtonBarPagerTabStripViewController {
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let stb = UIStoryboard(name: "Main", bundle: nil)
+        
         let page_Shahadat = stb.instantiateViewController(withIdentifier: "ShahadatViewController") as! ShahadatViewController
+        page_Shahadat.mediaType = .video
+        
         let page_Ayad = stb.instantiateViewController(withIdentifier: "AyadViewController") as! AyadViewController
+        page_Ayad.mediaType = .video
+        
         let page_Moharram = stb.instantiateViewController(withIdentifier: "MoharramViewController") as! MoharramViewController
+        page_Moharram.mediaType = .video
+        
         let page_Favorites = stb.instantiateViewController(withIdentifier: "FavoritesViewController") as! FavoritesViewController
+        page_Favorites.mediaType = .video
         
         return [page_Favorites, page_Moharram, page_Ayad, page_Shahadat ]//[page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
     }

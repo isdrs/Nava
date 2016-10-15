@@ -40,10 +40,18 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let stb = UIStoryboard(name: "Main", bundle: nil)
+        
         let page_Shahadat = stb.instantiateViewController(withIdentifier: "ShahadatViewController") as! ShahadatViewController
+        page_Shahadat.mediaType = .sound
+        
         let page_Ayad = stb.instantiateViewController(withIdentifier: "AyadViewController") as! AyadViewController
+        page_Ayad.mediaType = .sound
+        
         let page_Moharram = stb.instantiateViewController(withIdentifier: "MoharramViewController") as! MoharramViewController
+        page_Moharram.mediaType = .sound
+        
         let page_Favorites = stb.instantiateViewController(withIdentifier: "FavoritesViewController") as! FavoritesViewController
+        page_Favorites.mediaType = .sound
         
         return [page_Favorites, page_Moharram, page_Ayad, page_Shahadat ]//[page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
     }

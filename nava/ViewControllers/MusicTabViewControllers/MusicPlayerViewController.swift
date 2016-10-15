@@ -11,8 +11,13 @@ import UIKit
 import MediaPlayer
 import Jukebox
 
+import AlamofireImage
+
 class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, JukeboxDelegate {
 
+    var musicObj : MusicObj!
+    
+    
     @IBOutlet weak var viwPlayerController: UIView!
     @IBOutlet weak var lblMusicTotalTime: UILabel!
     @IBOutlet weak var lblMusicCurrentTime: UILabel!
@@ -25,15 +30,20 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     var jukebox : Jukebox!
     
-    @IBAction func LikeAction(_ sender: AnyObject) {
+    @IBAction func LikeAction(_ sender: AnyObject)
+    {
+        
     }
    
-    @IBAction func DownloadAction(_ sender: AnyObject) {
+    @IBAction func DownloadAction(_ sender: AnyObject)
+    {
+        
     }
     
     @IBAction func MusicSliderValueChange(_ sender: AnyObject)
     {
-        if let duration = jukebox.currentItem?.meta.duration {
+        if let duration = jukebox.currentItem?.meta.duration
+        {
             jukebox.seek(toSecond: Int(Double(slrMusicDuration.value) * duration))
         }
     }
@@ -70,6 +80,14 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         configureUI()
         // begin receiving remote events
         UIApplication.shared.beginReceivingRemoteControlEvents()
+        
+        let musicUrl = URL(string: musicObj.Url)
+        
+        jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: musicUrl!)])
+        
+        let imageUrl = URL(string: musicObj.LargpicUrl)
+        
+        imgMusicImage.af_setImage(withURL: imageUrl!)
     }
     
     func configureUI ()
@@ -81,6 +99,9 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         //slrMusicDuration.setThumbImage(UIImage(named: "sliderThumb"), for: UIControlState())
         slrMusicDuration.minimumTrackTintColor = color
         slrMusicDuration.maximumTrackTintColor = UIColor.black
+        
+        lblMusicName.text = musicObj.MusicName
+        lblSinger.text = musicObj.ArtistName
     }
     
     func resetUI()
@@ -105,6 +126,10 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func jukeboxPlaybackProgressDidChange(_ jukebox: Jukebox) {
         
+        print("currentTime:  \(jukebox.currentItem?.currentTime)")
+        
+        print("duration:  \(jukebox.currentItem?.meta.duration)")
+        
         if let currentTime = jukebox.currentItem?.currentTime, let duration = jukebox.currentItem?.meta.duration {
             let value = Float(currentTime / duration)
             slrMusicDuration.value = value
@@ -122,19 +147,25 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             self.btnPlayPause.isEnabled = jukebox.state == .loading ? false : true
         })
         
-        if jukebox.state == .ready {
-            btnPlayPause.setImage(UIImage(named: "Play"), for: UIControlState())
-        } else if jukebox.state == .loading  {
-            btnPlayPause.setImage(UIImage(named: "Pause"), for: UIControlState())
-        } else {
+        if jukebox.state == .ready
+        {
+            btnPlayPause.setImage(UIImage(named: "Play"), for: .normal)
+        }
+        else if jukebox.state == .loading
+        {
+            btnPlayPause.setImage(UIImage(named: "Pause"), for: .normal)
+        }
+        else
+        {
             let imageName: String
-            switch jukebox.state {
+            switch jukebox.state
+            {
             case .playing, .loading:
                 imageName = "Pause"
             case .paused, .failed, .ready:
                 imageName = "Play"
             }
-            btnPlayPause.setImage(UIImage(named: imageName), for: UIControlState())
+            btnPlayPause.setImage(UIImage(named: imageName), for: .normal)
         }
         
         print("Jukebox state changed to \(jukebox.state)")

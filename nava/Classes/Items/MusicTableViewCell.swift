@@ -12,7 +12,9 @@ class MusicTableViewCell: UITableViewCell {
     @IBOutlet weak var imgMusicThumb: UIImageView!
     @IBOutlet weak var lblMusicName: UILabel!
     @IBOutlet weak var lblSinger: UILabel!
-    @IBOutlet weak var lblCounter: UILabel!
+    @IBOutlet weak var lblLikeCount: UILabel!
+    @IBOutlet weak var lblMusicTime: UILabel!
+    @IBOutlet weak var lblDownloadCount: UILabel!
 
 
 

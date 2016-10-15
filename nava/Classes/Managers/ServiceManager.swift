@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SCLAlertView_Objective_C
 
 class ServiceManager: NSObject
 {
@@ -30,90 +31,58 @@ class ServiceManager: NSObject
         case all, sound, video
     }
     
-    func GetMediaList(mediaType : ServiceMediaType, serviceType : ServiceType, pageNo : Int, callBack : @escaping (Bool, MusicObj) -> Void  )
+    static func GetMediaList(mediaType : ServiceMediaType, serviceType : ServiceType, pageNo : Int, callBack : @escaping (Bool, [MusicObj]) -> Void  )
     {
         let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersWithoutSingerURL, mediaType.rawValue, serviceType.rawValue, String(pageNo))
         
-        Alamofire.request(urlString).response { (response) in
+        Alamofire.request(urlString).responseJSON { (response) in
             print("Request: \(response.request)")
             print("Response: \(response.response)")
             print("Data: \(response.data)")
-            print("Error: \(response.error)")
+            print("Error: \(response.result)")
             
-            if response.error != nil
-            {
-//                if let err = response.error as? URLError where err == URLError.notConnectedToInternet {
-//                    //SCLAlertView().showError("Error", subTitle: "No Internet")
-//                }
-//                else
-//                {
-//                    //SCLAlertView().showError("Error", subTitle: String((error?.localizedDescription)!))
-//                    
-//                    //print(error?.localizedDescription)
-//                }
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("JSON: \(json)")
                 
-                //loadingBar.Hide()
-                
-                callBack(false,MusicObj())
-            }
-            else if response.response?.statusCode != 200
-            {
-//                if let dataString = String(data: response.data!, encoding: String.Encoding.utf8)
-//                {
-//                    SCLAlertView().showError("Error", subTitle: "Server Error Code " + String(response.response!.statusCode))
-//                    
-//                    print(dataString)
-//                }
-//                else
-//                {
-//                    SCLAlertView().showError("Error", subTitle: "Server Error with faild data ")
-//                }
-//                
-//                loadingBar.Hide()
-                
-                callBack(false,MusicObj())
-            }
-            else if response.response?.statusCode == 200
-            {
-//                loadingBar.Hide()
-                
-                
-                let musicObject = self.ParseResponse(json: JSON(data: response.data!))
-                
-                callBack(true,musicObject)
-            }
-            else
-            {
-//                SCLAlertView().showError("Error", subTitle: "Server error! Try later")
-//                
-//                loadingBar.Hide()
-                
-                callBack(false,MusicObj())
+                callBack(true, self.ParseResponse(json: json))
+            case .failure(let error):
+                print(error)
             }
 
         }
     }
     
-    private func ParseResponse(json: JSON) -> MusicObj
+    private static func ParseResponse(json: JSON) -> [MusicObj]
     {
-        let musicObj = MusicObj()
         
-        musicObj.MusicName = json["musicName"].stringValue
-        musicObj.MusicName = json["musicName"].stringValue
-        musicObj.MusicName = json["artistName"].stringValue
-        musicObj.MusicName = json["artistId"].stringValue
-        musicObj.MusicName = json["musicID"].stringValue
-        musicObj.MusicName = json["url"].stringValue
-        musicObj.MusicName = json["largpicUrl"].stringValue
-        musicObj.MusicName = json["smallpicUrl"].stringValue
-        musicObj.MusicName = json["time"].stringValue
-        musicObj.MusicName = json["shareUrl"].stringValue
-        musicObj.MusicName = json["like"].stringValue
-        musicObj.MusicName = json["download"].stringValue
-        musicObj.MusicName = json["irancellCode"].stringValue
-        musicObj.MusicName = json["hamrahavalCode"].stringValue
+        var musicObjArray = [MusicObj]()
         
-        return musicObj
+        
+        for (_,subJson):(String, JSON) in json {
+            let musicObj = MusicObj()
+            
+            musicObj.MusicName = subJson["musicName"].stringValue
+            musicObj.ArtistName = subJson["artistName"].stringValue
+            musicObj.ArtistId = subJson["artistId"].stringValue
+            musicObj.MusicID = subJson["musicID"].stringValue
+            musicObj.Url = subJson["url"].stringValue
+            musicObj.LargpicUrl = subJson["largpicUrl"].stringValue
+            musicObj.SmallpicUrl = subJson["smallpicUrl"].stringValue
+            musicObj.Time = subJson["time"].stringValue
+            musicObj.ShareUrl = subJson["shareUrl"].stringValue
+            musicObj.Like = subJson["like"].stringValue
+            musicObj.Download = subJson["download"].stringValue
+            musicObj.IrancellCode = subJson["irancellCode"].stringValue
+            musicObj.HamrahavalCode = subJson["hamrahavalCode"].stringValue
+            
+            musicObjArray.append(musicObj)
+        }
+        
+
+        
+        return musicObjArray
     }
     
     

@@ -13,7 +13,7 @@ class MusicObj: NSObject
     private var musicName : String = ""
     private var artistName : String = ""
     private var artistId : String = ""
-    private var itemID : String = ""
+    private var musicID : String = ""
     private var url : String = ""
     private var largpicUrl : String = ""
     private var smallpicUrl : String = ""
@@ -60,15 +60,15 @@ class MusicObj: NSObject
         }
     }
     
-    public var ItemID : String
+    public var MusicID : String
         {
         get
         {
-            return self.itemID
+            return self.musicID
         }
         set(newValue)
         {
-            self.itemID = newValue
+            self.musicID = newValue
         }
     }
     
@@ -168,7 +168,7 @@ class MusicObj: NSObject
         }
     }
     
-    public var IrancellCpde : String
+    public var IrancellCode : String
         {
         get
         {

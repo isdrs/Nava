@@ -11,8 +11,8 @@ import XLPagerTabStrip
 
 class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var tblShahadatMusics: UITableView!
-    var musicDataArray : [MusicObj] = []
+    @IBOutlet weak var tblAyadMedia: UITableView!
+    var musicDataArray : [MediaItem] = []
     var mediaType = ServiceManager.ServiceMediaType.all
     
     
@@ -31,7 +31,7 @@ class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDe
                 self.musicDataArray = newMusics
                 
                 DispatchQueue.main.async {
-                    self.tblShahadatMusics.reloadData()
+                    self.tblAyadMedia.reloadData()
                 }
             }
         }
@@ -55,17 +55,17 @@ class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicCell") as! MusicTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell") as! MediaTableViewCell
         
-        let musicObj = musicDataArray[indexPath.row]
+        let mediaItem = musicDataArray[indexPath.row]
         
-        cell.lblMusicName.text = musicObj.MusicName
-        cell.lblSinger.text = musicObj.ArtistName
-        cell.lblLikeCount.text = musicObj.Like
-        cell.lblDownloadCount.text = musicObj.Download
-        cell.lblMusicTime.text = musicObj.Time
+        cell.lblMusicName.text = mediaItem.MediaName
+        cell.lblSinger.text = mediaItem.ArtistName
+        cell.lblLikeCount.text = mediaItem.Like
+        cell.lblDownloadCount.text = mediaItem.Download
+        cell.lblMusicTime.text = mediaItem.Time
         
-        cell.imgMusicThumb.af_setImage(withURL: NSURL(string: musicObj.SmallpicUrl) as! URL)
+        cell.imgMusicThumb.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
         
         return cell
     }
@@ -75,7 +75,7 @@ class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDe
         let stb = UIStoryboard(name: "Main", bundle: nil)
         
         let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-        musicPlayerViewController.musicObj = musicDataArray[indexPath.row]
+        musicPlayerViewController.mediaItem = musicDataArray[indexPath.row]
         
         self.present(musicPlayerViewController, animated: false) {
             

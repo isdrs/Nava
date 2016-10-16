@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GRDB.swift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Jukebox.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,12 +67,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1944135245A79417F115FE36EFB3F5FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>228FFC4E78F899B58C33C57F31513A8E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2931454EBF941568CB00B8B01105475C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>333E47F1004946B94926B19979768D18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>34BF2CA617DFD889FD08CB2686F4A13C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>424A6B278D54CF945E484D509756011C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4711D86BD8EC7364AED77AF311E717F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>70A63A6B64F84D3B5E82FF73F790B3DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,37 +117,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9EFDF2AA4729833910C794707C32921B</key>
+		<key>886852465AA3A1A74BE4634B4BB84198</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A24E4FF0992F0FFBC3EDC03E39DCBC08</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A8B610F76C67D3C41DA2CB6DEC65884F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>ADCF2AFBFD9A40486D7FE0F662B53BF5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C093E6307C84C906B3E3A0E188301007</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DB73E8178C7748A8F643C2ACAC97414E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F102351FB7D41AB4454567C7B268B741</key>
+		<key>B771E6EA031C3CA56852E7DC6FB9C39B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

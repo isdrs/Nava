@@ -1,5 +1,5 @@
 //
-//  MusicTableViewCell.swift
+//  MediaTableViewCell.swift
 //  nava
 //
 //  Created by Mohsenian on 7/19/1395 AP.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MusicTableViewCell: UITableViewCell {
+class MediaTableViewCell: UITableViewCell {
     @IBOutlet weak var imgMusicThumb: UIImageView!
     @IBOutlet weak var lblMusicName: UILabel!
     @IBOutlet weak var lblSinger: UILabel!

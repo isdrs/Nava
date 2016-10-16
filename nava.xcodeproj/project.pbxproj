@@ -25,10 +25,12 @@
 		84D378021DAA50A40085C05D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D378001DAA50A40085C05D /* LaunchScreen.storyboard */; };
 		84D3780D1DAA50A40085C05D /* navaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D3780C1DAA50A40085C05D /* navaTests.swift */; };
 		84D378181DAA50DF0085C05D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 84D378171DAA50DF0085C05D /* Podfile */; };
-		84E0FE2E1DAB6A8100C4878A /* MusicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0FE2D1DAB6A8100C4878A /* MusicTableView.swift */; };
-		84E0FE301DAB6B1C00C4878A /* MusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0FE2F1DAB6B1C00C4878A /* MusicTableViewCell.swift */; };
-		84E0FE331DAB6CB900C4878A /* MusicObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0FE321DAB6CB900C4878A /* MusicObj.swift */; };
+		84E0FE301DAB6B1C00C4878A /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0FE2F1DAB6B1C00C4878A /* MediaTableViewCell.swift */; };
+		84E0FE331DAB6CB900C4878A /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0FE321DAB6CB900C4878A /* MediaItem.swift */; };
 		84E0FE351DABB6CE00C4878A /* MusicPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0FE341DABB6CE00C4878A /* MusicPlayerViewController.swift */; };
+		84FB19381DB388E200F3D71A /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB19361DB388E200F3D71A /* DBManager.swift */; };
+		84FB193B1DB38C7900F3D71A /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB193A1DB38C7900F3D71A /* MediaManager.swift */; };
+		84FB193D1DB3C10A00F3D71A /* MyExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB193C1DB3C10A00F3D71A /* MyExtentions.swift */; };
 		B3E6A3320ED6520C81232DCD /* Pods_nava.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,10 +69,12 @@
 		84D3780C1DAA50A40085C05D /* navaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = navaTests.swift; sourceTree = "<group>"; };
 		84D3780E1DAA50A40085C05D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84D378171DAA50DF0085C05D /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		84E0FE2D1DAB6A8100C4878A /* MusicTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicTableView.swift; path = Classes/Items/MusicTableView.swift; sourceTree = "<group>"; };
-		84E0FE2F1DAB6B1C00C4878A /* MusicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicTableViewCell.swift; path = Classes/Items/MusicTableViewCell.swift; sourceTree = "<group>"; };
-		84E0FE321DAB6CB900C4878A /* MusicObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicObj.swift; path = Classes/DataProvider/MusicObj.swift; sourceTree = "<group>"; };
+		84E0FE2F1DAB6B1C00C4878A /* MediaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaTableViewCell.swift; path = Classes/Items/MediaTableViewCell.swift; sourceTree = "<group>"; };
+		84E0FE321DAB6CB900C4878A /* MediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItem.swift; path = Classes/DataProvider/MediaItem.swift; sourceTree = "<group>"; };
 		84E0FE341DABB6CE00C4878A /* MusicPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicPlayerViewController.swift; path = ViewControllers/MusicTabViewControllers/MusicPlayerViewController.swift; sourceTree = "<group>"; };
+		84FB19361DB388E200F3D71A /* DBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBManager.swift; path = Classes/Managers/DBManager.swift; sourceTree = "<group>"; };
+		84FB193A1DB38C7900F3D71A /* MediaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaManager.swift; path = Classes/Managers/MediaManager.swift; sourceTree = "<group>"; };
+		84FB193C1DB3C10A00F3D71A /* MyExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyExtentions.swift; path = Classes/MyExtentions.swift; sourceTree = "<group>"; };
 		CB24BF433A81DB82853B7BA1 /* Pods-nava.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.debug.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +147,7 @@
 				84539E7A1DAF8D3500363617 /* Managers */,
 				84E0FE311DAB6C8B00C4878A /* DataProvider */,
 				844A80591DAA738B00EF7A0C /* Items */,
+				84FB193C1DB3C10A00F3D71A /* MyExtentions.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -150,8 +155,7 @@
 		844A80591DAA738B00EF7A0C /* Items */ = {
 			isa = PBXGroup;
 			children = (
-				84E0FE2D1DAB6A8100C4878A /* MusicTableView.swift */,
-				84E0FE2F1DAB6B1C00C4878A /* MusicTableViewCell.swift */,
+				84E0FE2F1DAB6B1C00C4878A /* MediaTableViewCell.swift */,
 			);
 			name = Items;
 			sourceTree = "<group>";
@@ -159,6 +163,8 @@
 		84539E7A1DAF8D3500363617 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				84FB193A1DB38C7900F3D71A /* MediaManager.swift */,
+				84FB19361DB388E200F3D71A /* DBManager.swift */,
 				84539E7B1DAF8D6300363617 /* ServiceManager.swift */,
 			);
 			name = Managers;
@@ -211,7 +217,7 @@
 		84E0FE311DAB6C8B00C4878A /* DataProvider */ = {
 			isa = PBXGroup;
 			children = (
-				84E0FE321DAB6CB900C4878A /* MusicObj.swift */,
+				84E0FE321DAB6CB900C4878A /* MediaItem.swift */,
 			);
 			name = DataProvider;
 			sourceTree = "<group>";
@@ -342,7 +348,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		728E7B9E433CD34ACB359E8A /* [CP] Embed Pods Frameworks */ = {
@@ -386,18 +392,20 @@
 				843E059A1DAA8E7C00306DCC /* FavoritesViewController.swift in Sources */,
 				843E05991DAA8E7C00306DCC /* AyadViewController.swift in Sources */,
 				84E0FE351DABB6CE00C4878A /* MusicPlayerViewController.swift in Sources */,
+				84FB193B1DB38C7900F3D71A /* MediaManager.swift in Sources */,
 				844A80571DAA5BBD00EF7A0C /* DownloadedViewController.swift in Sources */,
 				844A804F1DAA5B7800EF7A0C /* MusicViewController.swift in Sources */,
-				84E0FE2E1DAB6A8100C4878A /* MusicTableView.swift in Sources */,
 				841322991DB2442400BE67C0 /* MusicDownloadedViewController.swift in Sources */,
-				84E0FE331DAB6CB900C4878A /* MusicObj.swift in Sources */,
+				84E0FE331DAB6CB900C4878A /* MediaItem.swift in Sources */,
 				843E059B1DAA8E7C00306DCC /* MoharramViewController.swift in Sources */,
 				84D377F61DAA50A40085C05D /* AppDelegate.swift in Sources */,
 				844A80511DAA5B8A00EF7A0C /* VideoViewController.swift in Sources */,
+				84FB193D1DB3C10A00F3D71A /* MyExtentions.swift in Sources */,
+				84FB19381DB388E200F3D71A /* DBManager.swift in Sources */,
 				8413229B1DB2443400BE67C0 /* VideoDownloadedViewController.swift in Sources */,
 				843E05941DAA8E1600306DCC /* ShahadatViewController.swift in Sources */,
 				844A80531DAA5B9800EF7A0C /* HomeViewController.swift in Sources */,
-				84E0FE301DAB6B1C00C4878A /* MusicTableViewCell.swift in Sources */,
+				84E0FE301DAB6B1C00C4878A /* MediaTableViewCell.swift in Sources */,
 				84539E7C1DAF8D6300363617 /* ServiceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

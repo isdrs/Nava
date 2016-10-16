@@ -4,6 +4,7 @@ PODS:
     - Alamofire (~> 4.0)
   - AlamofireNetworkActivityIndicator (2.0.1):
     - Alamofire (~> 4.0)
+  - GRDB.swift (0.88.0)
   - Jukebox (0.2.0)
   - RAMAnimatedTabBarController (2.0.2)
   - SCLAlertView-Objective-C (1.0.5)
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.0)
   - AlamofireImage (~> 3.1)
   - AlamofireNetworkActivityIndicator (~> 2.0)
+  - GRDB.swift
   - Jukebox (~> 0.2.0)
   - RAMAnimatedTabBarController
   - SCLAlertView-Objective-C
@@ -36,6 +38,7 @@ SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
   AlamofireNetworkActivityIndicator: 3e55069ada3e1ff7703665156429eedcdfea0bc1
+  GRDB.swift: e487635fd6ec3732ff4d23c1b20261574f657e8d
   Jukebox: 7526061487018bb66e687cd38abf8c637901b78f
   RAMAnimatedTabBarController: 8b4b7e41d1d6c76ebf6482233f4bc528231db437
   SCLAlertView-Objective-C: a2b8b09b8ce5fe14c233ecaa09c02be582c6389a
@@ -43,6 +46,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
   XLPagerTabStrip: 87b8b705f9a7178e76a063ffaa2d70045944a965
 
-PODFILE CHECKSUM: 2df4c482992bd73db0bba2820bcc58e005f74c64
+PODFILE CHECKSUM: 410063dd544f9c3dd10ce4ec31b7ba738aed359b
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.3

@@ -17,7 +17,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        documentsURL.appendPathComponent("/MyMedia")
+        
+        let fileManager = FileManager.default
+        var isDir : ObjCBool = false
+        
+        if fileManager.fileExists(atPath: documentsURL.absoluteString, isDirectory:&isDir) {
+            if isDir.boolValue {
+                // file exists and is a directory
+            } else {
+                // file exists and is not a directory
+            }
+        } else {
+            // file does not exist
+            do {
+                try FileManager.default.createDirectory(at: documentsURL, withIntermediateDirectories: false, attributes: nil)
+                
+            } catch let error as NSError {
+                print(error.description)
+                
+            }
+        }
+        
+        DBManager.setupDatabase(application: application)
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         NetworkActivityIndicatorManager.shared.isEnabled = true
+        
         return true
     }
 

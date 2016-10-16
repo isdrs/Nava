@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 import MediaPlayer
 import Jukebox
-
 import AlamofireImage
+import SCLAlertView_Objective_C
 
 class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, JukeboxDelegate {
 
-    var musicObj : MusicObj!
+    var mediaItem : MediaItem!
+    private var singerMediaItems : [MediaItem] = [MediaItem]()
+    @IBOutlet weak var tblSingerMedia: UITableView!
     
     
     @IBOutlet weak var viwPlayerController: UIView!
@@ -26,6 +28,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var lblSinger: UILabel!
     @IBOutlet weak var imgMusicImage: UIImageView!
     @IBOutlet weak var btnLikeOutlet: UIButton!
+    @IBOutlet weak var btnDownloadOutlet: UIButton!
     @IBOutlet weak var btnPlayPause: UIButton!
     
     var jukebox : Jukebox!
@@ -37,7 +40,20 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
    
     @IBAction func DownloadAction(_ sender: AnyObject)
     {
+        btnDownloadOutlet.isEnabled = false
         
+        ServiceManager.DownloadMedia(mediaItem: mediaItem) { (status) in
+            if status
+            {
+                SCLAlertView().showSuccess("دانلود", subTitle: "موفقیت آمیز بود", closeButtonTitle: "تایید", duration: 1.0)
+                
+                self.btnDownloadOutlet.isHidden = true
+            }
+            else
+            {
+                self.btnDownloadOutlet.isEnabled = true
+            }
+        }
     }
     
     @IBAction func MusicSliderValueChange(_ sender: AnyObject)
@@ -81,13 +97,63 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         // begin receiving remote events
         UIApplication.shared.beginReceivingRemoteControlEvents()
         
-        let musicUrl = URL(string: musicObj.Url)
+        LoadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: musicUrl!)])
+        ServiceManager.GetMediaListByArtist(mediaItem: mediaItem, mediaType: .sound, serviceType: mediaItem.MediaServiceType, pageNo: 1) { (status, newMedia) in
+            if status
+            {
+                self.singerMediaItems = newMedia
+                
+                DispatchQueue.main.async {
+                    self.tblSingerMedia.reloadData()
+                }
+            }
+        }
+    }
+    
+    private func LoadData()
+    {
+        var currentMedia : JukeboxItem
         
-        let imageUrl = URL(string: musicObj.LargpicUrl)
+        if let myMedia = MediaManager.IsDownloadedMedia(mediaItem: mediaItem)
+        {
+            mediaItem = myMedia
+            
+            btnDownloadOutlet.isHidden = true
+            
+            let path = Bundle.main.path(forResource: "." + mediaItem.MediaID, ofType: "mp3", inDirectory: "MyMedia")
+            
+            currentMedia = JukeboxItem(URL: URL(string: path!)!)
+        }
+        else
+        {
+            currentMedia = JukeboxItem(URL: URL(string: mediaItem.MediaUrl)!)
+            
+            btnDownloadOutlet.isHidden = false
+        }
+        
+        if MediaManager.IsLikedMedia(mediaItem: mediaItem) {
+            
+            btnLikeOutlet.setImage(UIImage(named: "Like"), for: .normal)
+        }
+        else
+        {
+           btnLikeOutlet.setImage(UIImage(named: "UnLike"), for: .normal)
+        }
+        
+        let musicUrl = URL(string: mediaItem.MediaUrl)
+        
+        jukebox = Jukebox(delegate: self, items: [currentMedia])
+        
+        let imageUrl = URL(string: mediaItem.LargpicUrl)
         
         imgMusicImage.af_setImage(withURL: imageUrl!)
+        
+        jukebox.play()
     }
     
     func configureUI ()
@@ -98,10 +164,10 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         //slrMusicDuration.setThumbImage(UIImage(named: "sliderThumb"), for: UIControlState())
         slrMusicDuration.minimumTrackTintColor = color
-        slrMusicDuration.maximumTrackTintColor = UIColor.black
+        slrMusicDuration.maximumTrackTintColor = UIColor.white
         
-        lblMusicName.text = musicObj.MusicName
-        lblSinger.text = musicObj.ArtistName
+        lblMusicName.text = mediaItem.MediaName
+        lblSinger.text = mediaItem.ArtistName
     }
     
     func resetUI()
@@ -129,13 +195,16 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         print("currentTime:  \(jukebox.currentItem?.currentTime)")
         
         print("duration:  \(jukebox.currentItem?.meta.duration)")
-        
-        if let currentTime = jukebox.currentItem?.currentTime, let duration = jukebox.currentItem?.meta.duration {
+                
+        if let currentTime = jukebox.currentItem?.currentTime, let duration = mediaItem.TimeDouble//jukebox.currentItem?.meta.duration
+        {
             let value = Float(currentTime / duration)
             slrMusicDuration.value = value
             populateLabelWithTime(lblMusicCurrentTime, time: currentTime)
             populateLabelWithTime(lblMusicTotalTime, time: duration)
-        } else {
+        }
+        else
+        {
             resetUI()
         }
     }
@@ -199,11 +268,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    
-
-    
-
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -214,13 +278,31 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return singerMediaItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicCell") as! MusicTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell") as! MediaTableViewCell
+        
+        let mediaItem = singerMediaItems[indexPath.row]
+        
+        cell.lblMusicName.text = mediaItem.MediaName
+        cell.lblSinger.text = mediaItem.ArtistName
+        cell.lblLikeCount.text = mediaItem.Like
+        cell.lblDownloadCount.text = mediaItem.Download
+        cell.lblMusicTime.text = mediaItem.Time
+        
+        cell.imgMusicThumb.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        jukebox.stop()
+        
+        self.mediaItem = singerMediaItems[indexPath.row]
+        
+        LoadData()
     }
     
     

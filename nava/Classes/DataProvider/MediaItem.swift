@@ -8,13 +8,15 @@
 
 import UIKit
 
-class MusicObj: NSObject
+class MediaItem: NSObject
 {
-    private var musicName : String = ""
+    private var mediaName : String = ""
     private var artistName : String = ""
     private var artistId : String = ""
-    private var musicID : String = ""
-    private var url : String = ""
+    private var mediaID : String = ""
+    private var mediaType : ServiceManager.ServiceMediaType = ServiceManager.ServiceMediaType.all
+    private var mediaServiceType : ServiceManager.ServiceType = ServiceManager.ServiceType.shahadat
+    private var mediaUrl : String = ""
     private var largpicUrl : String = ""
     private var smallpicUrl : String = ""
     private var time : String = ""
@@ -24,15 +26,15 @@ class MusicObj: NSObject
     private var hamrahavalCode : String = ""
     private var irancellCode : String = ""
     
-    public var MusicName : String
+    public var MediaName : String
         {
         get
         {
-            return self.musicName
+            return self.mediaName
         }
         set(newValue)
         {
-            self.musicName = newValue
+            self.mediaName = newValue
         }
     }
     
@@ -60,27 +62,51 @@ class MusicObj: NSObject
         }
     }
     
-    public var MusicID : String
+    public var MediaID : String
         {
         get
         {
-            return self.musicID
+            return self.mediaID
         }
         set(newValue)
         {
-            self.musicID = newValue
+            self.mediaID = newValue
         }
     }
     
-    public var Url : String
+    public var MediaType : ServiceManager.ServiceMediaType
         {
         get
         {
-            return self.url
+            return self.mediaType
         }
         set(newValue)
         {
-            self.url = newValue
+            self.mediaType = newValue
+        }
+    }
+    
+    public var MediaServiceType : ServiceManager.ServiceType
+        {
+        get
+        {
+            return self.mediaServiceType
+        }
+        set(newValue)
+        {
+            self.mediaServiceType = newValue
+        }
+    }
+    
+    public var MediaUrl : String
+        {
+        get
+        {
+            return self.mediaUrl
+        }
+        set(newValue)
+        {
+            self.mediaUrl = newValue
         }
     }
     
@@ -117,6 +143,25 @@ class MusicObj: NSObject
         set(newValue)
         {
             self.time = newValue
+        }
+    }
+    
+    public var TimeDouble : Double!
+        {
+        get
+        {
+            
+            if var min : Int = Int(self.Time.components(separatedBy: ".")[0])
+            {
+                min = min * 60
+                
+                if let sec : Int = Int(self.Time.components(separatedBy: ".")[1])
+                {
+                    return Double(min + sec)
+                }
+            }
+            
+            return 0
         }
     }
     

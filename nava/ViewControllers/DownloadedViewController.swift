@@ -25,11 +25,12 @@ class DownloadedViewController: ButtonBarPagerTabStripViewController{
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        moveToViewControllerAtIndex(1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        moveToViewControllerAtIndex(1)
+        
     }
     
     override func didReceiveMemoryWarning() {

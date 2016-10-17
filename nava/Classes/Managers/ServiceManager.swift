@@ -110,14 +110,12 @@ class ServiceManager: NSObject
         let destination: DownloadRequest.DownloadFileDestination = { _, _ in
             var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             
-            
-            
             if mediaItem.MediaType == .sound {
-                documentsURL.appendPathComponent("/MyMedia/." + mediaItem.MediaID + ".mp3")
+                documentsURL.appendPathComponent("MyMedia/." + mediaItem.MediaID + ".mp3")
             }
             else
             {
-                documentsURL.appendPathComponent("/MyMedia/." + mediaItem.MediaID + ".mp4")
+                documentsURL.appendPathComponent("MyMedia/." + mediaItem.MediaID + ".mp4")
             }
             
             localPath = documentsURL

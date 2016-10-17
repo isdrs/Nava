@@ -11,10 +11,14 @@ import XLPagerTabStrip
 
 class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
     
+    var downlodedVideo = [MediaItem]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
+        
+        downlodedVideo = MediaManager.GetDBMedia(mediaType: .video)
     }
     
     override func didReceiveMemoryWarning() {
@@ -31,11 +35,21 @@ class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return downlodedVideo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell") as! MediaTableViewCell
+        
+        let mediaItem = downlodedVideo[indexPath.row]
+        
+        cell.lblMusicName.text = mediaItem.MediaName
+        cell.lblSinger.text = mediaItem.ArtistName
+        cell.lblLikeCount.text = mediaItem.Like
+        cell.lblDownloadCount.text = mediaItem.Download
+        cell.lblMusicTime.text = mediaItem.Time
+        
+        cell.imgMusicThumb.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
         
         return cell
     }

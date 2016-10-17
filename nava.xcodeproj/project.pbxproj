@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840F10201DB4BBF7000D430B /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F101F1DB4BBF7000D430B /* ContainerViewController.swift */; };
 		841322991DB2442400BE67C0 /* MusicDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841322981DB2442400BE67C0 /* MusicDownloadedViewController.swift */; };
 		8413229B1DB2443400BE67C0 /* VideoDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413229A1DB2443400BE67C0 /* VideoDownloadedViewController.swift */; };
 		843E05941DAA8E1600306DCC /* ShahadatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E05931DAA8E1600306DCC /* ShahadatViewController.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.release.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.release.xcconfig"; sourceTree = "<group>"; };
 		3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nava.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		840F101F1DB4BBF7000D430B /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContainerViewController.swift; path = ViewControllers/ContainerViewController.swift; sourceTree = "<group>"; };
 		841322981DB2442400BE67C0 /* MusicDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicDownloadedViewController.swift; path = ViewControllers/DownloadedViewControllers/MusicDownloadedViewController.swift; sourceTree = "<group>"; };
 		8413229A1DB2443400BE67C0 /* VideoDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoDownloadedViewController.swift; path = ViewControllers/DownloadedViewControllers/VideoDownloadedViewController.swift; sourceTree = "<group>"; };
 		843E05931DAA8E1600306DCC /* ShahadatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShahadatViewController.swift; path = ViewControllers/MusicTabViewControllers/ShahadatViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				844A80521DAA5B9800EF7A0C /* HomeViewController.swift */,
 				844A80541DAA5BAD00EF7A0C /* SearchViewController.swift */,
 				844A80561DAA5BBD00EF7A0C /* DownloadedViewController.swift */,
+				840F101F1DB4BBF7000D430B /* ContainerViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 			files = (
 				844A80551DAA5BAD00EF7A0C /* SearchViewController.swift in Sources */,
 				843E059A1DAA8E7C00306DCC /* FavoritesViewController.swift in Sources */,
+				840F10201DB4BBF7000D430B /* ContainerViewController.swift in Sources */,
 				843E05991DAA8E7C00306DCC /* AyadViewController.swift in Sources */,
 				84E0FE351DABB6CE00C4878A /* MusicPlayerViewController.swift in Sources */,
 				84FB193B1DB38C7900F3D71A /* MediaManager.swift in Sources */,

@@ -33,6 +33,16 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     var jukebox : Jukebox!
     
+    @IBAction func BackAction(_ sender: AnyObject)
+    {
+        jukebox.stop()
+        
+        self.dismiss(animated: true)
+        {
+            
+        }
+    }
+    
     @IBAction func LikeAction(_ sender: AnyObject)
     {
         
@@ -125,9 +135,11 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             
             btnDownloadOutlet.isHidden = true
             
-            let path = Bundle.main.path(forResource: "." + mediaItem.MediaID, ofType: "mp3", inDirectory: "MyMedia")
+            var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+            documentsURL.appendPathComponent("MyMedia/." + mediaItem.MediaID + ".mp3")
             
-            currentMedia = JukeboxItem(URL: URL(string: path!)!)
+            currentMedia = JukeboxItem(URL: documentsURL)
         }
         else
         {
@@ -144,8 +156,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         {
            btnLikeOutlet.setImage(UIImage(named: "UnLike"), for: .normal)
         }
-        
-        let musicUrl = URL(string: mediaItem.MediaUrl)
         
         jukebox = Jukebox(delegate: self, items: [currentMedia])
         

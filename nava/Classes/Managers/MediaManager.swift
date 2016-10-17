@@ -13,7 +13,7 @@ class MediaManager: NSObject {
 
     static func IsDownloadedMedia( mediaItem : MediaItem ) -> MediaItem?
     {
-        let mediaItems = GetDBMedia()
+        let mediaItems = GetDBMedia(mediaType: mediaItem.MediaType)
         
         for item in mediaItems {
             if mediaItem.MediaID == item.MediaID {
@@ -31,7 +31,7 @@ class MediaManager: NSObject {
     
     static func IsLikedMedia( mediaItem : MediaItem) -> Bool
     {
-        let mediaItems = GetDBMedia()
+        let mediaItems = GetDBMedia(mediaType: mediaItem.MediaType)
         
         for item in mediaItems {
             if mediaItem.MediaID == item.MediaID {
@@ -49,7 +49,7 @@ class MediaManager: NSObject {
     
     
     ///Get local contacts from databse
-    static func GetDBMedia() -> [MediaItem]
+    static func GetDBMedia(mediaType : ServiceManager.ServiceMediaType) -> [MediaItem]
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
@@ -60,7 +60,8 @@ class MediaManager: NSObject {
         var dbMedia = [MediaItem]()
         
         dbQueue.inDatabase { db in
-            for row in Row.fetch(db, "SELECT * FROM Media")
+            for row in Row.fetch(db, "SELECT * FROM Media WHERE media_type = ?",
+                                 arguments: ["\(mediaType.rawValue)"])
             {
                 
                 let mediaItem = MediaItem()
@@ -110,7 +111,7 @@ class MediaManager: NSObject {
         return false
     }
     
-    static func GetDBLikes() -> [MediaItem]
+    static func GetDBLikes(mediaType : ServiceManager.ServiceMediaType) -> [MediaItem]
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
@@ -121,7 +122,8 @@ class MediaManager: NSObject {
         var dbMedia = [MediaItem]()
         
         dbQueue.inDatabase { db in
-            for row in Row.fetch(db, "SELECT * FROM Likes")
+            for row in Row.fetch(db, "SELECT * FROM Likes WHERE media_type = ?",
+                                 arguments: ["\(mediaType.rawValue)"])
             {
                 
                 let mediaItem = MediaItem()
@@ -306,6 +308,98 @@ class MediaManager: NSObject {
         }
 
 
+        /// The values persisted in the database
+        override var persistentDictionary: [String: DatabaseValueConvertible?] {
+            return [
+                "media_name" : mediaName,
+                "media_singer" : artistName,
+                "media_singer_id" : artistId,
+                "media_id" : mediaID,
+                "media_type" : mediaType.rawValue,
+                "media_service_type" : mediaServiceType.rawValue,
+                "media_url" : mediaUrl,
+                "media_pic" : largpicUrl,
+                "media_time" : time,
+                "media_share" : shareUrl,
+                "media_irancell" : hamrahavalCode,
+                "media_hamrahaval" : irancellCode
+            ]
+        }
+    }
+    
+    ///Database custom class row
+    class Favorites : Record
+    {
+        var mediaName : String
+        var artistName : String
+        var artistId : String
+        var mediaID : String
+        var mediaType : ServiceManager.ServiceMediaType
+        var mediaServiceType : ServiceManager.ServiceType
+        var mediaUrl : String
+        var largpicUrl : String
+        var time : String
+        var shareUrl : String
+        var hamrahavalCode : String
+        var irancellCode : String
+        
+        override class var databaseTableName: String {
+            return "Favorites"
+        }
+        
+        init(
+            mediaName : String,
+            artistName : String,
+            artistId : String,
+            mediaID : String,
+            mediaType : ServiceManager.ServiceMediaType,
+            mediaServiceType : ServiceManager.ServiceType,
+            mediaUrl : String,
+            largpicUrl : String,
+            time : String,
+            shareUrl : String,
+            hamrahavalCode : String,
+            irancellCode : String)
+        {
+            self.mediaName = mediaName
+            self.artistName = artistName
+            self.artistId = artistId
+            self.mediaID = mediaID
+            self.mediaType = mediaType
+            self.mediaServiceType = mediaServiceType
+            self.mediaUrl = mediaUrl
+            self.largpicUrl = largpicUrl
+            self.time = time
+            self.shareUrl = shareUrl
+            self.hamrahavalCode = hamrahavalCode
+            self.irancellCode = irancellCode
+            
+            super.init()
+        }
+        
+        required init(_ row: Row) {
+            
+            mediaName = row.value(named: "media_name")
+            artistName = row.value(named: "media_singer")
+            artistId = row.value(named: "media_singer_id")
+            mediaID = row.value(named: "media_id")
+            mediaType = ServiceManager.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+            mediaServiceType = ServiceManager.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+            mediaUrl = row.value(named: "media_url")
+            largpicUrl = row.value(named: "media_pic")
+            time = row.value(named: "media_time")
+            shareUrl = row.value(named: "media_share")
+            irancellCode = row.value(named: "media_irancell")
+            hamrahavalCode = row.value(named: "media_hamrahaval")
+            
+            super.init(row: row)
+        }
+        
+        required init(row: Row) {
+            fatalError("init(row:) has not been implemented")
+        }
+        
+        
         /// The values persisted in the database
         override var persistentDictionary: [String: DatabaseValueConvertible?] {
             return [

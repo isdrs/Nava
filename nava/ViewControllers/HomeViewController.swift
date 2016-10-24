@@ -7,12 +7,23 @@
 //
 
 import UIKit
+import ENSwiftSideMenu
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, ENSideMenuDelegate {
 
+    var sideMenu : ENSideMenu!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let slideMenuVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SlideMenuViewController") as! SlideMenuViewController
+        
+        
+        sideMenu = ENSideMenu(sourceView: self.view, menuViewController: slideMenuVC, menuPosition: .Right, blurStyle: .dark)
+        
+        sideMenu.menuWidth = self.view.frame.size.width / 2
+        // show the navigation bar over the side menu view
+        //view.bringSubviewToFront(navigationBar)
         // Do any additional setup after loading the view.
     }
 
@@ -21,6 +32,27 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - ENSideMenu Delegate
+    func sideMenuWillOpen() {
+        print("sideMenuWillOpen")
+    }
+    
+    func sideMenuWillClose() {
+        print("sideMenuWillClose")
+    }
+    
+    func sideMenuShouldOpenSideMenu() -> Bool {
+        print("sideMenuShouldOpenSideMenu")
+        return true
+    }
+    
+    func sideMenuDidClose() {
+        print("sideMenuDidClose")
+    }
+    
+    func sideMenuDidOpen() {
+        print("sideMenuDidOpen")
+    }
 
     /*
     // MARK: - Navigation

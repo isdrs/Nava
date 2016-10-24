@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11F89FC21DBE0E1700E74240 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F89FC11DBE0E1700E74240 /* SlideMenuViewController.swift */; };
+		11F89FC41DBE24D500E74240 /* SwiftyAccordionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */; };
 		840F10201DB4BBF7000D430B /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F101F1DB4BBF7000D430B /* ContainerViewController.swift */; };
 		841322991DB2442400BE67C0 /* MusicDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841322981DB2442400BE67C0 /* MusicDownloadedViewController.swift */; };
 		8413229B1DB2443400BE67C0 /* VideoDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413229A1DB2443400BE67C0 /* VideoDownloadedViewController.swift */; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.release.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.release.xcconfig"; sourceTree = "<group>"; };
+		11F89FC11DBE0E1700E74240 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlideMenuViewController.swift; path = ViewControllers/SlideMenuViewController.swift; sourceTree = "<group>"; };
+		11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyAccordionCells.swift; path = Classes/Items/SwiftyAccordionCells.swift; sourceTree = "<group>"; };
 		3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nava.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840F101F1DB4BBF7000D430B /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContainerViewController.swift; path = ViewControllers/ContainerViewController.swift; sourceTree = "<group>"; };
 		841322981DB2442400BE67C0 /* MusicDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicDownloadedViewController.swift; path = ViewControllers/DownloadedViewControllers/MusicDownloadedViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 				844A80541DAA5BAD00EF7A0C /* SearchViewController.swift */,
 				844A80561DAA5BBD00EF7A0C /* DownloadedViewController.swift */,
 				840F101F1DB4BBF7000D430B /* ContainerViewController.swift */,
+				11F89FC11DBE0E1700E74240 /* SlideMenuViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -158,6 +163,7 @@
 		844A80591DAA738B00EF7A0C /* Items */ = {
 			isa = PBXGroup;
 			children = (
+				11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */,
 				84E0FE2F1DAB6B1C00C4878A /* MediaTableViewCell.swift */,
 			);
 			name = Items;
@@ -391,10 +397,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F89FC41DBE24D500E74240 /* SwiftyAccordionCells.swift in Sources */,
 				844A80551DAA5BAD00EF7A0C /* SearchViewController.swift in Sources */,
 				843E059A1DAA8E7C00306DCC /* FavoritesViewController.swift in Sources */,
 				840F10201DB4BBF7000D430B /* ContainerViewController.swift in Sources */,
 				843E05991DAA8E7C00306DCC /* AyadViewController.swift in Sources */,
+				11F89FC21DBE0E1700E74240 /* SlideMenuViewController.swift in Sources */,
 				84E0FE351DABB6CE00C4878A /* MusicPlayerViewController.swift in Sources */,
 				84FB193B1DB38C7900F3D71A /* MediaManager.swift in Sources */,
 				844A80571DAA5BBD00EF7A0C /* DownloadedViewController.swift in Sources */,

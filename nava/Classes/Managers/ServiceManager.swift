@@ -13,13 +13,17 @@ import SCLAlertView_Objective_C
 
 class ServiceManager: NSObject
 {
-    private static var baseURl : String = "http://hadsahang.arsinit.com/skysounds/index/itemlist"
+    private static var baseURl : String = "http://hadsahang.arsinit.com/skysounds/index/"
     
     ///mediaType, ServiceType, madah ID, page
-    private static var ParametersWithSingerURL = "/%@/%@/madah/%@/20/%@"
+    private static var ParametersWithSingerURL = "itemlist/%@/%@/madah/%@/20/%@"
     
     ///mediaType, ServiceType, page
-    private static var ParametersWithoutSingerURL = "/%@/%@/20/%@"
+    private static var ParametersWithoutSingerURL = "itemlist/%@/%@/20/%@"
+    
+    private static var ParametersForLikeOrDownload = "%@/%@"
+    
+    
     
     enum ServiceType: String
     {
@@ -195,5 +199,38 @@ class ServiceManager: NSObject
 
         
         return mediaItemArray
+    }
+    
+    static func LikeOrDwonloadCountAdd(mediaItem : MediaItem, isLike: Bool, callBack : @escaping (Bool) -> Void  )
+    {
+        
+        var likeOrDownloadString = ""
+        
+        if isLike {
+            likeOrDownloadString = "like"
+        }else{
+            likeOrDownloadString = "download"
+        }
+        
+        
+        let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersForLikeOrDownload, likeOrDownloadString, String(mediaItem.MediaID))
+        
+        Alamofire.request(urlString).responseJSON { (response) in
+            print("Request: \(response.request)")
+            print("Response: \(response.response)")
+            print("Data: \(response.data)")
+            print("Error: \(response.result)")
+            
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("JSON: \(json)")
+                
+                callBack(true)
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
     }
 }

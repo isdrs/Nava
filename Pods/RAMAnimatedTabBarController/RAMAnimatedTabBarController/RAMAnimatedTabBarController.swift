@@ -252,7 +252,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
     
     self.initializeContainers()
     
-    setSelectIndex(from: 0, to: 3)
+    //setSelectIndex(from: 0, to: 3)
   }
   
   fileprivate func initializeContainers() {
@@ -354,7 +354,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
                                     toItem: nil,
                                     attribute: NSLayoutAttribute.notAnAttribute,
                                     multiplier: 1,
-                                    constant: size.width)
+                                    constant: size.width - 15)
     view.addConstraint(constW)
     
     let constH = NSLayoutConstraint(item: view,
@@ -363,7 +363,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
                                     toItem: nil,
                                     attribute: NSLayoutAttribute.notAnAttribute,
                                     multiplier: 1,
-                                    constant: size.height)
+                                    constant: size.height - 15)
     view.addConstraint(constH)
   }
   

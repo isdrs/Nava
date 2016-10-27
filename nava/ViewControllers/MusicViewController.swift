@@ -25,7 +25,7 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
 
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        moveToViewControllerAtIndex(3)
+        //moveToViewControllerAtIndex(3)
     }
 
 
@@ -53,7 +53,7 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
         let page_Favorites = stb.instantiateViewController(withIdentifier: "FavoritesViewController") as! FavoritesViewController
         page_Favorites.mediaType = .sound
         
-        return [page_Favorites, page_Moharram, page_Ayad, page_Shahadat ]//[page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
+        return [page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
     }
 
     /*

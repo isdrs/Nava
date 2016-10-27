@@ -57,7 +57,7 @@ class VideoViewController: ButtonBarPagerTabStripViewController {
         let page_Favorites = stb.instantiateViewController(withIdentifier: "FavoritesViewController") as! FavoritesViewController
         page_Favorites.mediaType = .video
         
-        return [page_Favorites, page_Moharram, page_Ayad, page_Shahadat ]//[page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
+        return [page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
     }
     
     /*

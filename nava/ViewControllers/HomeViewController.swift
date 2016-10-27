@@ -19,7 +19,7 @@ class HomeViewController: UIViewController, ENSideMenuDelegate {
         let slideMenuVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SlideMenuViewController") as! SlideMenuViewController
         
         
-        sideMenu = ENSideMenu(sourceView: self.view, menuViewController: slideMenuVC, menuPosition: .Right, blurStyle: .dark)
+        sideMenu = ENSideMenu(sourceView: self.view, menuViewController: slideMenuVC, menuPosition: .Left, blurStyle: .dark)
         
         sideMenu.menuWidth = self.view.frame.size.width / 2
         // show the navigation bar over the side menu view
@@ -31,6 +31,12 @@ class HomeViewController: UIViewController, ENSideMenuDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func ToggleMenuAction(_ sender: AnyObject) {
+        
+        sideMenu.toggleMenu()
+    }
+    
     
     // MARK: - ENSideMenu Delegate
     func sideMenuWillOpen() {

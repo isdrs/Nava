@@ -151,11 +151,11 @@ class MediaItem: NSObject
         get
         {
             
-            if var min : Int = Int(self.Time.components(separatedBy: ".")[0])
+            if var min : Int = Int(self.Time.components(separatedBy: ":")[0])
             {
                 min = min * 60
                 
-                if let sec : Int = Int(self.Time.components(separatedBy: ".")[1])
+                if let sec : Int = Int(self.Time.components(separatedBy: ":")[1])
                 {
                     return Double(min + sec)
                 }

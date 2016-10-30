@@ -36,6 +36,15 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
                 }
             }
         }
+        
+//        let stb = UIStoryboard(name: "Main", bundle: nil)
+//        
+//        let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+//        musicPlayerViewController.mediaItem = MediaItem()
+//        
+//        self.present(musicPlayerViewController, animated: false) {
+//            
+//        }
     }
     
     override func didReceiveMemoryWarning() {

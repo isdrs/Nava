@@ -133,7 +133,7 @@ class MediaCell: UITableViewCell {
         
         // Download Counter Label
         downloadCountlbl = UILabel()
-        downloadCountlbl.text = "123"
+        downloadCountlbl.text = "..."
         downloadCountlbl.textColor = UIColor.white
         
 
@@ -145,7 +145,7 @@ class MediaCell: UITableViewCell {
         
         // Like Counter Label
         likeCountlbl = UILabel()
-        likeCountlbl.text = "123"
+        likeCountlbl.text = "..."
         likeCountlbl.textColor = UIColor.white
         
         
@@ -157,13 +157,13 @@ class MediaCell: UITableViewCell {
         
         // Music Title
         musicTitlelbl = UILabel()
-        musicTitlelbl.text =  "نوای شماره یک"
+        musicTitlelbl.text =  ""//"نوای شماره یک"
         musicTitlelbl.textColor = UIColor.white
         
         
         // Singer Title
         singerNamelbl = UILabel()
-        singerNamelbl.text =  "حاج سعید حدادیان"
+        singerNamelbl.text =  ""//"حاج سعید حدادیان"
         singerNamelbl.textColor = UIColor.white
         
         

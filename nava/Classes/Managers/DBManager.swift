@@ -57,7 +57,7 @@ class DBManager: NSObject {
                     t.column("media_hamrahaval", .text).notNull()
                     t.column("media_time", .text).notNull()
                     t.column("media_share", .text).notNull()
-                    t.column("id", .integer).primaryKey(onConflict: Database.ConflictResolution.fail, autoincrement: true)
+                    t.column("id", .integer).primaryKey(onConflict: Database.ConflictResolution.ignore, autoincrement: true).notNull()
                 }
             }
             
@@ -75,7 +75,7 @@ class DBManager: NSObject {
                     t.column("media_hamrahaval", .text).notNull()
                     t.column("media_time", .text).notNull()
                     t.column("media_share", .text).notNull()
-                    t.column("id", .integer).primaryKey(onConflict: Database.ConflictResolution.fail, autoincrement: true)
+                    t.column("id", .integer).primaryKey(onConflict: Database.ConflictResolution.ignore, autoincrement: true).notNull()
                 }
             }
             
@@ -84,7 +84,7 @@ class DBManager: NSObject {
                     t.column("media_id", .text).notNull()
                     t.column("media_type", .text).notNull()
                     t.column("media_service_type", .text).notNull()
-                    t.column("id", .integer).primaryKey(onConflict: Database.ConflictResolution.fail, autoincrement: true)
+                    t.column("id", .integer).primaryKey(onConflict: Database.ConflictResolution.ignore, autoincrement: true).notNull()
                 }
             }
             

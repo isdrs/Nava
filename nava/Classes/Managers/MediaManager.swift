@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import GRDB
 
 class MediaManager: NSObject {
@@ -28,10 +29,9 @@ class MediaManager: NSObject {
         return nil
     }
 
-    
     static func IsLikedMedia( mediaItem : MediaItem) -> Bool
     {
-        let mediaItems = GetDBMedia(mediaType: mediaItem.MediaType)
+        let mediaItems = GetDBLikes(mediaType: mediaItem.MediaType)
         
         for item in mediaItems {
             if mediaItem.MediaID == item.MediaID {
@@ -46,14 +46,12 @@ class MediaManager: NSObject {
         return false
     }
     
-    
-    
     ///Get local contacts from databse
     static func GetDBMedia(mediaType : ServiceManager.ServiceMediaType) -> [MediaItem]
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
-        let databasePath = documentsPath.appendingPathComponent("media_item.sqlite")
+        let databasePath = documentsPath.appendingPathComponent("/media_item.sqlite")
         
         let dbQueue = try! DatabaseQueue(path: databasePath)
         
@@ -91,7 +89,7 @@ class MediaManager: NSObject {
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
-        let databasePath = documentsPath.appendingPathComponent("media_item.sqlite")
+        let databasePath = documentsPath.appendingPathComponent("/media_item.sqlite")
         
         let dbQueue = try! DatabaseQueue(path: databasePath)
         
@@ -115,7 +113,7 @@ class MediaManager: NSObject {
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
-        let databasePath = documentsPath.appendingPathComponent("media_item.sqlite")
+        let databasePath = documentsPath.appendingPathComponent("/media_item.sqlite")
         
         let dbQueue = try! DatabaseQueue(path: databasePath)
         
@@ -145,11 +143,11 @@ class MediaManager: NSObject {
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
-        let databasePath = documentsPath.appendingPathComponent("media_item.sqlite")
+        let databasePath = documentsPath.appendingPathComponent("/media_item.sqlite")
         
         let dbQueue = try! DatabaseQueue(path: databasePath)
         
-        dbQueue.inDatabase { db -> Bool in
+               dbQueue.inDatabase { db -> Bool in
             
             do {
                 try Like.deleteOne(db, key: ["media_id": mediaItem.MediaID])
@@ -171,7 +169,7 @@ class MediaManager: NSObject {
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
-        let databasePath = documentsPath.appendingPathComponent("media_item.sqlite")
+        let databasePath = documentsPath.appendingPathComponent("/media_item.sqlite")
         
         let dbQueue = try! DatabaseQueue(path: databasePath)
         
@@ -205,29 +203,28 @@ class MediaManager: NSObject {
     }
     
     ///Add array of user item as new contact to databse
-    static func AddNewLikeToDB(mediaItems: [MediaItem])
+    static func AddNewLikeToDB(mediaItem: MediaItem)
     {
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+        let documentsPath : String = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString) as String
         
-        let databasePath = documentsPath.appendingPathComponent("media_item.sqlite")
+        let databasePath = documentsPath.appending("/media_item.sqlite")
         
         let dbQueue = try! DatabaseQueue(path: databasePath)
+        
         
         do
         {
             try dbQueue.inDatabase { db in
                 
-                for mediaItem in mediaItems
-                {
-                    let like = Like(
-                       
-                        mediaID : mediaItem.MediaID,
-                        mediaType : mediaItem.MediaType,
-                        mediaServiceType : mediaItem.MediaServiceType
-                    )
+                let like = Like(
                     
-                    try like.insert(db)
-                }
+                    mediaID : mediaItem.MediaID,
+                    mediaType : mediaItem.MediaType,
+                    mediaServiceType : mediaItem.MediaServiceType
+                )
+                
+                try like.insert(db)
+                
             }
         }catch
         {
@@ -429,7 +426,7 @@ class MediaManager: NSObject {
         var mediaServiceType : ServiceManager.ServiceType
 
         override class var databaseTableName: String {
-            return "Like"
+            return "Likes"
         }
         
         init(

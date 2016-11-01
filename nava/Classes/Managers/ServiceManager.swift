@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import Alamofire
 import SwiftyJSON
 import SCLAlertView_Objective_C
@@ -129,6 +130,15 @@ class ServiceManager: NSObject
         
         Alamofire.download(mediaItem.MediaUrl, to: destination).downloadProgress(closure: { (prog) in
             print("Download Progress: \(prog.fractionCompleted * 100)")
+            
+            var fileInfo = [String:String]()
+            fileInfo["MediaId"] = String(mediaItem.MediaID)
+            fileInfo["Progress"] = String(Int(round(prog.fractionCompleted * 100)))
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DownloadProgressNotification"), object: nil, userInfo: fileInfo)
+       
+            
+            
         }).responseData { response in
             
             switch response.result {

@@ -7,8 +7,8 @@ PODS:
   - ENSwiftSideMenu (0.1.1)
   - GRDB.swift (0.89.2)
   - Jukebox (0.2.1)
-  - RAMAnimatedTabBarController (2.0.2)
-  - SCLAlertView-Objective-C (1.0.6)
+  - RAMAnimatedTabBarController (2.0.13)
+  - SCLAlertView (0.7.0)
   - SwiftyJSON (3.1.1)
   - XLPagerTabStrip (5.0.0)
 
@@ -20,7 +20,7 @@ DEPENDENCIES:
   - GRDB.swift
   - Jukebox (~> 0.2.0)
   - RAMAnimatedTabBarController
-  - SCLAlertView-Objective-C
+  - SCLAlertView
   - SwiftyJSON
   - XLPagerTabStrip (from `https://github.com/KelvinJin/XLPagerTabStrip`, branch `swift3`)
 
@@ -41,11 +41,11 @@ SPEC CHECKSUMS:
   ENSwiftSideMenu: a934caefbe811e4925f172009349da4a49901307
   GRDB.swift: 74fade14662f5c456cca402cad6e4e5d050358be
   Jukebox: 81db618ccd3a1cc9b154f4ae0f5c4b54638666dd
-  RAMAnimatedTabBarController: 8b4b7e41d1d6c76ebf6482233f4bc528231db437
-  SCLAlertView-Objective-C: ca78280817e66e74366b78579350dee2ff277e23
+  RAMAnimatedTabBarController: 2510f3b66954c3f77ea1042a35d34df8f5f3b604
+  SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
   SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
   XLPagerTabStrip: 87b8b705f9a7178e76a063ffaa2d70045944a965
 
-PODFILE CHECKSUM: 5a5dd273128ba254a63b7d3da4fe707146100679
+PODFILE CHECKSUM: 774dbc9397cd991027ed25272eef02e384571c1f
 
 COCOAPODS: 1.1.0.rc.3

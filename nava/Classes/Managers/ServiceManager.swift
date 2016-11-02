@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import Alamofire
 import SwiftyJSON
-import SCLAlertView_Objective_C
+import SCLAlertView
 
 class ServiceManager: NSObject
 {

@@ -11,7 +11,7 @@ pod 'ENSwiftSideMenu', '~> 0.1.1'
 pod 'SwiftyJSON'
 pod 'XLPagerTabStrip', :git => 'https://github.com/KelvinJin/XLPagerTabStrip', :branch => 'swift3'
 pod 'Jukebox', '~> 0.2.0'
-pod 'SCLAlertView-Objective-C'
+pod 'SCLAlertView'
 pod 'GRDB.swift'
 end
 

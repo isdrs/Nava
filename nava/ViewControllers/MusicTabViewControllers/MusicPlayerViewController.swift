@@ -12,7 +12,7 @@ import UIKit
 import MediaPlayer
 import Jukebox
 import AlamofireImage
-import SCLAlertView_Objective_C
+import SCLAlertView
 
 class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, JukeboxDelegate {
     
@@ -49,10 +49,37 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     private var addToFavoriteBtn : UIButton!
     private var popUpView : UIView!
     private var isMusicSliderTouched = false
-    var popUpViewHeight = CGFloat()
+    private var popUpViewHeight = CGFloat()
     private var isLiked = false
     private var isDownloaded = false
-    private var isFavorited = false
+   
+    private var isFavorited : Bool = false {
+        
+        didSet
+        {
+            if !isFavorited
+            {
+                let myNormalAttributedTitle = NSAttributedString(string: Tools.StaticVariables.AddToFavoriteButtonTitle,
+                                                                 attributes: [NSForegroundColorAttributeName : UIColor.white])
+                let myNormalAttributedTitle2 = NSAttributedString(string: Tools.StaticVariables.AddToFavoriteButtonTitle,
+                                                                 attributes: [NSForegroundColorAttributeName : UIColor.green])
+                
+                addToFavoriteBtn.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+                addToFavoriteBtn.setAttributedTitle(myNormalAttributedTitle2, for: .highlighted)
+                
+            }else
+            {
+                let myNormalAttributedTitle = NSAttributedString(string: Tools.StaticVariables.DeleteFromFavoriteButtonTitle,
+                                                                 attributes: [NSForegroundColorAttributeName : UIColor.white])
+                
+                let myNormalAttributedTitle2 = NSAttributedString(string: Tools.StaticVariables.DeleteFromFavoriteButtonTitle,
+                                                                  attributes: [NSForegroundColorAttributeName : UIColor.green])
+
+                addToFavoriteBtn.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+                addToFavoriteBtn.setAttributedTitle(myNormalAttributedTitle2, for: .highlighted)
+            }
+        }
+    }
     var jukebox : Jukebox!
     
     @objc private func buttonAction(sender: UIButton!) {
@@ -88,7 +115,10 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         print("Tap UI")
             // your code here
         
+        if self.popUpView.frame.size.width > CGFloat(0)
+        {
             HidePopUpView()
+        }
     }
     
     @objc private func HamrahAvvalAction()
@@ -234,7 +264,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         
-        isFavorited = MediaManager.IsFavoritedMedia(mediaItem: mediaItem)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlurButton(_:)))
 
@@ -255,7 +284,11 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         SetMusicListView()
         SetPopUpMenuView()
         
+        isFavorited = MediaManager.IsFavoritedMedia(mediaItem: mediaItem)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateDownloadProgressLabel), name: NSNotification.Name(rawValue: Tools.StaticVariables.DownloadProgressNotificationKey ), object: nil)
+        
+        
         
     }
     
@@ -451,7 +484,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         popUpView.frame.origin = viewPosition
        
         
-        
         shareBtn = Tools.MakeUIButtonWithAttributes(btnName: "اشتراک گذاری")
         shareBtn.frame = CGRect(x: 0, y: 0, width: popUpView.frame.size.width, height: popUpViewHeight * 0.5)
         shareBtn.backgroundColor = UIColor.darkGray
@@ -460,7 +492,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         shareBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         
         
-        addToFavoriteBtn = Tools.MakeUIButtonWithAttributes(btnName: "افزودن به لیست علاقه مندی ها")
+        addToFavoriteBtn = Tools.MakeUIButtonWithAttributes(btnName: "")
         addToFavoriteBtn.frame = CGRect(x: 0, y: shareBtn.frame.size.height, width: shareBtn.frame.size.width, height: shareBtn.frame.size.height)
         addToFavoriteBtn.backgroundColor = UIColor.darkGray
         self.addToFavoriteBtn.addTarget(self, action: #selector(self.AddToFavorite), for: UIControlEvents.touchUpInside)
@@ -477,7 +509,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.popUpView.addSubview(shareBtn)
         self.popUpView.addSubview(addToFavoriteBtn)
         self.playingMusicView.addSubview(popUpView)
-        
         
     }
     
@@ -519,16 +550,28 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             
             if res
             {
-                SCLAlertView().showSuccess("", subTitle: "انحام شد", closeButtonTitle: "تایید", duration: 5.6)
+                SCLAlertView().showSuccess("", subTitle: "انجام شد", closeButtonTitle: "تایید", duration: 1.0)
                 isFavorited = true
             }
             else
             {
-                SCLAlertView().showError("", subTitle: "انحام نشد", closeButtonTitle: "تایید", duration: 5.6)
+                SCLAlertView().showError("", subTitle: "انجام نشد", closeButtonTitle: "تایید", duration: 1.0)
             }
-            
         }
-        HidePopUpView()
+        else
+        {
+            let res = MediaManager.DeleteDBFavorites(mediaItem: mediaItem)
+            
+            if res
+            {
+                SCLAlertView().showSuccess("", subTitle: "انجام شد", closeButtonTitle: "تایید", duration: 1.0)
+                isFavorited = false
+            }
+            else
+            {
+                SCLAlertView().showError("", subTitle: "انجام نشد", closeButtonTitle: "تایید", duration: 1.0)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -568,7 +611,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             
-            if let val = appDelegate.downloadQueue[String(mediaItem.MediaID)] {
+            if appDelegate.downloadQueue[String(mediaItem.MediaID)] != nil {
                 isDownloaded = true
             }
             else

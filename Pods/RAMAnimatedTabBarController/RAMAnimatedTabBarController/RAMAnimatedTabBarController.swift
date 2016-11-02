@@ -73,7 +73,7 @@ open class RAMAnimatedTabBarItem: UITabBarItem {
   @IBInspectable open var textColor: UIColor = UIColor.black
   
   /// The tint color of the UITabBarItem icon.
-  @IBInspectable open var iconColor: UIColor = UIColor.red // if alpha color is 0 color ignoring
+  @IBInspectable open var iconColor: UIColor = UIColor.clear // if alpha color is 0 color ignoring
   
   var bgDefaultColor: UIColor = UIColor.clear // background color
   var bgSelectedColor: UIColor = UIColor.clear
@@ -132,7 +132,7 @@ extension  RAMAnimatedTabBarController {
    - parameter textSelectedColor: set new color for text
    - parameter iconSelectedColor: set new color for icon
    */
-  public func changeSelectedColor(_ textSelectedColor:UIColor, iconSelectedColor:UIColor) {
+  open func changeSelectedColor(_ textSelectedColor:UIColor, iconSelectedColor:UIColor) {
     
     let items = tabBar.items as! [RAMAnimatedTabBarItem]
     for index in 0..<items.count {
@@ -152,7 +152,7 @@ extension  RAMAnimatedTabBarController {
    
     - parameter isHidden: A Boolean indicating whether the UITabBarController is displayed
    */
-  public func animationTabBarHidden(_ isHidden:Bool) {
+  open func animationTabBarHidden(_ isHidden:Bool) {
     guard let items = tabBar.items as? [RAMAnimatedTabBarItem] else {
       fatalError("items must inherit RAMAnimatedTabBarItem")
     }
@@ -170,7 +170,7 @@ extension  RAMAnimatedTabBarController {
    - parameter from: Index for unselected animation
    - parameter to:   Index for selected animation
    */
-  public func setSelectIndex(from: Int, to: Int) {
+  open func setSelectIndex(from: Int, to: Int) {
     selectedIndex = to
     guard let items = tabBar.items as? [RAMAnimatedTabBarItem] else {
       fatalError("items must inherit RAMAnimatedTabBarItem")
@@ -251,8 +251,6 @@ open class RAMAnimatedTabBarController: UITabBarController {
     self.didLoadView = true
     
     self.initializeContainers()
-    
-    //setSelectIndex(from: 0, to: 3)
   }
   
   fileprivate func initializeContainers() {
@@ -354,7 +352,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
                                     toItem: nil,
                                     attribute: NSLayoutAttribute.notAnAttribute,
                                     multiplier: 1,
-                                    constant: size.width - 15)
+                                    constant: size.width)
     view.addConstraint(constW)
     
     let constH = NSLayoutConstraint(item: view,
@@ -363,7 +361,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
                                     toItem: nil,
                                     attribute: NSLayoutAttribute.notAnAttribute,
                                     multiplier: 1,
-                                    constant: size.height - 15)
+                                    constant: size.height)
     view.addConstraint(constH)
   }
   
@@ -430,7 +428,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
   
   // MARK: actions
   
-  func tapHandler(_ gesture:UIGestureRecognizer) {
+  open func tapHandler(_ gesture:UIGestureRecognizer) {
     
     guard let items = tabBar.items as? [RAMAnimatedTabBarItem],
       let gestureView = gesture.view else {

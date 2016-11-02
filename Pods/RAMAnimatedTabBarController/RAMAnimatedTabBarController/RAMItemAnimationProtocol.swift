@@ -24,7 +24,7 @@
 import Foundation
 import UIKit
 
-protocol RAMItemAnimationProtocol {
+public protocol RAMItemAnimationProtocol {
   
   func playAnimation(_ icon : UIImageView, textLabel : UILabel)
   func deselectAnimation(_ icon : UIImageView, textLabel : UILabel, defaultTextColor : UIColor, defaultIconColor : UIColor)
@@ -46,7 +46,6 @@ open class RAMItemAnimation: NSObject, RAMItemAnimationProtocol {
       static let PositionY = "position.y"
       static let Opacity   = "opacity"
     }
-    
   }
   
   // MARK: properties
@@ -58,7 +57,7 @@ open class RAMItemAnimation: NSObject, RAMItemAnimationProtocol {
   @IBInspectable open var textSelectedColor: UIColor = UIColor.init(red: 0, green: 0.478431, blue: 1, alpha: 1)
   
   ///  The icon color in selected state.
-  @IBInspectable open var iconSelectedColor: UIColor! = .red
+  @IBInspectable open var iconSelectedColor: UIColor!
   
    /**
    Start animation, method call when UITabBarItem is selected

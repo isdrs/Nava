@@ -132,10 +132,10 @@ class ServiceManager: NSObject
             print("Download Progress: \(prog.fractionCompleted * 100)")
             
             var fileInfo = [String:String]()
-            fileInfo["MediaId"] = String(mediaItem.MediaID)
-            fileInfo["Progress"] = String(Int(round(prog.fractionCompleted * 100)))
+            fileInfo[Tools.StaticVariables.MediaIdNotificationsKey] = String(mediaItem.MediaID)
+            fileInfo[Tools.StaticVariables.ProgressNotificationsKey] = String(Int(round(prog.fractionCompleted * 100)))
             
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DownloadProgressNotification"), object: nil, userInfo: fileInfo)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Tools.StaticVariables.DownloadProgressNotificationKey), object: nil, userInfo: fileInfo)
        
             
             

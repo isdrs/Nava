@@ -12,6 +12,24 @@ import GRDB
 
 class MediaManager: NSObject {
 
+    static func IsFavoritedMedia (mediaItem : MediaItem) -> Bool
+    {
+        let mediaItems = GetFavoriteMedia(mediaType: mediaItem.MediaType)
+        
+        for item in mediaItems {
+            if mediaItem.MediaID == item.MediaID {
+                if mediaItem.MediaType == item.MediaType {
+                    if mediaItem.MediaServiceType == item.MediaServiceType {
+                        return true
+                    }
+                }
+            }
+        }
+        
+        return false
+
+    }
+    
     static func IsDownloadedMedia( mediaItem : MediaItem ) -> MediaItem?
     {
         let mediaItems = GetDBMedia(mediaType: mediaItem.MediaType)
@@ -84,8 +102,8 @@ class MediaManager: NSObject {
         
         return dbMedia
     }
-    
-    static func DeleteDBMeida(mediaItem: MediaItem) -> Bool
+
+    static func GetFavoriteMedia(mediaType : ServiceManager.ServiceMediaType) -> [MediaItem]
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
@@ -93,20 +111,86 @@ class MediaManager: NSObject {
         
         let dbQueue = try! DatabaseQueue(path: databasePath)
         
-        dbQueue.inDatabase { db -> Bool in
+        var dbMedia = [MediaItem]()
+        
+        dbQueue.inDatabase { db in
+            for row in Row.fetch(db, "SELECT * FROM " + Tools.StaticVariables.FavoriteTableName + " WHERE media_type = ?",
+                                 arguments: ["\(mediaType.rawValue)"])
+            {
+                
+                let mediaItem = MediaItem()
+                
+                mediaItem.MediaName = row.value(named: "media_name")
+                mediaItem.ArtistName = row.value(named: "media_singer")
+                mediaItem.ArtistId = row.value(named: "media_singer_id")
+                mediaItem.MediaID = row.value(named: "media_id")
+                mediaItem.MediaType = ServiceManager.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+                mediaItem.MediaServiceType = ServiceManager.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+                mediaItem.MediaUrl = row.value(named: "media_url")
+                mediaItem.LargpicUrl = row.value(named: "media_pic")
+                mediaItem.SmallpicUrl = mediaItem.LargpicUrl
+                mediaItem.Time = row.value(named: "media_time")
+                mediaItem.ShareUrl = row.value(named: "media_share")
+                mediaItem.IrancellCode = row.value(named: "media_irancell")
+                mediaItem.HamrahavalCode = row.value(named: "media_hamrahaval")
+                
+                dbMedia.append(mediaItem)
+            }
+        }
+        
+        return dbMedia
+    }
+
+    
+    static func DeleteDBMeida(mediaItem: MediaItem) -> Bool
+    {
+        var res = false
+        
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+        
+        let databasePath = documentsPath.appendingPathComponent("/media_item.sqlite")
+        
+        let dbQueue = try! DatabaseQueue(path: databasePath)
+        
+        dbQueue.inDatabase { db in
             
             do {
                 try Media.deleteOne(db, key: ["media_id": mediaItem.MediaID])
                 
-                return true
+                res = true
             }
             catch
             {
-                return false
+                res = false
             }
         }
         
-        return false
+        return res
+    }
+
+    static func DeleteDBFavorites(mediaItem: MediaItem) -> Bool
+    {
+        var res = false
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+        
+        let databasePath = documentsPath.appendingPathComponent("/media_item.sqlite")
+        
+        let dbQueue = try! DatabaseQueue(path: databasePath)
+        
+        dbQueue.inDatabase { db in
+            
+            do {
+                try Favorites.deleteOne(db, key: ["media_id": mediaItem.MediaID])
+                
+                res =  true
+            }
+            catch
+            {
+                res =  false
+            }
+        }
+        
+        return res
     }
     
     static func GetDBLikes(mediaType : ServiceManager.ServiceMediaType) -> [MediaItem]
@@ -141,28 +225,29 @@ class MediaManager: NSObject {
     
     static func DeleteDBLikes(mediaItem: MediaItem) -> Bool
     {
+        var isInserted = false
+        
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
         let databasePath = documentsPath.appendingPathComponent("/media_item.sqlite")
         
         let dbQueue = try! DatabaseQueue(path: databasePath)
         
-               dbQueue.inDatabase { db -> Bool in
+               dbQueue.inDatabase { db in
             
             do {
                 try Like.deleteOne(db, key: ["media_id": mediaItem.MediaID])
                 
-                return true
+                isInserted = true
             }
             catch
             {
-                return false
+                isInserted = false
             }
         }
         
-        return false
+        return isInserted
     }
-
 
     ///Add array of user item as new contact to databse
     static func AddNewMediaToDB(mediaItems: [MediaItem])
@@ -200,6 +285,50 @@ class MediaManager: NSObject {
         }catch
         {
         }
+    }
+
+    ///Add array of user item as new contact to databse
+    static func AddNewFavoriteToDB(mediaItems: [MediaItem]) -> Bool
+    {
+        var res = false
+        
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+        
+        let databasePath = documentsPath.appendingPathComponent("/media_item.sqlite")
+        
+        let dbQueue = try! DatabaseQueue(path: databasePath)
+        
+        do
+        {
+            try dbQueue.inDatabase { db in
+                
+                for mediaItem in mediaItems
+                {
+                    let favorites = Favorites(
+                        mediaName : mediaItem.MediaName,
+                        artistName : mediaItem.ArtistName,
+                        artistId : mediaItem.ArtistId,
+                        mediaID : mediaItem.MediaID,
+                        mediaType : mediaItem.MediaType,
+                        mediaServiceType : mediaItem.MediaServiceType,
+                        mediaUrl : mediaItem.MediaUrl,
+                        largpicUrl : mediaItem.LargpicUrl,
+                        time : mediaItem.Time,
+                        shareUrl : mediaItem.ShareUrl,
+                        hamrahavalCode : mediaItem.HamrahavalCode,
+                        irancellCode : mediaItem.IrancellCode
+                    )
+                    
+                    try favorites.insert(db)
+                    res = true
+                    
+                }
+            }
+        }catch
+        {
+            res = false
+        }
+        return res
     }
     
     ///Add array of user item as new contact to databse
@@ -341,7 +470,7 @@ class MediaManager: NSObject {
         var irancellCode : String
         
         override class var databaseTableName: String {
-            return "Favorites"
+            return Tools.StaticVariables.FavoriteTableName
         }
         
         init(

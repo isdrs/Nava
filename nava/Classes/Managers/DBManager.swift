@@ -46,7 +46,7 @@ class DBManager: NSObject {
            try? dbQueue.inDatabase { db in
                 try db.create(table: "Media") { t in
                     t.column("media_name", .text).notNull()
-                    t.column("media_id", .text).notNull()
+                    t.column("media_id", .text).notNull().unique(onConflict: Database.ConflictResolution.ignore)
                     t.column("media_pic", .integer).notNull()
                     t.column("media_url", .text).notNull()
                     t.column("media_singer", .text).notNull()
@@ -64,7 +64,7 @@ class DBManager: NSObject {
             try? dbQueue.inDatabase { db in
                 try db.create(table: "Favorites") { t in
                     t.column("media_name", .text).notNull()
-                    t.column("media_id", .text).notNull()
+                    t.column("media_id", .text).notNull().unique(onConflict: Database.ConflictResolution.ignore)
                     t.column("media_pic", .integer).notNull()
                     t.column("media_url", .text).notNull()
                     t.column("media_singer", .text).notNull()
@@ -81,7 +81,7 @@ class DBManager: NSObject {
             
             try? dbQueue.inDatabase { db in
                 try db.create(table: "Likes") { t in
-                    t.column("media_id", .text).notNull()
+                    t.column("media_id", .text).notNull().unique(onConflict: Database.ConflictResolution.ignore)
                     t.column("media_type", .text).notNull()
                     t.column("media_service_type", .text).notNull()
                     t.column("id", .integer).primaryKey(onConflict: Database.ConflictResolution.ignore, autoincrement: true).notNull()

@@ -10,6 +10,8 @@ import UIKit
 import XLPagerTabStrip
 
 class DownloadedViewController: ButtonBarPagerTabStripViewController{
+   
+   
     
     override func viewDidLoad() {
         
@@ -26,6 +28,10 @@ class DownloadedViewController: ButtonBarPagerTabStripViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         moveToViewControllerAtIndex(1)
+        
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -23,10 +23,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MediaCell" rowHeight="230" id="690-CF-s4X" customClass="MediaTableViewCell" customModule="nava" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="230"/>
+                                        <rect key="frame" x="0.0" y="28" width="1000" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="690-CF-s4X" id="8YP-p9-l10">
-                                            <frame key="frameInset" width="375" height="230"/>
+                                            <frame key="frameInset" width="1000" height="230"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeTab" translatesAutoresizingMaskIntoConstraints="NO" id="8cV-NM-Oea">
@@ -517,10 +517,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MediaCell" rowHeight="230" id="2b9-u8-uwc" customClass="MediaTableViewCell" customModule="nava" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="230"/>
+                                        <rect key="frame" x="0.0" y="28" width="1000" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2b9-u8-uwc" id="8wr-JW-lS1">
-                                            <frame key="frameInset" width="375" height="230"/>
+                                            <frame key="frameInset" width="1000" height="230"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeTab" translatesAutoresizingMaskIntoConstraints="NO" id="eVR-DK-NrL">
@@ -993,6 +993,9 @@
                             <constraint firstItem="NYx-sJ-d3N" firstAttribute="centerX" secondItem="qV7-M3-nOR" secondAttribute="centerX" id="fSu-vK-ipH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="videoTbl" destination="NYx-sJ-d3N" id="APe-3d-Qwo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0sA-7d-36n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1014,10 +1017,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MediaCell" rowHeight="230" id="FQz-6v-CnD" customClass="MediaTableViewCell" customModule="nava" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="230"/>
+                                        <rect key="frame" x="0.0" y="28" width="1000" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FQz-6v-CnD" id="oeL-SM-ubi">
-                                            <frame key="frameInset" width="375" height="230"/>
+                                            <frame key="frameInset" width="1000" height="230"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeTab" translatesAutoresizingMaskIntoConstraints="NO" id="tpj-mL-YdK">
@@ -1115,6 +1118,9 @@
                             <constraint firstItem="fib-Ry-gyU" firstAttribute="leading" secondItem="xyI-cu-lDz" secondAttribute="leading" id="ue4-ii-NLD"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="musicTbl" destination="fib-Ry-gyU" id="N3v-s9-TWV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mGF-AK-qV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

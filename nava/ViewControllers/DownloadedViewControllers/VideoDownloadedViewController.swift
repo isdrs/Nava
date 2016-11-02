@@ -13,12 +13,34 @@ class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
     
     var downlodedVideo = [MediaItem]()
     
+    @IBOutlet weak var videoTbl: UITableView!
+    
+    var refreshControl : UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.LoadData), for: UIControlEvents.valueChanged)
+        videoTbl.addSubview(refreshControl)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if self.refreshControl.isRefreshing
+        {
+            self.refreshControl.endRefreshing()
+        }
+        
+        LoadData()
+    }
+    
+       func  LoadData()
+    {
         downlodedVideo = MediaManager.GetDBMedia(mediaType: .video)
+        videoTbl.reloadData()
+        self.refreshControl.endRefreshing()
     }
     
     override func didReceiveMemoryWarning() {

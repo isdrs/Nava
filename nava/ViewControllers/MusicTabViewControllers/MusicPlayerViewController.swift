@@ -18,7 +18,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     var mediaItem : MediaItem!
     private var singerMediaItems : [MediaItem] = [MediaItem]()
-
     
     private var playingMusicView : UIView!
     private var musicListView : UIView!
@@ -41,7 +40,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     private var btnLike : UIButton!
     private var btnDownLoad : UIButton!
-    
     private var musicImage : UIImageView!
     
     private var btnIranCell : UIButton!
@@ -53,8 +51,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     private var isMusicSliderTouched = false
     var popUpViewHeight = CGFloat()
     private var isLiked = false
-    
-    //var playButton : UIButton!
+    private var isDownloaded = false
+    private var isFavorited = false
     var jukebox : Jukebox!
     
     @objc private func buttonAction(sender: UIButton!) {
@@ -89,17 +87,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     func tapBlurButton(_ sender: UITapGestureRecognizer) {
         print("Tap UI")
             // your code here
-            UIView.animate(withDuration: 0.5) {
-                
-                self.popUpView.frame.size.height = CGFloat()
-                
-                self.shareBtn.isHidden = true
-                self.shareBtn.isEnabled = false
-                
-                self.addToFavoriteBtn.isEnabled = false
-                self.addToFavoriteBtn.isHidden = true
-                
-            }
+        
+            HidePopUpView()
     }
     
     @objc private func HamrahAvvalAction()
@@ -223,8 +212,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let tmp : [String  : String] = notification.userInfo! as! [String : String]
         
         // if notification received, change label value
-        let id = tmp["MediaId"] as String!
-        let current = tmp["Progress"] as String!
+        let id = tmp[Tools.StaticVariables.MediaIdNotificationsKey] as String!
+        let current = tmp[Tools.StaticVariables.ProgressNotificationsKey] as String!
         
         if String(mediaItem.MediaID) == id
         {
@@ -245,8 +234,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         
-        
-       
+        isFavorited = MediaManager.IsFavoritedMedia(mediaItem: mediaItem)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlurButton(_:)))
 
@@ -267,7 +255,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         SetMusicListView()
         SetPopUpMenuView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateDownloadProgressLabel), name: NSNotification.Name(rawValue: "DownloadProgressNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateDownloadProgressLabel), name: NSNotification.Name(rawValue: Tools.StaticVariables.DownloadProgressNotificationKey ), object: nil)
         
     }
     
@@ -452,6 +440,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func SetPopUpMenuView() -> Void{
+        
         popUpViewHeight = playingMusicView.frame.size.height * 0.26
         let viewSize = CGSize(width: self.playingMusicView.frame.size.width * 0.6 , height: 0)
         let viewPosition = CGPoint(x: self.playingMusicView.frame.size.width - viewSize.width - Tools.GetScreenWidthPercent(), y: 0)
@@ -492,6 +481,20 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+    func HidePopUpView()
+    {
+        UIView.animate(withDuration: 0.5) {
+            
+            self.popUpView.frame.size.height = CGFloat()
+            
+            self.shareBtn.isHidden = true
+            self.shareBtn.isEnabled = false
+            
+            self.addToFavoriteBtn.isEnabled = false
+            self.addToFavoriteBtn.isHidden = true
+        }
+    }
+    
     func Sharing()
     {
         let text = mediaItem.ShareUrl
@@ -510,7 +513,22 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func AddToFavorite()
     {
-        print("add to favorite tapped")
+        if !isFavorited
+        {
+            let res = MediaManager.AddNewFavoriteToDB(mediaItems: [mediaItem])
+            
+            if res
+            {
+                SCLAlertView().showSuccess("", subTitle: "انحام شد", closeButtonTitle: "تایید", duration: 5.6)
+                isFavorited = true
+            }
+            else
+            {
+                SCLAlertView().showError("", subTitle: "انحام نشد", closeButtonTitle: "تایید", duration: 5.6)
+            }
+            
+        }
+        HidePopUpView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -527,8 +545,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
-    
-    private var isDownloaded = false
     
     private func LoadData()
     {

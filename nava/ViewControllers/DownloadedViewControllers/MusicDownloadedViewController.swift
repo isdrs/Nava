@@ -12,13 +12,35 @@ import XLPagerTabStrip
 class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
     
     var downlodedMusic = [MediaItem]()
+  
+    var refreshControl : UIRefreshControl!
     
+    @IBOutlet weak var musicTbl: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.LoadData), for: UIControlEvents.valueChanged)
+        musicTbl.addSubview(refreshControl)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if self.refreshControl.isRefreshing
+        {
+            self.refreshControl.endRefreshing()
+        }
+        
+        LoadData()
+    }
+    
+    func  LoadData()
+    {
         downlodedMusic = MediaManager.GetDBMedia(mediaType: .sound)
+        musicTbl.reloadData()
+        self.refreshControl.endRefreshing()
     }
     
     override func didReceiveMemoryWarning() {

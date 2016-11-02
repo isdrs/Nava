@@ -622,8 +622,9 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         jukebox = Jukebox(delegate: self, items: [currentMedia])
+     
         
-        //jukebox.play()
+        jukebox.play()
     }
     
     func resetUI()

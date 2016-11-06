@@ -23,10 +23,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MediaCell" rowHeight="230" id="690-CF-s4X" customClass="MediaTableViewCell" customModule="nava" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="230"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="690-CF-s4X" id="8YP-p9-l10">
-                                            <frame key="frameInset" width="1000" height="230"/>
+                                            <frame key="frameInset" width="375" height="230"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeTab" translatesAutoresizingMaskIntoConstraints="NO" id="8cV-NM-Oea">
@@ -191,7 +191,6 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="MusicTab" id="acW-dT-cKf" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
-                        <inset key="imageInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="yOffSet">
                                 <real key="value" value="-5"/>
@@ -383,26 +382,7 @@
                     <view key="view" contentMode="scaleToFill" id="C8G-HP-Cx9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="WBH-4P-StX">
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bee-vI-9Rw">
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Bee-vI-9Rw" firstAttribute="top" secondItem="WBH-4P-StX" secondAttribute="bottom" constant="8" symbolic="YES" id="8Bu-uj-nSZ"/>
-                            <constraint firstAttribute="centerX" secondItem="WBH-4P-StX" secondAttribute="centerX" id="RSr-kd-bb8"/>
-                            <constraint firstItem="Bee-vI-9Rw" firstAttribute="centerX" secondItem="WBH-4P-StX" secondAttribute="centerX" id="XbR-N2-pGm"/>
-                            <constraint firstAttribute="centerY" secondItem="WBH-4P-StX" secondAttribute="centerY" id="lhc-na-2Ww"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="SearchTab" id="5kr-4B-VOe" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">
                         <inset key="imageInsets" minX="5" minY="5" maxX="5" maxY="5"/>
@@ -517,10 +497,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MediaCell" rowHeight="230" id="2b9-u8-uwc" customClass="MediaTableViewCell" customModule="nava" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="230"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2b9-u8-uwc" id="8wr-JW-lS1">
-                                            <frame key="frameInset" width="1000" height="230"/>
+                                            <frame key="frameInset" width="375" height="230"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeTab" translatesAutoresizingMaskIntoConstraints="NO" id="eVR-DK-NrL">
@@ -1017,10 +997,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MediaCell" rowHeight="230" id="FQz-6v-CnD" customClass="MediaTableViewCell" customModule="nava" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="230"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FQz-6v-CnD" id="oeL-SM-ubi">
-                                            <frame key="frameInset" width="1000" height="230"/>
+                                            <frame key="frameInset" width="375" height="230"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeTab" translatesAutoresizingMaskIntoConstraints="NO" id="tpj-mL-YdK">

@@ -23,7 +23,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     private var musicListView : UIView!
     
     private var tableView : UITableView!
-    let cellReuseIdendifier = "cell"
     
     private var btnBack : UIButton!
     private var btnMenu : UIButton!
@@ -327,7 +326,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         //Irancell and Hamrah Aval Button
-        self.btnHamrah = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز همراه اول")
+        self.btnHamrah = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز همراه اول",fontSize: 19.0)
         self.btnHamrah.frame.size = CGSize(width: playingMusicView.frame.size.width * 0.48, height: playingMusicView.frame.height * 0.08)
         self.btnHamrah.frame.origin = CGPoint(x: Tools.GetScreenWidthPercent(), y: 0)
         self.btnHamrah.center.y =  playingMusicView.frame.height * 0.95
@@ -337,7 +336,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         // Irancell
-        self.btnIranCell = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز ایرانسل")
+        self.btnIranCell = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز ایرانسل",fontSize: 19.0)
         self.btnIranCell.frame.size = btnHamrah.frame.size
         self.btnIranCell.frame.origin = CGPoint(x: playingMusicView.frame.size.width - btnIranCell.frame.size.width - Tools.GetScreenWidthPercent(), y: btnHamrah.frame.origin.y)
         self.btnIranCell.backgroundColor = UIColor.gray
@@ -460,7 +459,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         // set tableview properties
         tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(MediaCell.self, forCellReuseIdentifier: cellReuseIdendifier)
+        tableView.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
         tableView.rowHeight = MediaCell.cellHeight
         tableView.backgroundColor = .black
         tableView.dataSource = self
@@ -484,7 +483,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         popUpView.frame.origin = viewPosition
        
         
-        shareBtn = Tools.MakeUIButtonWithAttributes(btnName: "اشتراک گذاری")
+        shareBtn = Tools.MakeUIButtonWithAttributes(btnName: "اشتراک گذاری",fontSize: 19.0)
         shareBtn.frame = CGRect(x: 0, y: 0, width: popUpView.frame.size.width, height: popUpViewHeight * 0.5)
         shareBtn.backgroundColor = UIColor.darkGray
         self.shareBtn.addTarget(self, action: #selector(self.Sharing), for: UIControlEvents.touchUpInside)
@@ -492,7 +491,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         shareBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         
         
-        addToFavoriteBtn = Tools.MakeUIButtonWithAttributes(btnName: "")
+        addToFavoriteBtn = Tools.MakeUIButtonWithAttributes(btnName: "",fontSize: 19.0)
         addToFavoriteBtn.frame = CGRect(x: 0, y: shareBtn.frame.size.height, width: shareBtn.frame.size.width, height: shareBtn.frame.size.height)
         addToFavoriteBtn.backgroundColor = UIColor.darkGray
         self.addToFavoriteBtn.addTarget(self, action: #selector(self.AddToFavorite), for: UIControlEvents.touchUpInside)
@@ -748,7 +747,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
 
         let cellSize = CGSize(width: Tools.screenWidth, height: Tools.GetScreenHeightPercent() * 25)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdendifier, for: indexPath as IndexPath) as! MediaCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier, for: indexPath as IndexPath) as! MediaCell
         
         
         

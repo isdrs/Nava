@@ -247,14 +247,7 @@
                             <constraint firstItem="sS1-80-xzN" firstAttribute="width" secondItem="yJY-jc-DyK" secondAttribute="width" id="wFq-qI-Lc9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="نواهای آسمانی" id="rup-fL-3le">
-                        <barButtonItem key="leftBarButtonItem" image="Menu" style="plain" id="exo-xb-wnX">
-                            <inset key="imageInsets" minX="-5" minY="10" maxX="30" maxY="10"/>
-                            <connections>
-                                <action selector="ToggleMenuAction:" destination="mBD-Tr-eYk" id="5wi-Yv-qGA"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="نواهای آسمانی" id="rup-fL-3le"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9b-hx-iFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -559,7 +552,6 @@
     </scenes>
     <resources>
         <image name="DownloadedTab" width="48" height="48"/>
-        <image name="Menu" width="48" height="48"/>
         <image name="MusicTab" width="48" height="48"/>
         <image name="SearchTab" width="48" height="48"/>
         <image name="VideoTab" width="48" height="48"/>

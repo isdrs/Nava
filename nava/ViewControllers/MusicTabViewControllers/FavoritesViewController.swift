@@ -9,14 +9,17 @@
 import UIKit
 import XLPagerTabStrip
 
-class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
+
+
+class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource, FavoriteCellItemDelegate {
     
     private var tblFavoriteMedia: UITableView!
     var mediaDataArray : [MediaItem] = []
     var mediaType = NavaEnums.ServiceMediaType.all
     
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
@@ -26,13 +29,22 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         
     }
     
+    func LoadData()
+    {
+        mediaDataArray = MediaManager.GetFavoriteMedia(mediaType: mediaType)
+        DispatchQueue.main.async
+            {
+                self.tblFavoriteMedia.reloadData()
+        }
+    }
+    
     func SetTableView()
     {
         // set tableview properties
         tblFavoriteMedia = UITableView()
         tblFavoriteMedia = UITableView(frame: .zero, style: .plain)
-        tblFavoriteMedia.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
-        tblFavoriteMedia.rowHeight = MediaCell.cellHeight
+        tblFavoriteMedia.register(FavoriteCellItem.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
+        tblFavoriteMedia.rowHeight = FavoriteCellItem.cellHeight
         tblFavoriteMedia.backgroundColor = .black
         tblFavoriteMedia.dataSource = self
         tblFavoriteMedia.delegate = self
@@ -41,14 +53,11 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         self.view.addSubview(tblFavoriteMedia)
         
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        mediaDataArray = MediaManager.GetFavoriteMedia(mediaType: mediaType)
-        DispatchQueue.main.async
-            {
-                self.tblFavoriteMedia.reloadData()
-        }
+        LoadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,17 +78,20 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! MediaCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! FavoriteCellItem
         
         let mediaItem = mediaDataArray[indexPath.row]
         
+        cell.cellMedia = mediaItem
+        
         cell.MusicTitleLabel = mediaItem.MediaName
         cell.SingerNameLabel = mediaItem.ArtistName
-        cell.LikeCounterLabelText = mediaItem.Like
-        cell.DownloadCounterLabelText = mediaItem.Download
+        
         //cell.time.text = mediaItem.Time
         
         cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
+        
+        cell.delegate = self
         
         return cell
     }

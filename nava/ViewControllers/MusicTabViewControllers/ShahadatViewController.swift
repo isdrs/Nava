@@ -88,13 +88,11 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
         
         let mediaItem = mediaDataArray[indexPath.row]
         
-        
-        
         cell.MusicTitleLabel = mediaItem.MediaName
         cell.SingerNameLabel = mediaItem.ArtistName
         cell.LikeCounterLabelText = mediaItem.Like
         cell.DownloadCounterLabelText = mediaItem.Download
-        //cell.time.text = mediaItem.Time
+       // cell.time.text = mediaItem.Time
         
         cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.LargpicUrl) as! URL)
         

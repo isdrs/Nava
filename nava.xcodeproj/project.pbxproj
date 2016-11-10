@@ -13,7 +13,7 @@
 		1178C8C51DD1EA0F00096D0A /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178C8C41DD1EA0F00096D0A /* VideoPlayerViewController.swift */; };
 		1178C8C71DD1FE3D00096D0A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178C8C61DD1FE3D00096D0A /* PlayerViewController.swift */; };
 		1181D96C1DD4B53B00CA2351 /* SameArtistCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1181D96B1DD4B53B00CA2351 /* SameArtistCellItem.swift */; };
-		1181D96E1DD4D70400CA2351 /* FavoriteCellitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1181D96D1DD4D70400CA2351 /* FavoriteCellitem.swift */; };
+		1181D96E1DD4D70400CA2351 /* FavoriteCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1181D96D1DD4D70400CA2351 /* FavoriteCellItem.swift */; };
 		119611471DC24FD300464556 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119611461DC24FD300464556 /* Tools.swift */; };
 		11F89FC21DBE0E1700E74240 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F89FC11DBE0E1700E74240 /* SlideMenuViewController.swift */; };
 		11F89FC41DBE24D500E74240 /* SwiftyAccordionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */; };
@@ -62,7 +62,7 @@
 		1178C8C41DD1EA0F00096D0A /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoPlayerViewController.swift; path = ViewControllers/MusicTabViewControllers/VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		1178C8C61DD1FE3D00096D0A /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = ViewControllers/MusicTabViewControllers/PlayerViewController.swift; sourceTree = "<group>"; };
 		1181D96B1DD4B53B00CA2351 /* SameArtistCellItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SameArtistCellItem.swift; path = Classes/SameArtistCellItem.swift; sourceTree = "<group>"; };
-		1181D96D1DD4D70400CA2351 /* FavoriteCellitem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoriteCellitem.swift; path = Classes/Items/FavoriteCellitem.swift; sourceTree = "<group>"; };
+		1181D96D1DD4D70400CA2351 /* FavoriteCellItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoriteCellItem.swift; path = Classes/Items/FavoriteCellItem.swift; sourceTree = "<group>"; };
 		119611461DC24FD300464556 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tools.swift; path = Classes/Managers/Tools.swift; sourceTree = "<group>"; };
 		11F89FC11DBE0E1700E74240 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlideMenuViewController.swift; path = ViewControllers/SlideMenuViewController.swift; sourceTree = "<group>"; };
 		11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyAccordionCells.swift; path = Classes/Items/SwiftyAccordionCells.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 				11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */,
 				1172BC731DC349C20026617F /* MediaCell.swift */,
 				1181D96B1DD4B53B00CA2351 /* SameArtistCellItem.swift */,
-				1181D96D1DD4D70400CA2351 /* FavoriteCellitem.swift */,
+				1181D96D1DD4D70400CA2351 /* FavoriteCellItem.swift */,
 			);
 			name = Items;
 			sourceTree = "<group>";
@@ -420,7 +420,7 @@
 			files = (
 				1108338D1DD31417000DCA80 /* NavaEnums.swift in Sources */,
 				11F89FC41DBE24D500E74240 /* SwiftyAccordionCells.swift in Sources */,
-				1181D96E1DD4D70400CA2351 /* FavoriteCellitem.swift in Sources */,
+				1181D96E1DD4D70400CA2351 /* FavoriteCellItem.swift in Sources */,
 				844A80551DAA5BAD00EF7A0C /* SearchViewController.swift in Sources */,
 				843E059A1DAA8E7C00306DCC /* FavoritesViewController.swift in Sources */,
 				840F10201DB4BBF7000D430B /* ContainerViewController.swift in Sources */,

@@ -356,10 +356,11 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.musicListView.frame = CGRect(x: viewPosition.x ,y: viewPosition.y + viewSize.height, width: viewSize.width, height: Tools.screenHeight * 0.45)
         
         
+        
         // set tableview properties
         tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
-        tableView.rowHeight = MediaCell.cellHeight
+        tableView.register(SameArtistCellItem.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
+        tableView.rowHeight = SameArtistCellItem.cellHeight
         tableView.backgroundColor = .black
         tableView.dataSource = self
         tableView.delegate = self
@@ -544,9 +545,11 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellSize = CGSize(width: Tools.screenWidth, height: Tools.screenHeight * 0.25)
+        let cellSize = CGSize(width: Tools.screenWidth, height: SameArtistCellItem.cellHeight)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier, for: indexPath as IndexPath) as! MediaCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier, for: indexPath as IndexPath) as! SameArtistCellItem
+        
+        cell.cellMedia = singerMediaItems[indexPath.row]
         
         
         

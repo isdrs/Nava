@@ -39,12 +39,6 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="10" minY="10" maxX="0.0" maxY="10"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdT-9C-4GF">
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="15" id="hqQ-Lg-Iut"/>
-                                </constraints>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pEt-cF-8O4" customClass="ButtonBarView" customModule="XLPagerTabStrip">
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -75,12 +69,9 @@
                             <constraint firstItem="esc-aP-rTN" firstAttribute="width" secondItem="tsR-hK-woN" secondAttribute="width" id="KiK-6p-qt2"/>
                             <constraint firstItem="pEt-cF-8O4" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="N3O-zB-OpR"/>
                             <constraint firstItem="esc-aP-rTN" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" id="PNo-iQ-Ff5"/>
-                            <constraint firstItem="qdT-9C-4GF" firstAttribute="height" secondItem="esc-aP-rTN" secondAttribute="height" id="cfy-eU-J41"/>
                             <constraint firstItem="esc-aP-rTN" firstAttribute="leading" secondItem="pEt-cF-8O4" secondAttribute="leading" id="fic-AL-Ysr"/>
                             <constraint firstItem="pEt-cF-8O4" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="kfh-6G-fIU"/>
                             <constraint firstItem="pEt-cF-8O4" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="khr-Jb-HTn"/>
-                            <constraint firstItem="qdT-9C-4GF" firstAttribute="top" secondItem="esc-aP-rTN" secondAttribute="top" id="nG4-8R-eYG"/>
-                            <constraint firstItem="qdT-9C-4GF" firstAttribute="leading" secondItem="esc-aP-rTN" secondAttribute="leading" id="vUW-po-kEy"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="MusicTab" id="acW-dT-cKf" customClass="RAMAnimatedTabBarItem" customModule="RAMAnimatedTabBarController">

@@ -8,6 +8,7 @@
 
 import UIKit
 import XLPagerTabStrip
+import RAMAnimatedTabBarController
 
 class MusicViewController: ButtonBarPagerTabStripViewController {
 
@@ -24,10 +25,6 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
         
 
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        //moveToViewControllerAtIndex(3)
-        
-        
     }
 
 

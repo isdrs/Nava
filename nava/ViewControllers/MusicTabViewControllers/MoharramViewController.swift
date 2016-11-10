@@ -11,15 +11,33 @@ import XLPagerTabStrip
 
 class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var tblMoharramMedia: UITableView!
+    private var tblMoharramMedia : UITableView!
+    
     var mediaDataArray : [MediaItem] = []
-    var mediaType = ServiceManager.ServiceMediaType.all
+    var mediaType = NavaEnums.ServiceMediaType.all
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        SetTableView()
+    }
+    
+    func SetTableView()
+    {
+        // set tableview properties
+        tblMoharramMedia = UITableView()
+        tblMoharramMedia = UITableView(frame: .zero, style: .plain)
+        tblMoharramMedia.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
+        tblMoharramMedia.rowHeight = MediaCell.cellHeight
+        tblMoharramMedia.backgroundColor = .black
+        tblMoharramMedia.dataSource = self
+        tblMoharramMedia.delegate = self
+        tblMoharramMedia.frame = self.view.frame
+        tblMoharramMedia.separatorStyle = .none
+        self.view.addSubview(tblMoharramMedia)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,17 +73,17 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell") as! MediaTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! MediaCell
         
         let mediaItem = mediaDataArray[indexPath.row]
         
-        cell.lblMusicName.text = mediaItem.MediaName
-        cell.lblSinger.text = mediaItem.ArtistName
-        cell.lblLikeCount.text = mediaItem.Like
-        cell.lblDownloadCount.text = mediaItem.Download
-        cell.lblMusicTime.text = mediaItem.Time
+        cell.MusicTitleLabel = mediaItem.MediaName
+        cell.SingerNameLabel = mediaItem.ArtistName
+        cell.LikeCounterLabelText = mediaItem.Like
+        cell.DownloadCounterLabelText = mediaItem.Download
+        //cell.time.text = mediaItem.Time
         
-        cell.imgMusicThumb.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
+        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
         
         return cell
     }
@@ -74,14 +92,24 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableVi
         
         let stb = UIStoryboard(name: "Main", bundle: nil)
         
-        let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-        musicPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
-        
-        self.present(musicPlayerViewController, animated: false) {
+        if mediaType == .sound
+        {
+            let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+            musicPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
             
+            self.present(musicPlayerViewController, animated: false) {
+                
+            }
         }
-        
-        //self.navigationController?.pushViewController(musicPlayerViewController, animated: false)
+        else
+        {
+            let videoPlayerViewController = stb.instantiateViewController(withIdentifier: "VideoPlayerViewController") as! VideoPlayerViewController
+            videoPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
+            
+            self.present(videoPlayerViewController, animated: false) {
+                
+            }
+        }
     }
 
     /*

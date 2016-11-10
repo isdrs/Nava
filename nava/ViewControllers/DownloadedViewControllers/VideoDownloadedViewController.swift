@@ -13,7 +13,7 @@ class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
     
     var downlodedVideo = [MediaItem]()
     
-    @IBOutlet weak var videoTbl: UITableView!
+    private var videoTbl: UITableView!
     
     var refreshControl : UIRefreshControl!
     
@@ -21,9 +21,27 @@ class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        SetTableView()
+        
+        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.LoadData), for: UIControlEvents.valueChanged)
         videoTbl.addSubview(refreshControl)
+    }
+    
+    func SetTableView()
+    {
+        // set tableview properties
+        videoTbl = UITableView()
+        videoTbl = UITableView(frame: .zero, style: .plain)
+        videoTbl.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
+        videoTbl.rowHeight = MediaCell.cellHeight
+        videoTbl.backgroundColor = .black
+        videoTbl.dataSource = self
+        videoTbl.delegate = self
+        videoTbl.frame = self.view.frame
+        videoTbl.separatorStyle = .none
+        self.view.addSubview(videoTbl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,19 +79,35 @@ class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell") as! MediaTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! MediaCell
         
         let mediaItem = downlodedVideo[indexPath.row]
         
-        cell.lblMusicName.text = mediaItem.MediaName
-        cell.lblSinger.text = mediaItem.ArtistName
-        cell.lblLikeCount.text = mediaItem.Like
-        cell.lblDownloadCount.text = mediaItem.Download
-        cell.lblMusicTime.text = mediaItem.Time
+        cell.MusicTitleLabel = mediaItem.MediaName
+        cell.SingerNameLabel = mediaItem.ArtistName
+        cell.LikeCounterLabelText = mediaItem.Like
+        cell.DownloadCounterLabelText = mediaItem.Download
+        //cell.time.text = mediaItem.Time
         
-        cell.imgMusicThumb.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
+        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let stb = UIStoryboard(name: "Main", bundle: nil)
+        
+
+            let videoPlayerViewController = stb.instantiateViewController(withIdentifier: "VideoPlayerViewController") as! VideoPlayerViewController
+            videoPlayerViewController.mediaItem = downlodedVideo[indexPath.row]
+            
+            self.present(videoPlayerViewController, animated: false) {
+                
+            }
+        
+        
+        //self.navigationController?.pushViewController(musicPlayerViewController, animated: false)
     }
     
 

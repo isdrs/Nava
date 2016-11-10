@@ -58,6 +58,8 @@ class DownloadedViewController: ButtonBarPagerTabStripViewController{
         return [page_Video, page_Music ]//[page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
     }
     
+    
+    
     /*
     // MARK: - Navigation
 

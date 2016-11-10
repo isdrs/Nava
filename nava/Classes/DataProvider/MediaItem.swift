@@ -14,8 +14,8 @@ class MediaItem: NSObject
     private var artistName : String = ""
     private var artistId : String = ""
     private var mediaID : String = ""
-    private var mediaType : ServiceManager.ServiceMediaType = ServiceManager.ServiceMediaType.all
-    private var mediaServiceType : ServiceManager.ServiceType = ServiceManager.ServiceType.shahadat
+    private var mediaType : NavaEnums.ServiceMediaType = NavaEnums.ServiceMediaType.all
+    private var mediaServiceType : NavaEnums.ServiceType = NavaEnums.ServiceType.shahadat
     private var mediaUrl : String = ""
     private var largpicUrl : String = ""
     private var smallpicUrl : String = ""
@@ -74,7 +74,7 @@ class MediaItem: NSObject
         }
     }
     
-    public var MediaType : ServiceManager.ServiceMediaType
+    public var MediaType : NavaEnums.ServiceMediaType
         {
         get
         {
@@ -86,7 +86,7 @@ class MediaItem: NSObject
         }
     }
     
-    public var MediaServiceType : ServiceManager.ServiceType
+    public var MediaServiceType : NavaEnums.ServiceType
         {
         get
         {

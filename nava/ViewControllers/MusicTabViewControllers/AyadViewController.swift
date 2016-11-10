@@ -11,24 +11,40 @@ import XLPagerTabStrip
 
 class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var tblAyadMedia: UITableView!
-    var musicDataArray : [MediaItem] = []
-    var mediaType = ServiceManager.ServiceMediaType.all
+   private var tblAyadMedia: UITableView!
+    var mediaDataArray : [MediaItem] = []
+    var mediaType = NavaEnums.ServiceMediaType.all
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        SetTableView()
     }
     
+    func SetTableView()
+    {
+        // set tableview properties
+        tblAyadMedia = UITableView()
+        tblAyadMedia = UITableView(frame: .zero, style: .plain)
+        tblAyadMedia.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
+        tblAyadMedia.rowHeight = MediaCell.cellHeight
+        tblAyadMedia.backgroundColor = .black
+        tblAyadMedia.dataSource = self
+        tblAyadMedia.delegate = self
+        tblAyadMedia.frame = self.view.frame
+        tblAyadMedia.separatorStyle = .none
+        self.view.addSubview(tblAyadMedia)
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         ServiceManager.GetMediaList(mediaType: mediaType, serviceType: .eid, pageNo: 1) { (status, newMusics) in
             if status
             {
-                self.musicDataArray = newMusics
+                self.mediaDataArray = newMusics
                 
                 DispatchQueue.main.async {
                     self.tblAyadMedia.reloadData()
@@ -51,21 +67,21 @@ class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return musicDataArray.count
+        return mediaDataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell") as! MediaTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! MediaCell
         
-        let mediaItem = musicDataArray[indexPath.row]
+        let mediaItem = mediaDataArray[indexPath.row]
         
-        cell.lblMusicName.text = mediaItem.MediaName
-        cell.lblSinger.text = mediaItem.ArtistName
-        cell.lblLikeCount.text = mediaItem.Like
-        cell.lblDownloadCount.text = mediaItem.Download
-        cell.lblMusicTime.text = mediaItem.Time
+        cell.MusicTitleLabel = mediaItem.MediaName
+        cell.SingerNameLabel = mediaItem.ArtistName
+        cell.DownloadCounterLabelText = mediaItem.Like
+        cell.DownloadCounterLabelText = mediaItem.Download
+        //cell.lblMusicTime.text = mediaItem.Time
         
-        cell.imgMusicThumb.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
+        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
         
         return cell
     }
@@ -74,14 +90,24 @@ class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDe
         
         let stb = UIStoryboard(name: "Main", bundle: nil)
         
-        let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-        musicPlayerViewController.mediaItem = musicDataArray[indexPath.row]
-        
-        self.present(musicPlayerViewController, animated: false) {
+        if mediaType == .sound
+        {
+            let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+            musicPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
             
+            self.present(musicPlayerViewController, animated: false) {
+                
+            }
         }
-        
-        //self.navigationController?.pushViewController(musicPlayerViewController, animated: false)
+        else
+        {
+            let videoPlayerViewController = stb.instantiateViewController(withIdentifier: "VideoPlayerViewController") as! VideoPlayerViewController
+            videoPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
+            
+            self.present(videoPlayerViewController, animated: false) {
+                
+            }
+        }
     }
 
     

@@ -15,16 +15,39 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
   
     var refreshControl : UIRefreshControl!
     
-    @IBOutlet weak var musicTbl: UITableView!
+    private var musicTbl: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        SetTableView()
+        
+        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.LoadData), for: UIControlEvents.valueChanged)
         musicTbl.addSubview(refreshControl)
     }
+    
+    func SetTableView()
+    {
+        // set tableview properties
+        musicTbl = UITableView()
+        musicTbl = UITableView(frame: .zero, style: .plain)
+        musicTbl.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
+        musicTbl.rowHeight = MediaCell.cellHeight
+        musicTbl.backgroundColor = .black
+        musicTbl.dataSource = self
+        musicTbl.delegate = self
+        musicTbl.frame = self.view.frame
+        musicTbl.separatorStyle = .none
+        self.view.addSubview(musicTbl)
+    }
+
+    
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -61,17 +84,17 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell") as! MediaTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! MediaCell
         
         let mediaItem = downlodedMusic[indexPath.row]
         
-        cell.lblMusicName.text = mediaItem.MediaName
-        cell.lblSinger.text = mediaItem.ArtistName
-        cell.lblLikeCount.text = mediaItem.Like
-        cell.lblDownloadCount.text = mediaItem.Download
-        cell.lblMusicTime.text = mediaItem.Time
+        cell.MusicTitleLabel = mediaItem.MediaName
+        cell.SingerNameLabel = mediaItem.ArtistName
+        cell.LikeCounterLabelText = mediaItem.Like
+        cell.DownloadCounterLabelText = mediaItem.Download
+        //cell.time.text = mediaItem.Time
         
-        cell.imgMusicThumb.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
+        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
         
         return cell
     }

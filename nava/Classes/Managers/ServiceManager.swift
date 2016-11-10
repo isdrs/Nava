@@ -24,45 +24,13 @@ class ServiceManager: NSObject
     
     private static var ParametersForLikeOrDownload = "%@/%@"
     
+    private static var ParametersForSearchTypeList = "%@"
     
+    private static var ParametersForSearch = "search/%@/%@/%@/%@/20/%@"
     
-    enum ServiceType: String
-    {
-        case shahadat, moharam, eid
-        
-        static func GetFromString(typeString : String) -> ServiceType {
-            switch typeString {
-            case ServiceType.shahadat.rawValue:
-                return .shahadat
-            case ServiceType.eid.rawValue:
-                return .eid
-            case ServiceType.moharam.rawValue:
-                return .moharam
-            default:
-                return ServiceManager.ServiceType(rawValue: "")!
-            }
-        }
-    }
-    
-    enum ServiceMediaType: String
-    {
-        case all, sound, video
-        
-        static func GetFromString(typeString : String) -> ServiceMediaType {
-            switch typeString {
-            case ServiceMediaType.sound.rawValue:
-                return .sound
-            case ServiceMediaType.video.rawValue:
-                return .video
 
-            default:
-                return ServiceMediaType.all
-     
-            }
-        }
-    }
     
-    static func GetMediaList(mediaType : ServiceMediaType, serviceType : ServiceType, pageNo : Int, callBack : @escaping (Bool, [MediaItem]) -> Void  )
+    static func GetMediaList(mediaType : NavaEnums.ServiceMediaType, serviceType : NavaEnums.ServiceType, pageNo : Int, callBack : @escaping (Bool, [MediaItem]) -> Void  )
     {
         let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersWithoutSingerURL, mediaType.rawValue, serviceType.rawValue, String(pageNo))
         
@@ -85,7 +53,7 @@ class ServiceManager: NSObject
         }
     }
     
-    static func GetMediaListByArtist(mediaItem : MediaItem, mediaType : ServiceMediaType, serviceType : ServiceType, pageNo : Int, callBack : @escaping (Bool, [MediaItem]) -> Void  )
+    static func GetMediaListByArtist(mediaItem : MediaItem, mediaType : NavaEnums.ServiceMediaType, serviceType : NavaEnums.ServiceType, pageNo : Int, callBack : @escaping (Bool, [MediaItem]) -> Void  )
     {
         let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersWithSingerURL, mediaType.rawValue, mediaItem.ArtistId, serviceType.rawValue, String(pageNo))
         
@@ -128,7 +96,8 @@ class ServiceManager: NSObject
             return (documentsURL ,[.removePreviousFile, .createIntermediateDirectories])
         }
         
-        Alamofire.download(mediaItem.MediaUrl, to: destination).downloadProgress(closure: { (prog) in
+        
+        Alamofire.download(mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!, to: destination).downloadProgress(closure: { (prog) in
             print("Download Progress: \(prog.fractionCompleted * 100)")
             
             var fileInfo = [String:String]()
@@ -155,30 +124,10 @@ class ServiceManager: NSObject
                 callBack(false)
             }
         }
-
-        
-//        Alamofire.download(mediaItem.MediaUrl).downloadProgress(closure: { (prog) in
-//            print("Download Progress: \(prog.fractionCompleted)")
-//        }).responseData { response in
-//            
-//            switch response.result {
-//            case .success:
-//                
-//                if let data = response.result.value
-//                {
-//                    
-//                }
-//                
-//            case .failure(let error):
-//                print(error)
-//            }
-//            
-//            
-//        }
         
     }
     
-    private static func GetMediaFromResponse(json: JSON, mediaType : ServiceMediaType, serviceType: ServiceType) -> [MediaItem]
+    private static func GetMediaFromResponse(json: JSON, mediaType : NavaEnums.ServiceMediaType, serviceType: NavaEnums.ServiceType) -> [MediaItem]
     {
         
         var mediaItemArray = [MediaItem]()
@@ -237,6 +186,106 @@ class ServiceManager: NSObject
                 print("JSON: \(json)")
                 
                 callBack(true)
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
+    }
+    
+    static func GetSearchTypeList(searchType : NavaEnums.SearchType,callBack : @escaping (Bool, [SearchTypeItem]) -> Void  )
+    {
+        let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersForSearchTypeList, searchType.rawValue)
+        
+        Alamofire.request(urlString).responseJSON { (response) in
+            print("Request: \(response.request)")
+            print("Response: \(response.response)")
+            print("Data: \(response.data)")
+            print("Error: \(response.result)")
+            
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("JSON: \(json)")
+                
+                callBack(true, self.GetSearchTypeListFromResponse(json: json,searchListType: searchType))
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
+    }
+    
+    private static func GetSearchTypeListFromResponse(json: JSON, searchListType : NavaEnums.SearchType) -> [SearchTypeItem]
+    {
+        
+        var searchTypeList = [SearchTypeItem]()
+        
+        var superKey = ""
+        var subIDKey = ""
+        var subNameKey = ""
+        
+        
+        switch searchListType {
+        case .categories:
+            
+            superKey = "categorylist"
+            subIDKey = "categoryId"
+            subNameKey = "categoryName"
+            
+        case .imamlist:
+            superKey = "imamlist"
+            subIDKey = "imamId"
+            subNameKey = "imamName"
+        case .madahlist:
+            superKey = "madahlist"
+            subIDKey = "artistId"
+            subNameKey = "artistName"
+        case .typesearchlist:
+            superKey = "viewtypelist"
+            subIDKey = "viewId"
+            subNameKey = "viewName"
+        default:
+            superKey = "None"
+            subIDKey = "None"
+            subNameKey = "None"
+        }
+        
+        
+        if let arrayJson = json.dictionaryValue[superKey]
+        {
+            
+            for (_,subJson):(String, JSON) in arrayJson {
+                //Do something you want
+                let searchType = SearchTypeItem()
+                
+                searchType.TypeID = subJson[subIDKey].stringValue
+                searchType.TypeName = subJson[subNameKey].stringValue
+                
+                searchTypeList.append(searchType)
+            }
+        }
+
+        return searchTypeList
+    }
+    
+    
+    static func GetSearchList(searchParams: Array<String>, callBack : @escaping (Bool, [MediaItem]) -> Void  )
+    {
+        let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersForSearch, searchParams[0], searchParams[1], searchParams[2], searchParams[3], searchParams[4])
+        
+        Alamofire.request(urlString).responseJSON { (response) in
+            print("Request: \(response.request)")
+            print("Response: \(response.response)")
+            print("Data: \(response.data)")
+            print("Error: \(response.result)")
+            
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("JSON: \(json)")
+                
+                //callBack(true, self.GetMediaFromResponse(json: json, mediaType: mediaType, serviceType: serviceType))
             case .failure(let error):
                 print(error)
             }

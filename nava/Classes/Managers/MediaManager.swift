@@ -65,7 +65,7 @@ class MediaManager: NSObject {
     }
     
     ///Get local contacts from databse
-    static func GetDBMedia(mediaType : ServiceManager.ServiceMediaType) -> [MediaItem]
+    static func GetDBMedia(mediaType : NavaEnums.ServiceMediaType) -> [MediaItem]
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
@@ -86,8 +86,8 @@ class MediaManager: NSObject {
                 mediaItem.ArtistName = row.value(named: "media_singer")
                 mediaItem.ArtistId = row.value(named: "media_singer_id")
                 mediaItem.MediaID = row.value(named: "media_id")
-                mediaItem.MediaType = ServiceManager.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
-                mediaItem.MediaServiceType = ServiceManager.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+                mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+                mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
                 mediaItem.MediaUrl = row.value(named: "media_url")
                 mediaItem.LargpicUrl = row.value(named: "media_pic")
                 mediaItem.SmallpicUrl = mediaItem.LargpicUrl
@@ -103,7 +103,7 @@ class MediaManager: NSObject {
         return dbMedia
     }
 
-    static func GetFavoriteMedia(mediaType : ServiceManager.ServiceMediaType) -> [MediaItem]
+    static func GetFavoriteMedia(mediaType : NavaEnums.ServiceMediaType) -> [MediaItem]
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
@@ -124,8 +124,8 @@ class MediaManager: NSObject {
                 mediaItem.ArtistName = row.value(named: "media_singer")
                 mediaItem.ArtistId = row.value(named: "media_singer_id")
                 mediaItem.MediaID = row.value(named: "media_id")
-                mediaItem.MediaType = ServiceManager.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
-                mediaItem.MediaServiceType = ServiceManager.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+                mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+                mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
                 mediaItem.MediaUrl = row.value(named: "media_url")
                 mediaItem.LargpicUrl = row.value(named: "media_pic")
                 mediaItem.SmallpicUrl = mediaItem.LargpicUrl
@@ -193,7 +193,7 @@ class MediaManager: NSObject {
         return res
     }
     
-    static func GetDBLikes(mediaType : ServiceManager.ServiceMediaType) -> [MediaItem]
+    static func GetDBLikes(mediaType : NavaEnums.ServiceMediaType) -> [MediaItem]
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
@@ -212,8 +212,8 @@ class MediaManager: NSObject {
                 
 
                 mediaItem.MediaID = row.value(named: "media_id")
-                mediaItem.MediaType = ServiceManager.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
-                mediaItem.MediaServiceType = ServiceManager.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+                mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+                mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
 
                 
                 dbMedia.append(mediaItem)
@@ -368,8 +368,8 @@ class MediaManager: NSObject {
         var artistName : String
         var artistId : String
         var mediaID : String
-        var mediaType : ServiceManager.ServiceMediaType
-        var mediaServiceType : ServiceManager.ServiceType
+        var mediaType : NavaEnums.ServiceMediaType
+        var mediaServiceType : NavaEnums.ServiceType
         var mediaUrl : String
         var largpicUrl : String
         var time : String
@@ -386,8 +386,8 @@ class MediaManager: NSObject {
             artistName : String,
             artistId : String,
             mediaID : String,
-            mediaType : ServiceManager.ServiceMediaType,
-            mediaServiceType : ServiceManager.ServiceType,
+            mediaType : NavaEnums.ServiceMediaType,
+            mediaServiceType : NavaEnums.ServiceType,
             mediaUrl : String,
             largpicUrl : String,
             time : String,
@@ -417,8 +417,8 @@ class MediaManager: NSObject {
             artistName = row.value(named: "media_singer")
             artistId = row.value(named: "media_singer_id")
             mediaID = row.value(named: "media_id")
-            mediaType = ServiceManager.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
-            mediaServiceType = ServiceManager.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+            mediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+            mediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
             mediaUrl = row.value(named: "media_url")
             largpicUrl = row.value(named: "media_pic")
             time = row.value(named: "media_time")
@@ -460,8 +460,8 @@ class MediaManager: NSObject {
         var artistName : String
         var artistId : String
         var mediaID : String
-        var mediaType : ServiceManager.ServiceMediaType
-        var mediaServiceType : ServiceManager.ServiceType
+        var mediaType : NavaEnums.ServiceMediaType
+        var mediaServiceType : NavaEnums.ServiceType
         var mediaUrl : String
         var largpicUrl : String
         var time : String
@@ -478,8 +478,8 @@ class MediaManager: NSObject {
             artistName : String,
             artistId : String,
             mediaID : String,
-            mediaType : ServiceManager.ServiceMediaType,
-            mediaServiceType : ServiceManager.ServiceType,
+            mediaType : NavaEnums.ServiceMediaType,
+            mediaServiceType : NavaEnums.ServiceType,
             mediaUrl : String,
             largpicUrl : String,
             time : String,
@@ -509,8 +509,8 @@ class MediaManager: NSObject {
             artistName = row.value(named: "media_singer")
             artistId = row.value(named: "media_singer_id")
             mediaID = row.value(named: "media_id")
-            mediaType = ServiceManager.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
-            mediaServiceType = ServiceManager.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+            mediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+            mediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
             mediaUrl = row.value(named: "media_url")
             largpicUrl = row.value(named: "media_pic")
             time = row.value(named: "media_time")
@@ -551,8 +551,8 @@ class MediaManager: NSObject {
     {
 
         var mediaID : String
-        var mediaType : ServiceManager.ServiceMediaType
-        var mediaServiceType : ServiceManager.ServiceType
+        var mediaType : NavaEnums.ServiceMediaType
+        var mediaServiceType : NavaEnums.ServiceType
 
         override class var databaseTableName: String {
             return "Likes"
@@ -561,8 +561,8 @@ class MediaManager: NSObject {
         init(
 
             mediaID : String,
-            mediaType : ServiceManager.ServiceMediaType,
-            mediaServiceType : ServiceManager.ServiceType)
+            mediaType : NavaEnums.ServiceMediaType,
+            mediaServiceType : NavaEnums.ServiceType)
         {
 
             self.mediaID = mediaID
@@ -577,8 +577,8 @@ class MediaManager: NSObject {
             
 
             mediaID = row.value(named: "media_id")
-            mediaType = ServiceManager.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
-            mediaServiceType = ServiceManager.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+            mediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+            mediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
 
             
             super.init(row: row)

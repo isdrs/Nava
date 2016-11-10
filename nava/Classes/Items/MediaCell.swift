@@ -12,7 +12,7 @@ import Alamofire
 
 class MediaCell: UITableViewCell {
     
-    static let cellHeight = Tools.GetScreenHeightPercent() * CGFloat(45)
+    static let cellHeight = Tools.screenHeight * CGFloat(0.45)
     var musicImage : UIImageView!
     private var likeCountImage : UIImageView!
     private var downLoadCountImage : UIImageView!
@@ -21,6 +21,7 @@ class MediaCell: UITableViewCell {
     private var musicTitlelbl : UILabel!
     private var singerNamelbl : UILabel!
     private var infoPanelView : UIView!
+    
     
     
     var MusicTitleLabel : String {
@@ -69,10 +70,10 @@ class MediaCell: UITableViewCell {
      
         self.singerNamelbl.sizeToFit()
        
-        self.musicTitlelbl.frame.origin.x = infoPanelView.frame.size.width - musicTitlelbl.frame.size.width - Tools.GetScreenWidthPercent() * 3
+        self.musicTitlelbl.frame.origin.x = infoPanelView.frame.size.width - musicTitlelbl.frame.size.width - Tools.screenWidth * 0.03
         self.musicTitlelbl.center.y =  infoPanelView.frame.size.height * 0.2
         
-        self.singerNamelbl.frame.origin.x = infoPanelView.frame.size.width - singerNamelbl.frame.size.width - Tools.GetScreenWidthPercent() * 3
+        self.singerNamelbl.frame.origin.x = infoPanelView.frame.size.width - singerNamelbl.frame.size.width - Tools.screenWidth * 0.03
         self.singerNamelbl.center.y =  infoPanelView.frame.size.height * 0.7
         
     }
@@ -80,14 +81,14 @@ class MediaCell: UITableViewCell {
         self.downloadCountlbl.sizeToFit()
         self.likeCountlbl.sizeToFit()
         
-        self.downloadCountlbl.center = CGPoint(x: infoPanelView.frame.origin.x + Tools.GetScreenWidthPercent() * 7,
+        self.downloadCountlbl.center = CGPoint(x: infoPanelView.frame.origin.x + Tools.screenWidth * 0.07,
                                                      y: infoPanelView.frame.size.height / 2)
         
-        self.downLoadCountImage.frame.origin = CGPoint(x: downloadCountlbl.frame.origin.x + downloadCountlbl.frame.size.width + Tools.GetScreenWidthPercent() * 2, y: downloadCountlbl.frame.origin.y)
+        self.downLoadCountImage.frame.origin = CGPoint(x: downloadCountlbl.frame.origin.x + downloadCountlbl.frame.size.width + Tools.screenWidth * 0.02, y: downloadCountlbl.frame.origin.y)
         
-        self.likeCountlbl.frame.origin = CGPoint(x: downLoadCountImage.frame.origin.x + downLoadCountImage.frame.size.width + Tools.GetScreenWidthPercent() * 5, y: downloadCountlbl.frame.origin.y)
+        self.likeCountlbl.frame.origin = CGPoint(x: downLoadCountImage.frame.origin.x + downLoadCountImage.frame.size.width + Tools.screenWidth * 0.05, y: downloadCountlbl.frame.origin.y)
         
-        self.likeCountImage.frame.origin = CGPoint(x: likeCountlbl.frame.origin.x + likeCountlbl.frame.size.width + Tools.GetScreenWidthPercent() * 2, y: downloadCountlbl.frame.origin.y)
+        self.likeCountImage.frame.origin = CGPoint(x: likeCountlbl.frame.origin.x + likeCountlbl.frame.size.width + Tools.screenWidth * 0.02, y: downloadCountlbl.frame.origin.y)
     }
     
 
@@ -104,7 +105,7 @@ class MediaCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        let buttonSize = CGSize(width: Tools.GetScreenWidthPercent() * 5, height: Tools.GetScreenWidthPercent() * 5)
+        let buttonSize = CGSize(width: Tools.screenWidth * 0.05, height: Tools.screenWidth * 0.05)
         cellSize = CGSize(width: Tools.screenWidth, height: MediaCell.cellHeight)
         cellPosition = CGPoint()
         self.frame.size = cellSize
@@ -133,7 +134,7 @@ class MediaCell: UITableViewCell {
         
         // Download Counter Label
         downloadCountlbl = UILabel()
-        downloadCountlbl.text = "..."
+        downloadCountlbl.text = "0"
         downloadCountlbl.textColor = UIColor.white
         
 
@@ -145,7 +146,7 @@ class MediaCell: UITableViewCell {
         
         // Like Counter Label
         likeCountlbl = UILabel()
-        likeCountlbl.text = "..."
+        likeCountlbl.text = "0"
         likeCountlbl.textColor = UIColor.white
         
         
@@ -168,7 +169,6 @@ class MediaCell: UITableViewCell {
         
         
         self.contentView.addSubview(musicImage)
-        
         self.infoPanelView.addSubview(likeCountImage)
         self.infoPanelView.addSubview(downLoadCountImage)
         self.infoPanelView.addSubview(likeCountlbl)

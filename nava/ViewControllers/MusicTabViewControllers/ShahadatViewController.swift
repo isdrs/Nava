@@ -12,16 +12,34 @@ import AlamofireImage
 
 class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var tblShahadatMusics: UITableView!
+    private var tblShahadatMusics : UITableView!
+    
     var mediaDataArray : [MediaItem] = []
-    var mediaType = ServiceManager.ServiceMediaType.all
+    var mediaType = NavaEnums.ServiceMediaType.all
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        SetTableView()
     }
+    
+    func SetTableView()
+    {
+        // set tableview properties
+        tblShahadatMusics = UITableView()
+        tblShahadatMusics = UITableView(frame: .zero, style: .plain)
+        tblShahadatMusics.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
+        tblShahadatMusics.rowHeight = MediaCell.cellHeight
+        tblShahadatMusics.backgroundColor = .black
+        tblShahadatMusics.dataSource = self
+        tblShahadatMusics.delegate = self
+        tblShahadatMusics.frame = self.view.frame
+        tblShahadatMusics.separatorStyle = .none
+        self.view.addSubview(tblShahadatMusics)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -65,17 +83,20 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell") as! MediaTableViewCell
+       
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! MediaCell
         
         let mediaItem = mediaDataArray[indexPath.row]
         
-        cell.lblMusicName.text = mediaItem.MediaName
-        cell.lblSinger.text = mediaItem.ArtistName
-        cell.lblLikeCount.text = mediaItem.Like
-        cell.lblDownloadCount.text = mediaItem.Download
-        cell.lblMusicTime.text = mediaItem.Time
         
-        cell.imgMusicThumb.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
+        
+        cell.MusicTitleLabel = mediaItem.MediaName
+        cell.SingerNameLabel = mediaItem.ArtistName
+        cell.LikeCounterLabelText = mediaItem.Like
+        cell.DownloadCounterLabelText = mediaItem.Download
+        //cell.time.text = mediaItem.Time
+        
+        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.LargpicUrl) as! URL)
         
         return cell
     }
@@ -84,12 +105,26 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
         
         let stb = UIStoryboard(name: "Main", bundle: nil)
         
-        let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-        musicPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
-        
-        self.present(musicPlayerViewController, animated: false) { 
+        if mediaType == .sound
+        {
+            let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+            musicPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
             
+            self.present(musicPlayerViewController, animated: false) {
+                
+            }
         }
+        else
+        {
+            let videoPlayerViewController = stb.instantiateViewController(withIdentifier: "VideoPlayerViewController") as! VideoPlayerViewController
+            videoPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
+            
+            self.present(videoPlayerViewController, animated: false) {
+                
+            }
+        }
+        
+        
         
         //self.navigationController?.pushViewController(musicPlayerViewController, animated: false)
     }

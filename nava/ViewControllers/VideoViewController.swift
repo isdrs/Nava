@@ -24,7 +24,7 @@ class VideoViewController: ButtonBarPagerTabStripViewController {
         
         
         super.viewDidLoad()
-        moveToViewControllerAtIndex(3)
+        //moveToViewControllerAtIndex(3)
         // Do any additional setup after loading the view.
     }
     

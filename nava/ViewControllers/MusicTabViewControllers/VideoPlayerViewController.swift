@@ -19,7 +19,11 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     var mediaItem : MediaItem!
     private var singerMediaItems : [MediaItem] = [MediaItem]()
     
-    private var playingVideoView : UIView!
+    private var mainPlayingView : UIView!
+    private var videoControllerView : UIView!
+    private var videoMenuBarView : UIView!
+    private var videoPlayerView : UIView!
+    
     private var musicListView : UIView!
     
     private var tableView : UITableView!
@@ -29,13 +33,13 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
 
     private var progresslbl : UILabel!
 
-    private var btnPlay : UIButton!
     private var btnLike : UIButton!
     private var btnDownLoad : UIButton!
-    private var videoImage : UIImageView!
     
-    private var btnIranCell : UIButton!
-    private var btnHamrah : UIButton!
+    
+    private var lblArtistName : UILabel!
+    private var lblMusicname : UILabel!
+    
     
     private var shareBtn : UIButton!
     private var addToFavoriteBtn : UIButton!
@@ -52,9 +56,9 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             if !isFavorited
             {
                 let myNormalAttributedTitle = NSAttributedString(string: Tools.StaticVariables.AddToFavoriteButtonTitle,
-                                                                 attributes: [NSForegroundColorAttributeName : UIColor.white])
+                                                                 attributes: [NSForegroundColorAttributeName : UIColor.white,NSUnderlineStyleAttributeName : 0])
                 let myNormalAttributedTitle2 = NSAttributedString(string: Tools.StaticVariables.AddToFavoriteButtonTitle,
-                                                                  attributes: [NSForegroundColorAttributeName : UIColor.green])
+                                                                  attributes: [NSForegroundColorAttributeName : UIColor.green,NSUnderlineStyleAttributeName : 0])
                 
                 addToFavoriteBtn.setAttributedTitle(myNormalAttributedTitle, for: .normal)
                 addToFavoriteBtn.setAttributedTitle(myNormalAttributedTitle2, for: .highlighted)
@@ -62,10 +66,10 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             }else
             {
                 let myNormalAttributedTitle = NSAttributedString(string: Tools.StaticVariables.DeleteFromFavoriteButtonTitle,
-                                                                 attributes: [NSForegroundColorAttributeName : UIColor.white])
+                                                                 attributes: [NSForegroundColorAttributeName : UIColor.white,NSUnderlineStyleAttributeName : 0])
                 
                 let myNormalAttributedTitle2 = NSAttributedString(string: Tools.StaticVariables.DeleteFromFavoriteButtonTitle,
-                                                                  attributes: [NSForegroundColorAttributeName : UIColor.green])
+                                                                  attributes: [NSForegroundColorAttributeName : UIColor.green,NSUnderlineStyleAttributeName : 0])
                 
                 addToFavoriteBtn.setAttributedTitle(myNormalAttributedTitle, for: .normal)
                 addToFavoriteBtn.setAttributedTitle(myNormalAttributedTitle2, for: .highlighted)
@@ -195,13 +199,14 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    @objc private func PlayAction()
-    {
-        PlayVideo(myUrl: URL(string: mediaItem.MediaUrl)!)
-    }
+//    @objc private func PlayAction()
+//    {
+//        PlayVideo(myUrl: URL(string: mediaItem.MediaUrl)!)
+//    }
     
     override func viewDidLoad() {
         
+        HomeViewController.jukebox?.pause()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlurButton(_:)))
         
@@ -221,6 +226,8 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         SetPlayingVideoView()
         SetVideoListView()
         SetPopUpMenuView()
+        UpdateNamesLabel()
+        SetVideoPlayerView(myUrl: URL(string: mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!)
         
         isFavorited = MediaManager.IsFavoritedMedia(mediaItem: mediaItem)
         
@@ -237,60 +244,64 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let HPercent = H / 100.0
         
         
-        self.playingVideoView = UIView()
-        self.playingVideoView.frame = CGRect(x: X ,y:  Y, width: W, height: H)
-        self.playingVideoView.backgroundColor = .black
+        
+        self.mainPlayingView = UIView()
+        self.mainPlayingView.frame = CGRect(x: X ,y:  Y, width: W, height: H)
+        self.mainPlayingView.backgroundColor = .black
         
         
+        self.videoMenuBarView = UIView()
+        self.videoMenuBarView.frame = CGRect(x: X ,y:  Y, width: W, height: H * 0.14)
+        self.videoMenuBarView.backgroundColor = .black
+        
+        
+        //Back Button
         self.btnBack = UIButton()
-        self.btnBack.frame = CGRect(x: X + WPercent * 3 , y: HPercent * 2 , width: WPercent * 7 , height: WPercent * 7)
+        self.btnBack.frame = CGRect(x: X + WPercent * 3 , y: HPercent * 2 , width: WPercent * 5 , height: WPercent * 5)
         self.btnBack.setImage(UIImage(named: "Back"), for: .normal)
         self.btnBack.addTarget(self, action: #selector(self.BackAction), for: .touchUpInside)
         
         
         //Menu Button
         self.btnMenu = UIButton()
-        self.btnMenu.frame = CGRect(x: W - btnBack.frame.width - btnBack.frame.origin.x, y: btnBack.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
+        self.btnMenu.frame = CGRect(x: W - btnBack.frame.size.width  - btnBack.frame.origin.x, y: btnBack.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
         self.btnMenu.setImage(UIImage(named: "SubMenu"), for: .normal)
         self.btnMenu.addTarget(self, action: #selector(self.MenuAction), for: .touchUpInside)
         
-        
-        //Music Image
-        self.videoImage = UIImageView()
-        self.videoImage.frame = CGRect(x: 0, y: 0, width: Tools.screenWidth, height: playingVideoView.frame.height * 0.90)
-        self.videoImage.af_setImage(withURL: URL(string:mediaItem.LargpicUrl)!)
-        self.playingVideoView.addSubview(videoImage)
+        self.videoMenuBarView.addSubview(self.btnBack)
+        self.videoMenuBarView.addSubview(self.btnMenu)
+        ///--------------------------------------------
         
         
-        //Irancell and Hamrah Aval Button
-        self.btnHamrah = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز همراه اول",fontSize: 19.0)
-        self.btnHamrah.frame.size = CGSize(width: playingVideoView.frame.size.width * 0.48, height: playingVideoView.frame.height * 0.08)
-        self.btnHamrah.frame.origin = CGPoint(x: Tools.screenWidth * 0.01, y: 0)
-        self.btnHamrah.center.y =  playingVideoView.frame.height * 0.95
-        self.btnHamrah.backgroundColor = UIColor.gray
-        self.btnHamrah.layer.cornerRadius = 5
-        self.btnHamrah.addTarget(self, action: #selector(self.HamrahAvvalAction), for: UIControlEvents.touchUpInside)
+        self.videoControllerView = UIView()
+        self.videoControllerView.frame = CGRect(x: 0, y: self.videoMenuBarView.frame.size.height, width: W, height: self.videoMenuBarView.frame.size.height)
+        self.videoControllerView.backgroundColor = UIColor.black
         
         
-        // Irancell
-        self.btnIranCell = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز ایرانسل",fontSize: 19.0)
-        self.btnIranCell.frame.size = btnHamrah.frame.size
-        self.btnIranCell.frame.origin = CGPoint(x: playingVideoView.frame.size.width - btnIranCell.frame.size.width - Tools.screenWidth * 0.01, y: btnHamrah.frame.origin.y)
-        self.btnIranCell.backgroundColor = UIColor.gray
-        self.btnIranCell.layer.cornerRadius = 5
-        self.btnIranCell.addTarget(self, action: #selector(self.IrancellAction), for: UIControlEvents.touchUpInside)
+        //Download Buttom
+        self.btnDownLoad = UIButton()
+        self.btnDownLoad.frame.size = CGSize(width: W * 0.065, height: W * 0.065)
+        self.btnDownLoad.frame.origin = CGPoint(x: self.btnBack.frame.origin.x, y: 0)
+        self.btnDownLoad.center.y = self.videoControllerView.frame.size.height * 0.5
         
+        if !isDownloaded
+        {
+            self.btnDownLoad.setImage(UIImage(named: "DownloadedTab"), for: .normal)
+            self.btnDownLoad.addTarget(self, action: #selector(self.DownloadAction), for: .touchUpInside)
+            self.mainPlayingView.addSubview(btnDownLoad)
+        }
         
-        // seperator view
-        let sepratoreView = UIView()
-        sepratoreView.backgroundColor = UIColor.white
-        sepratoreView.frame = CGRect(x: 0, y: 0, width: 1, height: btnHamrah.frame.size.height * 0.8)
-        sepratoreView.center = CGPoint(x: Tools.screenWidth * 0.02 + btnHamrah.frame.size.width, y: btnHamrah.center.y)
+        self.progresslbl = UILabel()
+        self.progresslbl.font = UIFont(name: "Arial", size: 12)
+        self.progresslbl.center = self.btnDownLoad.center
+        self.progresslbl.textColor = UIColor.white
+        self.progresslbl.isHidden = true
         
         
         //Like Button
         self.btnLike = UIButton()
-        self.btnLike.frame = CGRect(x: btnBack.frame.origin.x, y: H - btnHamrah.frame.size.height - btnBack.frame.height - HPercent * 6, width: btnBack.frame.width, height: btnBack.frame.height)
+        self.btnLike.frame.size = self.btnDownLoad.frame.size
+        self.btnLike.frame.origin = CGPoint(x: (self.btnBack.frame.origin.x * 3) + (self.btnDownLoad.frame.size.width ) , y: self.btnDownLoad.frame.origin.y)
         isLiked = MediaManager.IsLikedMedia(mediaItem: mediaItem)
         if isLiked
         {
@@ -302,54 +313,65 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             self.btnLike.addTarget(self, action: #selector(self.LikeAction), for: .touchUpInside)
         }
         
+        self.lblMusicname = UILabel()
         
-        //Download Buttom
-        self.btnDownLoad = UIButton()
-        self.btnDownLoad.frame = CGRect(x: btnMenu.frame.origin.x, y: btnLike.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
-        if !isDownloaded
-        {
-            self.btnDownLoad.setImage(UIImage(named: "DownloadedTab"), for: .normal)
-            self.btnDownLoad.addTarget(self, action: #selector(self.DownloadAction), for: .touchUpInside)
-            self.playingVideoView.addSubview(btnDownLoad)
-        }
+        self.lblArtistName = UILabel()
         
-        self.progresslbl = UILabel()
-        self.progresslbl.font = UIFont(name: "Arial", size: 12)
-        self.progresslbl.center = self.btnDownLoad.center
-        self.progresslbl.textColor = UIColor.white
-        self.progresslbl.isHidden = true
+        self.videoControllerView.addSubview(self.lblMusicname)
+        
+        self.videoControllerView.addSubview(self.lblArtistName)
+        
+        self.videoControllerView.addSubview(self.btnLike)
+        self.videoControllerView.addSubview(self.btnDownLoad)
+        self.videoControllerView.addSubview(self.progresslbl)
         
         
         
-        // Play Button
-        self.btnPlay = UIButton()
-        self.btnPlay.frame = CGRect(x:0, y: 0, width: btnBack.frame.width * 1.5, height: btnBack.frame.height * 1.5)
-        self.btnPlay.center = videoImage.center
-        self.btnPlay.setImage(UIImage(named: "Play"), for: .normal)
-        self.btnPlay.addTarget(self, action: #selector(self.PlayAction), for: .touchUpInside)
         
+        self.videoPlayerView = UIView()
+        self.videoPlayerView.frame = CGRect(x: 0, y: self.videoMenuBarView.frame.size.height * 2, width: W, height: self.mainPlayingView.frame.size.height - self.videoMenuBarView.frame.size.height * 2)
+
         
         // Add components to view
         
-        self.playingVideoView.addSubview(sepratoreView)
-        self.playingVideoView.addSubview(btnHamrah)
-        self.playingVideoView.addSubview(progresslbl)
-        self.playingVideoView.bringSubview(toFront: btnHamrah)
-        self.playingVideoView.addSubview(btnIranCell)
-        self.playingVideoView.addSubview(btnBack)
-        self.playingVideoView.addSubview(btnMenu)
-        self.playingVideoView.addSubview(btnPlay)
+        self.mainPlayingView.addSubview(self.videoMenuBarView)
+        self.mainPlayingView.addSubview(videoControllerView)
+        self.mainPlayingView.addSubview(videoPlayerView)
+        
+        self.view.addSubview(self.mainPlayingView)
+        
+    }
+    
+    func UpdateNamesLabel()
+    {
+
+        
+        lblMusicname.text = mediaItem.MediaName
+        
+        lblArtistName.text = mediaItem.ArtistName
+        
+        lblMusicname.textColor = .white
+        
+        lblArtistName.textColor = .white
         
         
-        self.view.addSubview(self.playingVideoView)
+        self.lblMusicname.sizeToFit()
+        
+        self.lblArtistName.sizeToFit()
+        
+        self.lblMusicname.frame.origin.x = self.videoControllerView.frame.size.width - lblMusicname.frame.size.width - Tools.screenWidth * 0.03
+        self.lblMusicname.center.y =  self.videoControllerView.frame.size.height * 0.2
+        
+        self.lblArtistName.frame.origin.x = self.videoControllerView.frame.size.width - lblArtistName.frame.size.width - Tools.screenWidth * 0.03
+        self.lblArtistName.center.y =  self.videoControllerView.frame.size.height * 0.6
         
     }
     
     func SetVideoListView() -> Void{
         
         
-        let viewSize = self.playingVideoView.frame.size
-        let viewPosition = self.playingVideoView.frame.origin
+        let viewSize = self.mainPlayingView.frame.size
+        let viewPosition = self.mainPlayingView.frame.origin
         
         
         self.musicListView = UIView()
@@ -365,7 +387,8 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.dataSource = self
         tableView.delegate = self
         tableView.frame = CGRect(x: 0, y: 0, width: musicListView.frame.width , height: musicListView.frame.height)
-        
+        tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         
         self.musicListView.addSubview(tableView)
         self.view.addSubview(musicListView)
@@ -373,9 +396,9 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func SetPopUpMenuView() -> Void{
         
-        popUpViewHeight = playingVideoView.frame.size.height * 0.26
-        let viewSize = CGSize(width: self.playingVideoView.frame.size.width * 0.6 , height: 0)
-        let viewPosition = CGPoint(x: self.playingVideoView.frame.size.width - viewSize.width - Tools.screenWidth * 0.01, y: 0)
+        popUpViewHeight = mainPlayingView.frame.size.height * 0.26
+        let viewSize = CGSize(width: self.mainPlayingView.frame.size.width * 0.6 , height: 0)
+        let viewPosition = CGPoint(x: self.mainPlayingView.frame.size.width - viewSize.width - Tools.screenWidth * 0.01, y: 0)
         
         
         popUpView = UIView()
@@ -407,7 +430,7 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.popUpView.addSubview(shareBtn)
         self.popUpView.addSubview(addToFavoriteBtn)
-        self.playingVideoView.addSubview(popUpView)
+        self.mainPlayingView.addSubview(popUpView)
         
     }
     
@@ -474,9 +497,10 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
         
-        ServiceManager.GetMediaListByArtist(mediaItem: mediaItem, mediaType: .sound, serviceType: mediaItem.MediaServiceType, pageNo: 1) { (status, newMedia) in
+        ServiceManager.GetMediaListByArtist(mediaItem: mediaItem, mediaType: .video, serviceType: mediaItem.MediaServiceType, pageNo: 1) { (status, newMedia) in
             if status
             {
                 self.singerMediaItems = newMedia
@@ -515,18 +539,27 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func PlayVideo(myUrl: URL)
+    func SetVideoPlayerView(myUrl: URL)
     {
         
-        let playerView = PlayerViewController()
+        let player = AVPlayer(url: myUrl)
         
-        playerView.myUrl = URL(string: mediaItem.MediaUrl)!
+        self.playerController = AVPlayerViewController()
         
-        self.present(playerView, animated: true) { 
-            
-        }
+        self.playerController!.view.frame.size = videoPlayerView.frame.size
         
+        self.playerController!.player = player
         
+        self.videoPlayerView.addSubview(self.playerController!.view)
+        
+        //self.playerController!.player?.play()
+    }
+    
+    func PlayerVideoChangeSource(myUrl: URL)
+    {
+        let player = AVPlayer(url: myUrl)
+        
+        self.playerController!.player = player
     }
     
     override func didReceiveMemoryWarning() {
@@ -551,7 +584,7 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         cell.cellMedia = singerMediaItems[indexPath.row]
         
-        
+        cell.musicImage.image = nil
         
         print("Cell Height: \(cell.frame.size.height)")
         
@@ -574,6 +607,11 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.mediaItem = singerMediaItems[indexPath.row]
         
+        UpdateNamesLabel()
+        
         LoadData()
+        
+        PlayerVideoChangeSource(myUrl: URL(string: mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!)
+        
     }
 }

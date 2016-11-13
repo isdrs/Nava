@@ -27,20 +27,12 @@ class VideoViewController: ButtonBarPagerTabStripViewController {
         //moveToViewControllerAtIndex(3)
         // Do any additional setup after loading the view.
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //moveToViewControllerAtIndex(3)
-    }
-    
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print(self.view.frame.origin.y)
-    }
+
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let stb = UIStoryboard(name: "Main", bundle: nil)

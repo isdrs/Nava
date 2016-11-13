@@ -36,10 +36,13 @@ class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDe
         tblAyadMedia.delegate = self
         tblAyadMedia.frame = self.view.frame
         tblAyadMedia.separatorStyle = .none
+        tblAyadMedia.contentInset = UIEdgeInsetsMake(0, 0, 165, 0);
         self.view.addSubview(tblAyadMedia)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
         
         ServiceManager.GetMediaList(mediaType: mediaType, serviceType: .eid, pageNo: 1) { (status, newMusics) in
             if status
@@ -80,6 +83,7 @@ class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDe
         cell.DownloadCounterLabelText = mediaItem.Like
         cell.DownloadCounterLabelText = mediaItem.Download
         //cell.lblMusicTime.text = mediaItem.Time
+        cell.musicImage.image = nil
         
         cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
         
@@ -93,7 +97,7 @@ class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDe
         if mediaType == .sound
         {
             let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-            musicPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
+            HomeViewController.mediaItem = mediaDataArray[indexPath.row]
             
             self.present(musicPlayerViewController, animated: false) {
                 

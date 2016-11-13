@@ -115,14 +115,14 @@ class MediaCell: UITableViewCell {
         self.backgroundColor = .clear
         self.contentView.backgroundColor = .clear
         self.layer.cornerRadius = 10
-        self.layer.borderColor = UIColor.gray.cgColor
+        self.layer.borderColor = UIColor.black.cgColor
         self.layer.borderWidth = 1
         self.layer.masksToBounds = true
 
         
         // set info Panel 
         infoPanelView = UIView()
-        infoPanelView.backgroundColor = UIColor.gray.withAlphaComponent(1)
+        infoPanelView.backgroundColor = UIColor.black.withAlphaComponent(1)
         infoPanelView.frame.size = CGSize(width: cellSize.width, height: cellSize.height * 0.2)
         infoPanelView.frame.origin = CGPoint(x: 0, y: cellSize.height - infoPanelView.frame.size.height)
         

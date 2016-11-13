@@ -41,6 +41,7 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         musicTbl.delegate = self
         musicTbl.frame = self.view.frame
         musicTbl.separatorStyle = .none
+        musicTbl.contentInset = UIEdgeInsetsMake(0, 0, 165, 0);
         self.view.addSubview(musicTbl)
     }
 
@@ -104,7 +105,7 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         let stb = UIStoryboard(name: "Main", bundle: nil)
         
         let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-        musicPlayerViewController.mediaItem = downlodedMusic[indexPath.row]
+        HomeViewController.mediaItem = downlodedMusic[indexPath.row]
         
         self.present(musicPlayerViewController, animated: true) {
             

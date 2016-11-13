@@ -8,7 +8,6 @@
 
 import UIKit
 import XLPagerTabStrip
-import RAMAnimatedTabBarController
 
 class MusicViewController: ButtonBarPagerTabStripViewController {
 
@@ -24,6 +23,8 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
         self.settings.style.selectedBarHeight = 0.5
         
 
+        HomeViewController.ReOriginPlayerView(tabbarHeight: (self.tabBarController?.tabBar.frame.height)!)
+        
         super.viewDidLoad()
     }
 
@@ -31,10 +32,6 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print(self.view.frame.origin.y)
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {

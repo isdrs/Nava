@@ -50,6 +50,7 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         tblFavoriteMedia.delegate = self
         tblFavoriteMedia.frame = self.view.frame
         tblFavoriteMedia.separatorStyle = .none
+        tblFavoriteMedia.contentInset = UIEdgeInsetsMake(0, 0, 165, 0);
         self.view.addSubview(tblFavoriteMedia)
         
     }
@@ -88,6 +89,7 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         cell.SingerNameLabel = mediaItem.ArtistName
         
         //cell.time.text = mediaItem.Time
+        cell.musicImage.image = nil
         
         cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
         
@@ -103,7 +105,7 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         if mediaType == .sound
         {
             let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-            musicPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
+            HomeViewController.mediaItem = mediaDataArray[indexPath.row]
             
             self.present(musicPlayerViewController, animated: false) {
                 

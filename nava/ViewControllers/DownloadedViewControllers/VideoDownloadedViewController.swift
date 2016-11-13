@@ -41,6 +41,7 @@ class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         videoTbl.delegate = self
         videoTbl.frame = self.view.frame
         videoTbl.separatorStyle = .none
+        videoTbl.contentInset = UIEdgeInsetsMake(0, 0, 165, 0);
         self.view.addSubview(videoTbl)
     }
     

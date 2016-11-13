@@ -23,6 +23,12 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
         
         // Do any additional setup after loading the view.
         SetTableView()
+        
+//        let vv = GeneralMusicPlayerView()
+//        
+//        self.view.addSubview(vv)
+        
+//        self.view.bringSubview(toFront: vv)
     }
     
     func SetTableView()
@@ -37,6 +43,7 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
         tblShahadatMusics.delegate = self
         tblShahadatMusics.frame = self.view.frame
         tblShahadatMusics.separatorStyle = .none
+        tblShahadatMusics.contentInset = UIEdgeInsetsMake(0, 0, 165, 0);
         self.view.addSubview(tblShahadatMusics)
     }
     
@@ -93,7 +100,7 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
         cell.LikeCounterLabelText = mediaItem.Like
         cell.DownloadCounterLabelText = mediaItem.Download
        // cell.time.text = mediaItem.Time
-        
+        cell.musicImage.image = nil
         cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.LargpicUrl) as! URL)
         
         return cell
@@ -106,7 +113,7 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
         if mediaType == .sound
         {
             let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-            musicPlayerViewController.mediaItem = mediaDataArray[indexPath.row]
+            HomeViewController.mediaItem = mediaDataArray[indexPath.row]
             
             self.present(musicPlayerViewController, animated: false) {
                 

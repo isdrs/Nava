@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var downloadQueue = [String : String]()
+    
+    var generalPlayer = GeneralMusicPlayerView()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -48,6 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         NetworkActivityIndicatorManager.shared.isEnabled = true
+        
+//        self.window?.addSubview(generalPlayer)
+//        
+//        self.window?.bringSubview(toFront: generalPlayer)
         
         return true
     }

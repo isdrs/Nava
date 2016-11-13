@@ -238,7 +238,18 @@
                             <constraint firstItem="sS1-80-xzN" firstAttribute="width" secondItem="yJY-jc-DyK" secondAttribute="width" id="wFq-qI-Lc9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="نواهای آسمانی" id="rup-fL-3le"/>
+                    <navigationItem key="navigationItem" title="نواهای آسمانی" id="rup-fL-3le">
+                        <barButtonItem key="rightBarButtonItem" image="Look" style="plain" id="Lm2-Od-Cq7">
+                            <inset key="imageInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="LookAction:" destination="mBD-Tr-eYk" id="Mtg-8i-2SB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="ContainerView" destination="sS1-80-xzN" id="FbI-Uf-4bZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9b-hx-iFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -543,6 +554,7 @@
     </scenes>
     <resources>
         <image name="DownloadedTab" width="48" height="48"/>
+        <image name="Look" width="48" height="48"/>
         <image name="MusicTab" width="48" height="48"/>
         <image name="SearchTab" width="48" height="48"/>
         <image name="VideoTab" width="48" height="48"/>

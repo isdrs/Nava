@@ -9,7 +9,7 @@
 import UIKit
 import SCLAlertView
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
 
     
@@ -133,7 +133,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.view.backgroundColor = UIColor.clear
         
-        self.hideKeyboardWhenTappedAround()
+        //self.hideKeyboardWhenTappedAround()
         
         // Do any additional setup after loading the view.
         
@@ -168,8 +168,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchTxt.text = Tools.StaticVariables.SearchDefaultTitle
         self.searchTxt.textColor = UIColor.white
         self.searchTxt.textAlignment = .right
-        searchTxt.addTarget(self, action: #selector(self.textFieldEditingDidBegin), for: UIControlEvents.editingDidBegin)
-
+        self.searchTxt.returnKeyType = .search
+        self.searchTxt.delegate = self
         
         //Set Red Line View
         self.redLineView = UIView()
@@ -302,6 +302,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.frame = CGRect(x: 0, y: 0, width: searchView.frame.width , height: searchView.frame.height)
         tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 140, right: 0)
         
         //UI Picker View
         self.dataPickerView = UIPickerView()
@@ -403,14 +404,25 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     }
     
-    @objc private func textFieldEditingDidBegin()
-    {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         self.searchTxt.becomeFirstResponder()
         self.searchTxt.text = ""
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == searchTxt {
+            textField.resignFirstResponder()
+            Search()
+            return false
+        }
+        return true
+    }
+    
     @objc private func Search()
     {
+        
+        view.endEditing(true)
+        
         if pageNo == 0
         {
             pageNo += 1
@@ -436,11 +448,40 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mediaItems.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let media = mediaItems[indexPath.row]
+        
+         let stb = UIStoryboard(name: "Main", bundle: nil)
+        
+        print(media.MediaType.rawValue)
+        
+        if media.MediaType == .sound
+        {
+            let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+            HomeViewController.mediaItem = media
+            
+            self.present(musicPlayerViewController, animated: false) {
+                
+            }
+        }
+        else
+        {
+            let videoPlayerViewController = stb.instantiateViewController(withIdentifier: "VideoPlayerViewController") as! VideoPlayerViewController
+            videoPlayerViewController.mediaItem = media
+            
+            self.present(videoPlayerViewController, animated: false) {
+                
+            }
+        }
         
     }
     
@@ -483,30 +524,31 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
+        
+        view.endEditing(true)
+        
+        let myNormalAttributedTitle = NSAttributedString(string: pickerItems[row].TypeName,
+                                                         attributes: [NSForegroundColorAttributeName : UIColor.white,NSUnderlineStyleAttributeName : 0])
         switch searchType {
         case .categories:
             self.searchParams[1] = pickerItems[row].TypeID
+            self.btnCategoriesList.setAttributedTitle(myNormalAttributedTitle, for: .normal)
         case .imamlist:
             self.searchParams[2] = pickerItems[row].TypeID
+            self.btnImamList.setAttributedTitle(myNormalAttributedTitle, for: .normal)
         case .madahlist:
             self.searchParams[3] = pickerItems[row].TypeID
+            self.btnMadahList.setAttributedTitle(myNormalAttributedTitle, for: .normal)
         case .typesearchlist:
             self.searchParams[0] = pickerItems[row].TypeID
+            self.btnTypeSearchList.setAttributedTitle(myNormalAttributedTitle, for: .normal)
         default:
             break
         }
         
-//        ShowAndHidePickerView(mySearchType: searchType)
+        ///ShowAndHidePickerView(mySearchType : searchType)
+        
+        //        ShowAndHidePickerView(mySearchType: searchType)
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

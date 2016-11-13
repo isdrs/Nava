@@ -197,7 +197,7 @@ class SameArtistCellItem : UITableViewCell {
         self.backgroundColor = .clear
         self.contentView.backgroundColor = .clear
         //self.layer.cornerRadius = 10
-        self.layer.borderColor = UIColor.gray.cgColor
+        self.layer.borderColor = UIColor.black.cgColor
         self.layer.borderWidth = 0.5
         self.layer.masksToBounds = true
         

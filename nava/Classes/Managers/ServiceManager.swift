@@ -45,6 +45,7 @@ class ServiceManager: NSObject
                 let json = JSON(value)
                 print("JSON: \(json)")
                 
+                
                 callBack(true, self.GetMediaFromResponse(json: json, mediaType: mediaType, serviceType: serviceType))
             case .failure(let error):
                 print(error)
@@ -270,6 +271,7 @@ class ServiceManager: NSObject
     }
     
     
+    
     static func GetSearchList(searchParams: Array<String>, callBack : @escaping (Bool, [MediaItem]) -> Void  )
     {
         let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersForSearch, searchParams[0], searchParams[1], searchParams[2], searchParams[3], searchParams[4])
@@ -285,11 +287,48 @@ class ServiceManager: NSObject
                 let json = JSON(value)
                 print("JSON: \(json)")
                 
-                //callBack(true, self.GetMediaFromResponse(json: json, mediaType: mediaType, serviceType: serviceType))
+                callBack(true, self.GetMediaListFromResponse(json: json))
             case .failure(let error):
                 print(error)
             }
             
         }
+    }
+    
+    private static func GetMediaListFromResponse(json: JSON) -> [MediaItem]
+    {
+        
+        
+        var mediaItemArray = [MediaItem]()
+        
+        
+        for (_,subJson):(String, JSON) in json {
+            let mediaItem = MediaItem()
+            
+            print(subJson["soundtype"].stringValue)
+            print(subJson["category"].stringValue)
+            
+            mediaItem.MediaName = subJson["musicName"].stringValue
+            mediaItem.ArtistName = subJson["artistName"].stringValue
+            mediaItem.ArtistId = subJson["artistId"].stringValue
+            mediaItem.MediaID = subJson["musicID"].stringValue
+            mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: subJson["soundtype"].stringValue)
+            mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: subJson["category"].stringValue)
+            mediaItem.MediaUrl = subJson["url"].stringValue
+            mediaItem.LargpicUrl = subJson["largpicUrl"].stringValue
+            mediaItem.SmallpicUrl = subJson["smallpicUrl"].stringValue
+            mediaItem.Time = subJson["time"].stringValue
+            mediaItem.ShareUrl = subJson["shareUrl"].stringValue
+            mediaItem.Like = subJson["like"].stringValue
+            mediaItem.Download = subJson["download"].stringValue
+            mediaItem.IrancellCode = subJson["irancellCode"].stringValue
+            mediaItem.HamrahavalCode = subJson["hamrahavalCode"].stringValue
+            
+            mediaItemArray.append(mediaItem)
+        }
+        
+        
+        
+        return mediaItemArray
     }
 }

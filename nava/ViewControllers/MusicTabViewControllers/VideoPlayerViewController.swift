@@ -278,30 +278,11 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.videoControllerView.backgroundColor = UIColor.black
         
         
-        //Download Buttom
-        self.btnDownLoad = UIButton()
-        self.btnDownLoad.frame.size = CGSize(width: W * 0.065, height: W * 0.065)
-        self.btnDownLoad.frame.origin = CGPoint(x: self.btnBack.frame.origin.x, y: 0)
-        self.btnDownLoad.center.y = self.videoControllerView.frame.size.height * 0.5
-        
-        if !isDownloaded
-        {
-            self.btnDownLoad.setImage(UIImage(named: "DownloadedTab"), for: .normal)
-            self.btnDownLoad.addTarget(self, action: #selector(self.DownloadAction), for: .touchUpInside)
-            self.mainPlayingView.addSubview(btnDownLoad)
-        }
-        
-        self.progresslbl = UILabel()
-        self.progresslbl.font = UIFont(name: "Arial", size: 12)
-        self.progresslbl.center = self.btnDownLoad.center
-        self.progresslbl.textColor = UIColor.white
-        self.progresslbl.isHidden = true
-        
-        
         //Like Button
         self.btnLike = UIButton()
-        self.btnLike.frame.size = self.btnDownLoad.frame.size
-        self.btnLike.frame.origin = CGPoint(x: (self.btnBack.frame.origin.x * 3) + (self.btnDownLoad.frame.size.width ) , y: self.btnDownLoad.frame.origin.y)
+        self.btnLike.frame.size = CGSize(width: W * 0.065, height: W * 0.065)
+        self.btnLike.frame.origin = CGPoint(x: (self.btnBack.frame.origin.x) , y: 0)
+        self.btnLike.center.y = self.videoControllerView.frame.size.height * 0.5
         isLiked = MediaManager.IsLikedMedia(mediaItem: mediaItem)
         if isLiked
         {
@@ -312,6 +293,25 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             self.btnLike.setImage(UIImage(named: "UnLike"), for: .normal)
             self.btnLike.addTarget(self, action: #selector(self.LikeAction), for: .touchUpInside)
         }
+        
+        //Download Buttom
+        self.btnDownLoad = UIButton()
+        self.btnDownLoad.frame.size = self.btnLike.frame.size
+        self.btnDownLoad.frame.origin = CGPoint(x: self.btnLike.frame.size.width * 1.2 + self.btnLike.frame.origin.x  , y: 0)
+        self.btnDownLoad.center.y = self.videoControllerView.frame.size.height * 0.5
+        self.btnDownLoad.center.y = self.btnLike.center.y
+        if !isDownloaded
+        {
+            self.btnDownLoad.setImage(UIImage(named: "DownloadedTab"), for: .normal)
+            self.btnDownLoad.addTarget(self, action: #selector(self.DownloadAction), for: .touchUpInside)
+            self.mainPlayingView.addSubview(btnDownLoad)
+        }
+        
+        self.progresslbl = UILabel()
+        self.progresslbl.font = UIFont(name: Tools.StaticVariables.AppFont, size: 12)
+        self.progresslbl.center = self.btnDownLoad.center
+        self.progresslbl.textColor = UIColor.white
+        self.progresslbl.isHidden = true
         
         self.lblMusicname = UILabel()
         
@@ -359,11 +359,16 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.lblArtistName.sizeToFit()
         
+        
+        self.lblMusicname.textAlignment = .right
+        self.lblArtistName.textAlignment = .right
+
+        
         self.lblMusicname.frame.origin.x = self.videoControllerView.frame.size.width - lblMusicname.frame.size.width - Tools.screenWidth * 0.03
-        self.lblMusicname.center.y =  self.videoControllerView.frame.size.height * 0.2
+        self.lblMusicname.center.y =  self.videoControllerView.frame.size.height * 0.25
         
         self.lblArtistName.frame.origin.x = self.videoControllerView.frame.size.width - lblArtistName.frame.size.width - Tools.screenWidth * 0.03
-        self.lblArtistName.center.y =  self.videoControllerView.frame.size.height * 0.6
+        self.lblArtistName.center.y =  self.videoControllerView.frame.size.height * 0.65
         
     }
     
@@ -396,8 +401,9 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func SetPopUpMenuView() -> Void{
         
-        popUpViewHeight = mainPlayingView.frame.size.height * 0.26
-        let viewSize = CGSize(width: self.mainPlayingView.frame.size.width * 0.6 , height: 0)
+        
+        popUpViewHeight = mainPlayingView.frame.size.height * 0.20
+        let viewSize = CGSize(width: self.mainPlayingView.frame.size.width * 0.43 , height: 0)
         let viewPosition = CGPoint(x: self.mainPlayingView.frame.size.width - viewSize.width - Tools.screenWidth * 0.01, y: 0)
         
         

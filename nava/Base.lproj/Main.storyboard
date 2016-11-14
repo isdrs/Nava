@@ -8,7 +8,7 @@
         <!--Shahadat View Controller-->
         <scene sceneID="8xi-nS-edl">
             <objects>
-                <viewController storyboardIdentifier="ShahadatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jkl-YR-Q3a" customClass="ShahadatViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShahadatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jkl-YR-Q3a" customClass="ShahadatViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Y5g-ns-xPl"/>
                         <viewControllerLayoutGuide type="bottom" id="ue3-xB-Nn6"/>
@@ -26,7 +26,7 @@
         <!--Music-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController storyboardIdentifier="MusicViewController" title="Music" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pv-A4-QxB" customClass="MusicViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MusicViewController" title="Music" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pv-A4-QxB" customClass="MusicViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -104,7 +104,7 @@
         <!--Video Player View Controller-->
         <scene sceneID="meb-oj-ul3">
             <objects>
-                <viewController storyboardIdentifier="VideoPlayerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a92-Te-U9p" customClass="VideoPlayerViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoPlayerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a92-Te-U9p" customClass="VideoPlayerViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iC0-0v-jsl"/>
                         <viewControllerLayoutGuide type="bottom" id="5Y6-LV-7V1"/>
@@ -117,12 +117,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DJQ-mj-WTr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2434" y="347"/>
+            <point key="canvasLocation" x="2480.8000000000002" y="346.77661169415296"/>
         </scene>
         <!--Music Player View Controller-->
         <scene sceneID="ucM-U2-K1I">
             <objects>
-                <viewController storyboardIdentifier="MusicPlayerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WGi-9U-bSp" customClass="MusicPlayerViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MusicPlayerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WGi-9U-bSp" customClass="MusicPlayerViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jdr-DC-FAd"/>
                         <viewControllerLayoutGuide type="bottom" id="5Ud-9v-9ba"/>
@@ -140,7 +140,7 @@
         <!--Video-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController storyboardIdentifier="VideoViewController" title="Video" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8rJ-Kc-sve" customClass="VideoViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoViewController" title="Video" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8rJ-Kc-sve" customClass="VideoViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -169,11 +169,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="lAB-SK-z1g" secondAttribute="trailing" id="5fY-VI-z0G"/>
                             <constraint firstItem="lAB-SK-z1g" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="61f-b3-W93"/>
@@ -209,22 +210,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
                 <customObject id="c5e-Xo-kDg" customClass="RAMFlipTopTransitionItemAnimations" customModule="RAMAnimatedTabBarController"/>
             </objects>
-            <point key="canvasLocation" x="1428" y="716"/>
+            <point key="canvasLocation" x="1630" y="448"/>
         </scene>
         <!--نواهای آسمانی-->
         <scene sceneID="Wmf-rS-Gg0">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mBD-Tr-eYk" customClass="HomeViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mBD-Tr-eYk" customClass="HomeViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qrj-89-mZr"/>
                         <viewControllerLayoutGuide type="bottom" id="TcR-sN-Tr4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yJY-jc-DyK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sS1-80-xzN">
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.12939286231994629" green="0.12942266464233398" blue="0.12939092516899109" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="49e-Tb-3d3" kind="embed" id="LcT-Oj-d0v"/>
                                 </connections>
@@ -233,7 +234,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sS1-80-xzN" firstAttribute="bottom" secondItem="TcR-sN-Tr4" secondAttribute="top" id="JK3-3I-Vzf"/>
-                            <constraint firstItem="sS1-80-xzN" firstAttribute="height" secondItem="yJY-jc-DyK" secondAttribute="height" constant="-64" id="air-ox-IXK"/>
+                            <constraint firstItem="sS1-80-xzN" firstAttribute="height" secondItem="yJY-jc-DyK" secondAttribute="height" id="air-ox-IXK"/>
                             <constraint firstItem="sS1-80-xzN" firstAttribute="leading" secondItem="yJY-jc-DyK" secondAttribute="leading" id="mOd-sc-5oP"/>
                             <constraint firstItem="sS1-80-xzN" firstAttribute="width" secondItem="yJY-jc-DyK" secondAttribute="width" id="wFq-qI-Lc9"/>
                         </constraints>
@@ -253,7 +254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9b-hx-iFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-573.75" y="-189.08450704225353"/>
+            <point key="canvasLocation" x="-575.20000000000005" y="-189.3553223388306"/>
         </scene>
         <!--Animated Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -264,8 +265,9 @@
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="1" green="0.0099468241870000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="selectedImageTintColor" red="1" green="0.0099468241870000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.12939286229999999" green="0.12942266459999999" blue="0.12939092520000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="JWp-r5-rpO"/>
@@ -281,7 +283,7 @@
         <!--Search-->
         <scene sceneID="3U1-nn-3sC">
             <objects>
-                <viewController storyboardIdentifier="SearchViewController" title="Search" useStoryboardIdentifierAsRestorationIdentifier="YES" id="488-hX-qUN" customClass="SearchViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchViewController" title="Search" useStoryboardIdentifierAsRestorationIdentifier="YES" id="488-hX-qUN" customClass="SearchViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BTD-es-7C6"/>
                         <viewControllerLayoutGuide type="bottom" id="ke6-SK-x3r"/>
@@ -317,7 +319,7 @@
         <!--Downloaded-->
         <scene sceneID="3v5-pk-zvK">
             <objects>
-                <viewController storyboardIdentifier="DownloadedViewController" title="Downloaded" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ffC-IY-lXI" customClass="DownloadedViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DownloadedViewController" title="Downloaded" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ffC-IY-lXI" customClass="DownloadedViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cO7-1K-23M"/>
                         <viewControllerLayoutGuide type="bottom" id="Wna-th-CJU"/>
@@ -386,12 +388,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RB7-Xj-CHE" sceneMemberID="firstResponder"/>
                 <customObject id="YGW-6C-yhZ" customClass="RAMFlipRightTransitionItemAnimations" customModule="RAMAnimatedTabBarController"/>
             </objects>
-            <point key="canvasLocation" x="-399" y="921"/>
+            <point key="canvasLocation" x="-399.19999999999999" y="920.68965517241384"/>
         </scene>
         <!--Ayad View Controller-->
         <scene sceneID="yYU-gK-tKj">
             <objects>
-                <viewController storyboardIdentifier="AyadViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KFV-JY-kyh" customClass="AyadViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AyadViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KFV-JY-kyh" customClass="AyadViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fmO-tn-BH8"/>
                         <viewControllerLayoutGuide type="bottom" id="0D0-n3-DIc"/>
@@ -409,7 +411,7 @@
         <!--Moharram View Controller-->
         <scene sceneID="B1H-hW-7Ke">
             <objects>
-                <viewController storyboardIdentifier="MoharramViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cN0-S8-mBH" customClass="MoharramViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MoharramViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cN0-S8-mBH" customClass="MoharramViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WPx-ec-LDh"/>
                         <viewControllerLayoutGuide type="bottom" id="GBH-WU-fzA"/>
@@ -427,7 +429,7 @@
         <!--Favorites View Controller-->
         <scene sceneID="uUO-d2-S9M">
             <objects>
-                <viewController storyboardIdentifier="FavoritesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MeQ-eg-qHk" customClass="FavoritesViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FavoritesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MeQ-eg-qHk" customClass="FavoritesViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ai4-iS-Yen"/>
                         <viewControllerLayoutGuide type="bottom" id="49c-MH-kcT"/>
@@ -445,7 +447,7 @@
         <!--Video Downloaded View Controller-->
         <scene sceneID="Gje-kr-cEI">
             <objects>
-                <viewController storyboardIdentifier="VideoDownloadedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EMN-of-32B" customClass="VideoDownloadedViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoDownloadedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EMN-of-32B" customClass="VideoDownloadedViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gh7-Jc-hpw"/>
                         <viewControllerLayoutGuide type="bottom" id="eSq-Qa-EBP"/>
@@ -463,7 +465,7 @@
         <!--Music Downloaded View Controller-->
         <scene sceneID="8KO-eO-7Tt">
             <objects>
-                <viewController storyboardIdentifier="MusicDownloadedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OtD-Pg-yda" customClass="MusicDownloadedViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MusicDownloadedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OtD-Pg-yda" customClass="MusicDownloadedViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LDq-m5-jmZ"/>
                         <viewControllerLayoutGuide type="bottom" id="Mye-RJ-FwG"/>
@@ -481,7 +483,7 @@
         <!--Slide Menu View Controller-->
         <scene sceneID="l4J-hs-OYY">
             <objects>
-                <viewController storyboardIdentifier="SlideMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hN3-ZO-CkP" customClass="SlideMenuViewController" customModule="nava" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SlideMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hN3-ZO-CkP" customClass="SlideMenuViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="130-S0-Ik8"/>
                         <viewControllerLayoutGuide type="bottom" id="69W-nx-34J"/>
@@ -537,8 +539,8 @@
             <objects>
                 <navigationController storyboardIdentifier="ENSideMenuNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XoF-uW-Vga" customClass="ENSideMenuNavigationController" customModule="ENSwiftSideMenu" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="PRP-3a-vWh">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="PRP-3a-vWh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

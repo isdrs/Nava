@@ -53,7 +53,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     private var isSearchTypeListLoaded : Array<Bool> = []
     
-    private var searchParams : Array<String> = ["","","","",""]
+    private var searchParams : Array<String> = ["","","","","",""]
     
     private var pageNo = 0
     
@@ -65,7 +65,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchParams[4] = String(pageNo)
         
         let appearance = SCLAlertView.SCLAppearance(
-            showCloseButton: false
+//            showCloseButton: false
         )
         
         loadingBar = SCLAlertView(appearance: appearance).showWait("بارگیری اطلاعات", subTitle: "لطفا شکیبا باشید")
@@ -428,6 +428,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             pageNo += 1
             
             self.searchParams[4] = String(pageNo)
+        }
+        
+        if searchTxt.text == "" {
+            self.searchParams[5] = "all"
+        }
+        else
+        {
+            self.searchParams[5] = searchTxt.text!
         }
         
         

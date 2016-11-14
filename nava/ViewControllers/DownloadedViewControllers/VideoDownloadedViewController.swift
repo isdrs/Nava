@@ -9,7 +9,8 @@
 import UIKit
 import XLPagerTabStrip
 
-class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
+class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource, DownloadCellItemDelegate
+{
     
     var downlodedVideo = [MediaItem]()
     
@@ -34,8 +35,8 @@ class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         // set tableview properties
         videoTbl = UITableView()
         videoTbl = UITableView(frame: .zero, style: .plain)
-        videoTbl.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
-        videoTbl.rowHeight = MediaCell.cellHeight
+        videoTbl.register(DownloadCellItem.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
+        videoTbl.rowHeight = DownloadCellItem.cellHeight
         videoTbl.backgroundColor = .black
         videoTbl.dataSource = self
         videoTbl.delegate = self
@@ -80,14 +81,15 @@ class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! MediaCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! DownloadCellItem
         
         let mediaItem = downlodedVideo[indexPath.row]
         
+        cell.cellMedia = mediaItem
+        
         cell.MusicTitleLabel = mediaItem.MediaName
         cell.SingerNameLabel = mediaItem.ArtistName
-        cell.LikeCounterLabelText = mediaItem.Like
-        cell.DownloadCounterLabelText = mediaItem.Download
+        cell.delegate = self
         //cell.time.text = mediaItem.Time
         
         cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)

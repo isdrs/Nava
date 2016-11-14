@@ -12,10 +12,19 @@
 		1172BC741DC349C20026617F /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172BC731DC349C20026617F /* MediaCell.swift */; };
 		1178C8C51DD1EA0F00096D0A /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178C8C41DD1EA0F00096D0A /* VideoPlayerViewController.swift */; };
 		1178C8C71DD1FE3D00096D0A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178C8C61DD1FE3D00096D0A /* PlayerViewController.swift */; };
+		117C76151DD8D8520091222E /* DownloadCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117C76141DD8D8520091222E /* DownloadCellItem.swift */; };
+		117C76171DD8E7560091222E /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117C76161DD8E7560091222E /* DataCacheManager.swift */; };
+		117C761F1DD927930091222E /* FontLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = 117C76191DD927930091222E /* FontLicense.txt */; };
+		117C76201DD927930091222E /* IRANSansMobile_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 117C761A1DD927930091222E /* IRANSansMobile_Bold.ttf */; };
+		117C76211DD927930091222E /* IRANSansMobile_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 117C761B1DD927930091222E /* IRANSansMobile_Light.ttf */; };
+		117C76221DD927930091222E /* IRANSansMobile_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 117C761C1DD927930091222E /* IRANSansMobile_Medium.ttf */; };
+		117C76231DD927930091222E /* IRANSansMobile_UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 117C761D1DD927930091222E /* IRANSansMobile_UltraLight.ttf */; };
+		117C76241DD927930091222E /* IRANSansMobile.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 117C761E1DD927930091222E /* IRANSansMobile.ttf */; };
 		1181D96C1DD4B53B00CA2351 /* SameArtistCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1181D96B1DD4B53B00CA2351 /* SameArtistCellItem.swift */; };
 		1181D96E1DD4D70400CA2351 /* FavoriteCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1181D96D1DD4D70400CA2351 /* FavoriteCellItem.swift */; };
 		119611471DC24FD300464556 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119611461DC24FD300464556 /* Tools.swift */; };
 		11A0F01B1DD72623001B11EF /* GeneralMusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0F01A1DD72623001B11EF /* GeneralMusicPlayerView.swift */; };
+		11ABC3851DD9B594000C1D6E /* TitleLable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ABC3841DD9B594000C1D6E /* TitleLable.swift */; };
 		11F89FC21DBE0E1700E74240 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F89FC11DBE0E1700E74240 /* SlideMenuViewController.swift */; };
 		11F89FC41DBE24D500E74240 /* SwiftyAccordionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */; };
 		840F10201DB4BBF7000D430B /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F101F1DB4BBF7000D430B /* ContainerViewController.swift */; };
@@ -62,10 +71,19 @@
 		1172BC731DC349C20026617F /* MediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaCell.swift; path = Classes/Items/MediaCell.swift; sourceTree = "<group>"; };
 		1178C8C41DD1EA0F00096D0A /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoPlayerViewController.swift; path = ViewControllers/MusicTabViewControllers/VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		1178C8C61DD1FE3D00096D0A /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = ViewControllers/MusicTabViewControllers/PlayerViewController.swift; sourceTree = "<group>"; };
+		117C76141DD8D8520091222E /* DownloadCellItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadCellItem.swift; path = Classes/DownloadCellItem.swift; sourceTree = "<group>"; };
+		117C76161DD8E7560091222E /* DataCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataCacheManager.swift; path = Classes/Managers/DataCacheManager.swift; sourceTree = "<group>"; };
+		117C76191DD927930091222E /* FontLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FontLicense.txt; path = Fonts/FontLicense.txt; sourceTree = "<group>"; };
+		117C761A1DD927930091222E /* IRANSansMobile_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = IRANSansMobile_Bold.ttf; path = Fonts/IRANSansMobile_Bold.ttf; sourceTree = "<group>"; };
+		117C761B1DD927930091222E /* IRANSansMobile_Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = IRANSansMobile_Light.ttf; path = Fonts/IRANSansMobile_Light.ttf; sourceTree = "<group>"; };
+		117C761C1DD927930091222E /* IRANSansMobile_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = IRANSansMobile_Medium.ttf; path = Fonts/IRANSansMobile_Medium.ttf; sourceTree = "<group>"; };
+		117C761D1DD927930091222E /* IRANSansMobile_UltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = IRANSansMobile_UltraLight.ttf; path = Fonts/IRANSansMobile_UltraLight.ttf; sourceTree = "<group>"; };
+		117C761E1DD927930091222E /* IRANSansMobile.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = IRANSansMobile.ttf; path = Fonts/IRANSansMobile.ttf; sourceTree = "<group>"; };
 		1181D96B1DD4B53B00CA2351 /* SameArtistCellItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SameArtistCellItem.swift; path = Classes/SameArtistCellItem.swift; sourceTree = "<group>"; };
 		1181D96D1DD4D70400CA2351 /* FavoriteCellItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoriteCellItem.swift; path = Classes/Items/FavoriteCellItem.swift; sourceTree = "<group>"; };
 		119611461DC24FD300464556 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tools.swift; path = Classes/Managers/Tools.swift; sourceTree = "<group>"; };
 		11A0F01A1DD72623001B11EF /* GeneralMusicPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeneralMusicPlayerView.swift; path = Classes/Items/GeneralMusicPlayerView.swift; sourceTree = "<group>"; };
+		11ABC3841DD9B594000C1D6E /* TitleLable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleLable.swift; path = Classes/Items/TitleLable.swift; sourceTree = "<group>"; };
 		11F89FC11DBE0E1700E74240 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlideMenuViewController.swift; path = ViewControllers/SlideMenuViewController.swift; sourceTree = "<group>"; };
 		11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyAccordionCells.swift; path = Classes/Items/SwiftyAccordionCells.swift; sourceTree = "<group>"; };
 		3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nava.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +100,7 @@
 		844A80541DAA5BAD00EF7A0C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = ViewControllers/SearchViewController.swift; sourceTree = "<group>"; };
 		844A80561DAA5BBD00EF7A0C /* DownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadedViewController.swift; path = ViewControllers/DownloadedViewController.swift; sourceTree = "<group>"; };
 		84539E7B1DAF8D6300363617 /* ServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceManager.swift; path = Classes/Managers/ServiceManager.swift; sourceTree = "<group>"; };
-		84D377F21DAA50A40085C05D /* nava.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nava.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D377F21DAA50A40085C05D /* نواهای آسمانی.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "نواهای آسمانی.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D377F51DAA50A40085C05D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84D377FC1DAA50A40085C05D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84D377FE1DAA50A40085C05D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -119,6 +137,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		117C76181DD9277E0091222E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				117C76191DD927930091222E /* FontLicense.txt */,
+				117C761A1DD927930091222E /* IRANSansMobile_Bold.ttf */,
+				117C761B1DD927930091222E /* IRANSansMobile_Light.ttf */,
+				117C761C1DD927930091222E /* IRANSansMobile_Medium.ttf */,
+				117C761D1DD927930091222E /* IRANSansMobile_UltraLight.ttf */,
+				117C761E1DD927930091222E /* IRANSansMobile.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		1C91AB23F5E05FAE9A5A5C0B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +218,8 @@
 				1181D96B1DD4B53B00CA2351 /* SameArtistCellItem.swift */,
 				1181D96D1DD4D70400CA2351 /* FavoriteCellItem.swift */,
 				11A0F01A1DD72623001B11EF /* GeneralMusicPlayerView.swift */,
+				117C76141DD8D8520091222E /* DownloadCellItem.swift */,
+				11ABC3841DD9B594000C1D6E /* TitleLable.swift */,
 			);
 			name = Items;
 			sourceTree = "<group>";
@@ -194,6 +227,7 @@
 		84539E7A1DAF8D3500363617 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				117C76161DD8E7560091222E /* DataCacheManager.swift */,
 				84FB193A1DB38C7900F3D71A /* MediaManager.swift */,
 				84FB19361DB388E200F3D71A /* DBManager.swift */,
 				84539E7B1DAF8D6300363617 /* ServiceManager.swift */,
@@ -217,7 +251,7 @@
 		84D377F31DAA50A40085C05D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84D377F21DAA50A40085C05D /* nava.app */,
+				84D377F21DAA50A40085C05D /* نواهای آسمانی.app */,
 				84D378081DAA50A40085C05D /* navaTests.xctest */,
 			);
 			name = Products;
@@ -226,6 +260,7 @@
 		84D377F41DAA50A40085C05D /* nava */ = {
 			isa = PBXGroup;
 			children = (
+				117C76181DD9277E0091222E /* Fonts */,
 				844A80581DAA737F00EF7A0C /* Classes */,
 				844A804D1DAA5B4D00EF7A0C /* ViewControllers */,
 				84D377F51DAA50A40085C05D /* AppDelegate.swift */,
@@ -283,7 +318,7 @@
 			);
 			name = nava;
 			productName = nava;
-			productReference = 84D377F21DAA50A40085C05D /* nava.app */;
+			productReference = 84D377F21DAA50A40085C05D /* نواهای آسمانی.app */;
 			productType = "com.apple.product-type.application";
 		};
 		84D378071DAA50A40085C05D /* navaTests */ = {
@@ -319,6 +354,11 @@
 						DevelopmentTeam = HUB9ZQ7NS4;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					84D378071DAA50A40085C05D = {
 						CreatedOnToolsVersion = 8.0;
@@ -354,7 +394,13 @@
 			files = (
 				84D378021DAA50A40085C05D /* LaunchScreen.storyboard in Resources */,
 				84D377FF1DAA50A40085C05D /* Assets.xcassets in Resources */,
+				117C761F1DD927930091222E /* FontLicense.txt in Resources */,
+				117C76231DD927930091222E /* IRANSansMobile_UltraLight.ttf in Resources */,
 				84D378181DAA50DF0085C05D /* Podfile in Resources */,
+				117C76221DD927930091222E /* IRANSansMobile_Medium.ttf in Resources */,
+				117C76201DD927930091222E /* IRANSansMobile_Bold.ttf in Resources */,
+				117C76241DD927930091222E /* IRANSansMobile.ttf in Resources */,
+				117C76211DD927930091222E /* IRANSansMobile_Light.ttf in Resources */,
 				84D377FD1DAA50A40085C05D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,6 +469,7 @@
 			files = (
 				1108338D1DD31417000DCA80 /* NavaEnums.swift in Sources */,
 				11F89FC41DBE24D500E74240 /* SwiftyAccordionCells.swift in Sources */,
+				11ABC3851DD9B594000C1D6E /* TitleLable.swift in Sources */,
 				1181D96E1DD4D70400CA2351 /* FavoriteCellItem.swift in Sources */,
 				844A80551DAA5BAD00EF7A0C /* SearchViewController.swift in Sources */,
 				843E059A1DAA8E7C00306DCC /* FavoritesViewController.swift in Sources */,
@@ -446,6 +493,8 @@
 				1181D96C1DD4B53B00CA2351 /* SameArtistCellItem.swift in Sources */,
 				84FB19381DB388E200F3D71A /* DBManager.swift in Sources */,
 				8413229B1DB2443400BE67C0 /* VideoDownloadedViewController.swift in Sources */,
+				117C76151DD8D8520091222E /* DownloadCellItem.swift in Sources */,
+				117C76171DD8E7560091222E /* DataCacheManager.swift in Sources */,
 				843E05941DAA8E1600306DCC /* ShahadatViewController.swift in Sources */,
 				1108338F1DD31957000DCA80 /* SearchTypeItem.swift in Sources */,
 				1178C8C51DD1EA0F00096D0A /* VideoPlayerViewController.swift in Sources */,
@@ -598,7 +647,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manshor.nava;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "نواهای آسمانی";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -614,7 +663,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manshor.nava;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "نواهای آسمانی";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

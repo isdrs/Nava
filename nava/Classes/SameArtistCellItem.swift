@@ -41,7 +41,7 @@ class SameArtistCellItem : UITableViewCell {
     }
     
     
-    static let cellHeight = Tools.screenHeight * CGFloat(0.20)
+    static let cellHeight = Tools.screenHeight * CGFloat(0.16)
     var musicImage : UIImageView!
     private var likeBtn : UIButton!
     private var downloadBtn : UIButton!
@@ -219,7 +219,7 @@ class SameArtistCellItem : UITableViewCell {
         // Like Button
         likeBtn = UIButton()
         likeBtn.frame.size =  CGSize(width: buttonSize.width, height: buttonSize.height)
-        likeBtn.frame.origin = CGPoint(x: buttonSize.width, y: infoPanelView.frame.size.height * 0.8)
+        likeBtn.frame.origin = CGPoint(x: buttonSize.width, y: infoPanelView.frame.size.height * 0.7)
         
         // Download Button
         downloadBtn = UIButton()
@@ -228,7 +228,7 @@ class SameArtistCellItem : UITableViewCell {
 
         
         self.progresslbl = UILabel()
-        self.progresslbl.font = UIFont(name: "Arial", size: 12)
+        self.progresslbl.font = UIFont(name: Tools.StaticVariables.AppFont, size: 12)
         self.progresslbl.center = self.downloadBtn.center
         self.progresslbl.textColor = UIColor.white
         self.progresslbl.isHidden = true

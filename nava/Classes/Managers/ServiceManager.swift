@@ -14,7 +14,7 @@ import SCLAlertView
 
 class ServiceManager: NSObject
 {
-    private static var baseURl : String = "http://hadsahang.arsinit.com/skysounds/index/"
+    private static var baseURl : String = "http://www.nava72.ir/skysounds/index/"
     
     ///mediaType, ServiceType, madah ID, page
     private static var ParametersWithSingerURL = "itemlist/%@/%@/madah/%@/20/%@"
@@ -26,12 +26,20 @@ class ServiceManager: NSObject
     
     private static var ParametersForSearchTypeList = "%@"
     
-    private static var ParametersForSearch = "search/%@/%@/%@/%@/20/%@"
+    private static var ParametersForSearch = "search/%@/%@/%@/%@/20/%@/%@"
     
-
+    static func DownloadImage(urlString: String, completion: @escaping ((UIImage?) -> Void)) -> (Request) {
+        
+        return Alamofire.request(urlString).responseImage(completionHandler: { (response) in
+            guard let image = response.result.value else { return }
+            
+            completion(image)
+        })
+    }
     
     static func GetMediaList(mediaType : NavaEnums.ServiceMediaType, serviceType : NavaEnums.ServiceType, pageNo : Int, callBack : @escaping (Bool, [MediaItem]) -> Void  )
     {
+        
         let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersWithoutSingerURL, mediaType.rawValue, serviceType.rawValue, String(pageNo))
         
         Alamofire.request(urlString).responseJSON { (response) in
@@ -56,7 +64,9 @@ class ServiceManager: NSObject
     
     static func GetMediaListByArtist(mediaItem : MediaItem, mediaType : NavaEnums.ServiceMediaType, serviceType : NavaEnums.ServiceType, pageNo : Int, callBack : @escaping (Bool, [MediaItem]) -> Void  )
     {
-        let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersWithSingerURL, mediaType.rawValue, mediaItem.ArtistId, serviceType.rawValue, String(pageNo))
+        // "http://nava72.ir/skysounds/index/itemlist/sound/moharam/10/1"//
+        
+        let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersWithSingerURL, mediaType.rawValue, serviceType.rawValue, mediaItem.ArtistId, String(pageNo))
         
         Alamofire.request(urlString).responseJSON { (response) in
             print("Request: \(response.request)")
@@ -68,9 +78,13 @@ class ServiceManager: NSObject
             case .success(let value):
                 let json = JSON(value)
                 print("JSON: \(json)")
+                    
+                    callBack(true, self.GetMediaFromResponse(json: json, mediaType: mediaType, serviceType: serviceType))
+              
                 
-                callBack(true, self.GetMediaFromResponse(json: json, mediaType: mediaType, serviceType: serviceType))
             case .failure(let error):
+                
+                callBack(false, [MediaItem]())
                 print(error)
             }
             
@@ -194,7 +208,7 @@ class ServiceManager: NSObject
         }
     }
     
-    static func GetSearchTypeList(searchType : NavaEnums.SearchType,callBack : @escaping (Bool, [SearchTypeItem]) -> Void  )
+    static func GetSearchTypeList(searchType : NavaEnums.SearchType, callBack : @escaping (Bool, [SearchTypeItem]) -> Void  )
     {
         let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersForSearchTypeList, searchType.rawValue)
         
@@ -274,7 +288,7 @@ class ServiceManager: NSObject
     
     static func GetSearchList(searchParams: Array<String>, callBack : @escaping (Bool, [MediaItem]) -> Void  )
     {
-        let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersForSearch, searchParams[0], searchParams[1], searchParams[2], searchParams[3], searchParams[4])
+        let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersForSearch, searchParams[0], searchParams[1], searchParams[2], searchParams[3], searchParams[4], searchParams[5])
         
         Alamofire.request(urlString).responseJSON { (response) in
             print("Request: \(response.request)")

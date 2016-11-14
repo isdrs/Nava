@@ -359,6 +359,7 @@ class MediaManager: NSObject {
         {
         }
     }
+    
 
 
     ///Database custom class row
@@ -599,6 +600,40 @@ class MediaManager: NSObject {
 
             ]
         }
+    }
+    
+    
+    
+    static func DeleteMedia(mediaItem : MediaItem, completion: (Bool) -> Void)
+    {
+        var localPath : URL?
+        
+        var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        if mediaItem.MediaType == .sound {
+            documentsURL.appendPathComponent("MyMedia/." + mediaItem.MediaID + ".mp3")
+        }
+        else
+        {
+            documentsURL.appendPathComponent("MyMedia/." + mediaItem.MediaID + ".mp4")
+        }
+        
+        localPath = documentsURL
+        
+        do
+        {
+            try FileManager().removeItem(at: localPath!)
+            
+            DeleteDBMeida(mediaItem: mediaItem)
+            
+            completion(true)
+        }
+        catch
+        {
+            completion(false)
+        }
+        
+        
     }
 }
 

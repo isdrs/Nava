@@ -15,10 +15,11 @@ import AlamofireImage
 import SCLAlertView
 import MessageUI
 
+
 class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MFMessageComposeViewControllerDelegate ,JukeboxDelegate {
     
-    
-    
+    private var lblMusicName : TitleLable!
+    private var lblArtistName : UILabel!
     
     private var playingMusicView : UIView!
     private var musicListView : UIView!
@@ -55,6 +56,35 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     private var isStartPlaying = false
    
+    var MusicTitleLabel : String {
+        get {
+            return self.lblMusicName.text!
+        }
+        set {
+            self.lblMusicName.text = newValue
+            self.lblMusicName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 18)
+            //self.lblMusicName.sizeToFit()
+            self.lblMusicName.frame.origin = CGPoint(x: 0 , y:self.playingMusicView.frame.size.height * 0.3)
+            self.lblMusicName.textAlignment = .center
+            self.lblMusicName.center.x = self.playingMusicView.center.x
+            
+        }
+    }
+    
+    var ArtistNameLabel : String {
+        get {
+            return self.lblArtistName.text!
+        }
+        set {
+            self.lblArtistName.text = newValue
+            self.lblArtistName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 14)
+            //self.lblArtistName.sizeToFit()
+            self.lblArtistName.frame.origin = CGPoint(x: 0 , y:self.playingMusicView.frame.size.height * 0.37)
+            self.lblArtistName.textAlignment = .center
+            self.lblArtistName.center.x = self.playingMusicView.center.x
+        }
+    }
+    
     private var isFavorited : Bool = false {
         
         didSet
@@ -90,6 +120,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.view.addGestureRecognizer(tapGesture)
         
+        tapGesture.cancelsTouchesInView = false
+        
         super.viewDidLoad()
         
         self.view.backgroundColor = .white
@@ -111,6 +143,19 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateDownloadProgressLabel), name: NSNotification.Name(rawValue: Tools.StaticVariables.DownloadProgressNotificationKey ), object: nil)
         
+//        let commandCenter = MPRemoteCommandCenter.shared()
+//
+//        commandCenter.nextTrackCommand.removeTarget(HomeViewController.self)
+//        commandCenter.previousTrackCommand.removeTarget(HomeViewController.self)
+//        
+//        commandCenter.nextTrackCommand.isEnabled = true
+//        commandCenter.nextTrackCommand.addTarget(self, action: #selector(NextTrack))
+//        
+//        
+//        
+//        commandCenter.previousTrackCommand.isEnabled = true
+//        commandCenter.previousTrackCommand.addTarget(self, action: #selector(PrevTrack))
+        
     }
     
     @objc private func buttonAction(sender: UIButton!) {
@@ -126,6 +171,11 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         self.dismiss(animated: true,completion: {})
+        
+//        
+//        let commandCenter = MPRemoteCommandCenter.shared()
+//        commandCenter.nextTrackCommand.removeTarget(self)
+//        commandCenter.previousTrackCommand.removeTarget(self)
         
     }
     
@@ -243,8 +293,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.downloadQueue[String(HomeViewController.mediaItem.MediaID)] = "true"
         
-        btnDownLoad.isHidden = true
-        btnDownLoad.isEnabled = false
+        self.btnDownLoad.isHidden = true
+        
         
         
         ServiceManager.DownloadMedia(mediaItem: HomeViewController.mediaItem) { (status) in
@@ -252,12 +302,12 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             {
                 SCLAlertView().showSuccess("دانلود", subTitle: "موفقیت آمیز بود", closeButtonTitle: "تایید", duration: 1.0)
                 
-                    self.btnDownLoad.isHidden = true
+                    //self.btnDownLoad.isHidden = true
                     appDelegate.downloadQueue.removeValue(forKey: String(HomeViewController.mediaItem.MediaID))
             }
             else
             {
-                    self.btnDownLoad.isEnabled = true
+                    
                     self.btnDownLoad.isHidden = false
                     self.progresslbl.isHidden = true
             }
@@ -294,11 +344,26 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc private func NextTrack()
     {
-        HomeViewController.jukebox?.playNext()
+        HomeViewController.NextTrack(isInRoot: false)
+        let url =  LoadData()
+        CheckNowPlayingMusic(myUrl: url)
+        HomeViewController.jukebox?.play()
+        self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
+        
+        self.btnDownLoad.isHidden = isDownloaded
+
+        
+        self.lblMusicName.text = HomeViewController.mediaItem.MediaName
+        self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
+        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
     }
     
     @objc private func PlayTrack()
     {
+        let url = LoadData()
+        
+        CheckNowPlayingMusic(myUrl: url)
+
         switch HomeViewController.jukebox?.state.rawValue {
         case Jukebox.State.ready.rawValue? :
             HomeViewController.jukebox?.play(atIndex: 0)
@@ -322,11 +387,23 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc private func PrevTrack()
     {
-        if let time = HomeViewController.jukebox?.currentItem?.currentTime, time > 5.0 || HomeViewController.jukebox?.playIndex == 0 {
-            HomeViewController.jukebox?.replayCurrentItem()
-        } else {
-            HomeViewController.jukebox?.playPrevious()
+        HomeViewController.PrevTrack(isInRoot: false)
+        let url =  LoadData()
+        CheckNowPlayingMusic(myUrl: url)
+        HomeViewController.jukebox?.play()
+        self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
+        if isDownloaded
+        {
+            btnDownLoad.isHidden = true
         }
+        else
+        {
+            btnDownLoad.isHidden = false
+        }
+        
+        self.lblMusicName.text = HomeViewController.mediaItem.MediaName
+        self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
+        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
     }
     
     @objc private func UpdateDownloadProgressLabel(notification: NSNotification)
@@ -337,25 +414,41 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let id = tmp[Tools.StaticVariables.MediaIdNotificationsKey] as String!
         let current = tmp[Tools.StaticVariables.ProgressNotificationsKey] as String!
         
-        if String(HomeViewController.mediaItem.MediaID) == id
+        if let d = id
         {
-            if current == "100"
+            if String(HomeViewController.mediaItem.MediaID) == d
             {
-                self.progresslbl.isHidden = true
+                if current == "100"
+                {
+                    //self.progresslbl.isHidden = false
+                    self.progresslbl.text = ""
+                }
+                else{
+                    self.btnDownLoad.isHidden = true
+                    //self.progresslbl.isHidden = false
+                    self.progresslbl.text = current! + "%"
+                    self.progresslbl.sizeToFit()
+                    self.progresslbl.center = self.btnDownLoad.center
+                }
             }
-            else{
-                self.btnDownLoad.isHidden = true
+            else
+            {
                 self.progresslbl.isHidden = false
-                self.progresslbl.text = current! + "%"
-                self.progresslbl.sizeToFit()
-                self.progresslbl.center = self.btnDownLoad.center
+                self.progresslbl.text = ""
+                
+                 self.btnDownLoad.isHidden = isDownloaded
             }
+        }
+        else
+        {
+            self.progresslbl.text = ""
+            self.btnDownLoad.isHidden = isDownloaded
         }
         
     }
     
-    
     func SetPlayingMusicView() -> Void{
+        
         let W = Tools.screenWidth
         let H =  Tools.screenHeight * 0.65
         let X = CGFloat()
@@ -390,29 +483,31 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         //Irancell and Hamrah Aval Button
-        self.btnHamrah = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز همراه اول",fontSize: 19.0)
-        self.btnHamrah.frame.size = CGSize(width: playingMusicView.frame.size.width * 0.48, height: playingMusicView.frame.height * 0.08)
-        self.btnHamrah.frame.origin = CGPoint(x: Tools.screenWidth * 0.01, y: 0)
+        self.btnHamrah = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز همراه اول",fontSize: 17.0)
+        self.btnHamrah.frame.size = CGSize(width: playingMusicView.frame.size.width * 0.498, height: playingMusicView.frame.height * 0.08)
+        self.btnHamrah.frame.origin = CGPoint(x: Tools.screenWidth * 0.00, y: 0)
         self.btnHamrah.center.y =  playingMusicView.frame.height * 0.95
-        self.btnHamrah.backgroundColor = UIColor.gray
-        self.btnHamrah.layer.cornerRadius = 5
+        self.btnHamrah.backgroundColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
+        //self.btnHamrah.layer.cornerRadius = 5
         self.btnHamrah.addTarget(self, action: #selector(self.HamrahAvvalAction), for: UIControlEvents.touchUpInside)
         
         
         // Irancell
-        self.btnIranCell = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز ایرانسل",fontSize: 19.0)
+        self.btnIranCell = Tools.MakeUIButtonWithAttributes(btnName: "پیشواز ایرانسل",fontSize: 17.0)
         self.btnIranCell.frame.size = btnHamrah.frame.size
-        self.btnIranCell.frame.origin = CGPoint(x: playingMusicView.frame.size.width - btnIranCell.frame.size.width - Tools.screenWidth * 0.01, y: btnHamrah.frame.origin.y)
-        self.btnIranCell.backgroundColor = UIColor.gray
-        self.btnIranCell.layer.cornerRadius = 5
+        self.btnIranCell.frame.origin = CGPoint(x: playingMusicView.frame.size.width - btnIranCell.frame.size.width - Tools.screenWidth * 0.00, y: btnHamrah.frame.origin.y)
+        self.btnIranCell.backgroundColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
+        //self.btnIranCell.layer.cornerRadius = 5
         self.btnIranCell.addTarget(self, action: #selector(self.IrancellAction), for: UIControlEvents.touchUpInside)
+        
         
         
         // seperator view
         let sepratoreView = UIView()
         sepratoreView.backgroundColor = UIColor.white
         sepratoreView.frame = CGRect(x: 0, y: 0, width: 1, height: btnHamrah.frame.size.height * 0.8)
-        sepratoreView.center = CGPoint(x: Tools.screenWidth * 0.02 + btnHamrah.frame.size.width, y: btnHamrah.center.y)
+        sepratoreView.center = CGPoint(x: btnHamrah.frame.size.width * 1.002, y: btnHamrah.center.y)
+        
         
         
         //Like Button
@@ -432,16 +527,20 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         //Download Buttom
         self.btnDownLoad = UIButton()
+        self.btnDownLoad.tag = 5000
         self.btnDownLoad.frame = CGRect(x: btnMenu.frame.origin.x, y: btnLike.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
-        if !isDownloaded
+        self.btnDownLoad.setImage(UIImage(named: "DownloadedTab"), for: .normal)
+        self.btnDownLoad.addTarget(self, action: #selector(self.DownloadAction), for: .touchUpInside)
+        self.playingMusicView.addSubview(btnDownLoad)
+
+        if isDownloaded
         {
-            self.btnDownLoad.setImage(UIImage(named: "DownloadedTab"), for: .normal)
-            self.btnDownLoad.addTarget(self, action: #selector(self.DownloadAction), for: .touchUpInside)
-            self.playingMusicView.addSubview(btnDownLoad)
+            self.btnDownLoad.isHidden = true
         }
+
         
         self.progresslbl = UILabel()
-        self.progresslbl.font = UIFont(name: "Arial", size: 12)
+        self.progresslbl.font = UIFont(name: Tools.StaticVariables.AppFont, size: 12)
         self.progresslbl.center = self.btnDownLoad.center
         self.progresslbl.textColor = UIColor.white
         self.progresslbl.isHidden = true
@@ -478,6 +577,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.musicSlider.addTarget(self, action: #selector(self.MusicSliderValueChange), for: .valueChanged)
         self.musicSlider.addTarget(self, action: #selector(self.TouchDownMusicSlider), for: .touchDown)
         self.musicSlider.addTarget(self, action: #selector(self.TouchUpMusicSlider), for: .touchUpInside)
+        self.musicSlider.tintColor = UIColor.red
         
         
         //Remaining Time Label
@@ -489,13 +589,30 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.lblRemainTime.textColor = UIColor.white
         
         
+        self.lblArtistName = TitleLable(tagNum: 0)
+        self.lblMusicName = TitleLable(tagNum: 1000)
+        //self.lblMusicName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 45)
+        //self.lblArtistName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 30)
+        
+        self.lblArtistName.textColor = .white
+        self.lblMusicName.textColor = .white
+        
+        self.lblMusicName.frame.size = CGSize(width: self.playingMusicView.frame.size.width, height: self.playingMusicView.frame.size.height * 0.1)
+        
+        self.lblArtistName.frame.size = CGSize(width: self.playingMusicView.frame.size.width, height: self.playingMusicView.frame.size.height * 0.05)
+        
+        
+        self.ArtistNameLabel = HomeViewController.mediaItem.ArtistName
+        self.MusicTitleLabel = HomeViewController.mediaItem.MediaName
+        
         // Add components to view
         
-        self.playingMusicView.addSubview(sepratoreView)
+        
         self.playingMusicView.addSubview(btnHamrah)
         self.playingMusicView.addSubview(progresslbl)
         self.playingMusicView.bringSubview(toFront: btnHamrah)
         self.playingMusicView.addSubview(btnIranCell)
+        self.playingMusicView.addSubview(sepratoreView)
         self.playingMusicView.addSubview(btnBack)
         self.playingMusicView.addSubview(btnMenu)
         self.playingMusicView.addSubview(btnLike)
@@ -504,6 +621,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.playingMusicView.addSubview(btnPrev)
         self.playingMusicView.addSubview(musicSlider)
         self.playingMusicView.addSubview(lblRemainTime)
+        self.playingMusicView.addSubview(lblArtistName)
+        self.playingMusicView.addSubview(lblMusicName)
         
         
         self.view.addSubview(self.playingMusicView)
@@ -538,8 +657,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func SetPopUpMenuView() -> Void{
         
-        popUpViewHeight = playingMusicView.frame.size.height * 0.26
-        let viewSize = CGSize(width: self.playingMusicView.frame.size.width * 0.6 , height: 0)
+        popUpViewHeight = playingMusicView.frame.size.height * 0.20
+        let viewSize = CGSize(width: self.playingMusicView.frame.size.width * 0.43 , height: 0)
         let viewPosition = CGPoint(x: self.playingMusicView.frame.size.width - viewSize.width - Tools.screenWidth * 0.01, y: 0)
         
         
@@ -548,7 +667,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         popUpView.frame.origin = viewPosition
        
         
-        shareBtn = Tools.MakeUIButtonWithAttributes(btnName: "اشتراک گذاری",fontSize: 19.0)
+        shareBtn = Tools.MakeUIButtonWithAttributes(btnName: "اشتراک گذاری",fontSize: 17.0)
         shareBtn.frame = CGRect(x: 0, y: 0, width: popUpView.frame.size.width, height: popUpViewHeight * 0.5)
         shareBtn.backgroundColor = UIColor.darkGray
         self.shareBtn.addTarget(self, action: #selector(self.Sharing), for: UIControlEvents.touchUpInside)
@@ -556,7 +675,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         shareBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         
         
-        addToFavoriteBtn = Tools.MakeUIButtonWithAttributes(btnName: "",fontSize: 19.0)
+        addToFavoriteBtn = Tools.MakeUIButtonWithAttributes(btnName: "",fontSize: 17.0)
         addToFavoriteBtn.frame = CGRect(x: 0, y: shareBtn.frame.size.height, width: shareBtn.frame.size.width, height: shareBtn.frame.size.height)
         addToFavoriteBtn.backgroundColor = UIColor.darkGray
         self.addToFavoriteBtn.addTarget(self, action: #selector(self.AddToFavorite), for: UIControlEvents.touchUpInside)
@@ -574,6 +693,28 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.popUpView.addSubview(addToFavoriteBtn)
         self.playingMusicView.addSubview(popUpView)
         
+    }
+    
+    func SetImageForImageView()
+    {
+        
+        let mySize = musicImage.frame.size
+        
+        let myImage = DataCacheManager.ShareInstance.cachedImage(urlString: HomeViewController.mediaItem.LargpicUrl)
+        
+        if let mImage = myImage
+        {
+         musicImage.image = Tools.cropToBounds(image: mImage, width: Double(mySize.width), height: Double(mySize.height))
+        }
+        else
+        {
+            ServiceManager.DownloadImage(urlString: HomeViewController.mediaItem.LargpicUrl, completion: { (newImage) in
+                DataCacheManager.ShareInstance.cacheImage(image: newImage!, urlString: HomeViewController.mediaItem.LargpicUrl)
+                
+                self.musicImage.image = Tools.cropToBounds(image: newImage!, width: Double(mySize.width), height: Double(mySize.height))
+                
+            })
+        }
     }
     
     func HidePopUpView()
@@ -652,6 +793,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         UIApplication.shared.endReceivingRemoteControlEvents()
         
         self.resignFirstResponder()
+        
+        
         
         ServiceManager.GetMediaListByArtist(mediaItem: HomeViewController.mediaItem, mediaType: .sound, serviceType: HomeViewController.mediaItem.MediaServiceType, pageNo: 1) { (status, newMedia) in
             if status
@@ -824,6 +967,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             btnPlay.setImage(UIImage(named: imageName), for: .normal)
             HomeViewController.totalMusicPlayer.SetPlayButtonImage(isPlaying: imageName == "Pause" ? true : false)
             HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
+            HomeViewController.totalMusicPlayer.ArtistNameLabel = HomeViewController.mediaItem.ArtistName
+            HomeViewController.totalMusicPlayer.MusicTitleLabel = HomeViewController.mediaItem.MediaName
         }
         
         print("Jukebox state changed to \(jukebox.state)")
@@ -901,8 +1046,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         cell.cellMedia = HomeViewController.singerMediaItems[indexPath.row]
         
-        cell.MusicTitleLabel = HomeViewController.mediaItem.MediaName
-        cell.SingerNameLabel = HomeViewController.mediaItem.ArtistName
+        cell.MusicTitleLabel = cell.cellMedia.MediaName
+        cell.SingerNameLabel = cell.cellMedia.ArtistName
         
         cell.musicImage.image = nil
         
@@ -924,6 +1069,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         HomeViewController.jukebox?.stop()
         
         HomeViewController.mediaItem = HomeViewController.singerMediaItems[indexPath.row]
@@ -931,6 +1077,24 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let url = LoadData()
         
         CheckNowPlayingMusic(myUrl: url)
+        
+        //HomeViewController.jukebox?.play()
+        self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
+        
+        for sub in self.playingMusicView.subviews
+        {
+            if sub == self.btnDownLoad
+            {
+                sub.isHidden = self.isDownloaded
+            }
+        }
+        
+//        btnDownLoad.isHidden = isDownloaded
+        
+        
+        self.lblMusicName.text = HomeViewController.mediaItem.MediaName
+        self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
+        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
         
     }
     

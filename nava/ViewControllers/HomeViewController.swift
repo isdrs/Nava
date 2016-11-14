@@ -23,9 +23,13 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     static var jukebox = Jukebox()
     
+    static var viewHeight = CGFloat()
+    
     var isHidden = false
     
     static var musicPlayerYOrigin = CGFloat()
+    
+    static var currentMusicIndex = 0
     
     //var sideMenu : ENSideMenu!
     //var GeneralPlayeView : UIView!
@@ -62,28 +66,47 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     static func ReOriginPlayerView(tabbarHeight: CGFloat)
     {
-        
-        let viewSize = Tools.screenHeight
-        
         let playerViewSize = HomeViewController.totalMusicPlayer.frame.size.height
         
-        let p = viewSize - playerViewSize - tabbarHeight
+        musicPlayerYOrigin = HomeViewController.viewHeight - playerViewSize - tabbarHeight
         
-        musicPlayerYOrigin = p
-        
-        HomeViewController.totalMusicPlayer.frame.origin = CGPoint(x: 0, y: p)
+        HomeViewController.totalMusicPlayer.frame.origin = CGPoint(x: 0, y: musicPlayerYOrigin )
         
     }
     
     override func viewDidLoad()
     {
+        
         super.viewDidLoad()
+        
+        HomeViewController.viewHeight = self.view.frame.size.height - (self.navigationController?.navigationBar.frame.size.height)! - Tools.YDiffer
         
         HomeViewController.totalMusicPlayer = GeneralMusicPlayerView()
         
         self.view.addSubview(HomeViewController.totalMusicPlayer)
         
         NotificationCenter.default.addObserver(self, selector: #selector(SetJukeBoxDelegate), name: NSNotification.Name(rawValue: Tools.StaticVariables.ChangeDelegateKey), object: nil)
+        
+        
+
+        self.navigationController?.navigationBar.topItem?.title = "نواهای آسمانی"
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: Tools.StaticVariables.AppFont, size: 20)!,  NSForegroundColorAttributeName: UIColor.white]
+
+        
+        for familyName in UIFont.familyNames {
+            
+            for fontname in UIFont.fontNames(forFamilyName: familyName)
+            {
+            print("\(familyName) : \(fontname)")
+            }
+        }
+        
+        let myFont = UIFont(name: Tools.StaticVariables.AppFont, size: 5)
+        
+        UILabel.appearance().defaultFont =  myFont
+        
+        UIButton.appearance().titleLabel?.font = myFont!
+        
     }
     
     @objc func SetJukeBoxDelegate()
@@ -93,7 +116,15 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             HomeViewController.jukebox?.delegate = nil
             
             HomeViewController.jukebox?.delegate = self
+            
+//            let commandCenter = MPRemoteCommandCenter.shared()
+//            commandCenter.nextTrackCommand.isEnabled = true
+//            commandCenter.nextTrackCommand.addTarget(self, action: #selector(HomeViewController.NextTrack))
+//            
+//            commandCenter.previousTrackCommand.isEnabled = true
+//            commandCenter.previousTrackCommand.addTarget(self, action: #selector(HomeViewController.PrevTrack))
         }
+        
     }
 
 
@@ -128,6 +159,109 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         default:
             HomeViewController.jukebox?.stop()
         }
+    }
+    
+    static func NextTrack(isInRoot: Bool)
+    {
+        if currentMusicIndex < singerMediaItems.count - 1
+        {
+            jukebox?.stop()
+            
+            currentMusicIndex += 1
+            
+            let oldItem = jukebox?.currentItem
+            
+            mediaItem = singerMediaItems[currentMusicIndex]
+            
+            if isInRoot
+            {
+//                let myUrl = URL(string: HomeViewController.mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)
+//                
+                let jukeBoxitem = JukeboxItem(URL: HomeViewController.LoadData(mediaitem: HomeViewController.mediaItem))
+                
+                jukebox?.append(item: jukeBoxitem, loadingAssets: false)
+                
+                jukebox?.remove(item: oldItem!)
+                
+                let url = HomeViewController.mediaItem.SmallpicUrl
+                
+                HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: url)
+                
+                jukebox?.play()
+            }
+        }
+    }
+    
+    static func LoadData(mediaitem: MediaItem) -> URL
+    {
+        var myUrl : URL
+        
+        if let myMedia = MediaManager.IsDownloadedMedia(mediaItem: mediaitem)
+        {
+            HomeViewController.mediaItem = myMedia
+            
+            var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            
+            documentsURL.appendPathComponent("MyMedia/." + HomeViewController.mediaItem.MediaID + ".mp3")
+            
+            myUrl = documentsURL//JukeboxItem(URL: documentsURL)
+            
+                    }
+        else
+        {
+            
+            myUrl = URL(string: HomeViewController.mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            if appDelegate.downloadQueue[String(HomeViewController.mediaItem.MediaID)] != nil {
+              
+            }
+            else
+            {
+              
+            }
+            
+        }
+        
+        return myUrl
+        
+        // jukebox.play()
+    }
+    
+    static func PrevTrack(isInRoot: Bool)
+    {
+        if currentMusicIndex > 0
+        {
+            jukebox?.stop()
+            
+            let oldItem = jukebox?.currentItem
+            
+            currentMusicIndex -= 1
+            
+            mediaItem = singerMediaItems[currentMusicIndex]
+            
+            if isInRoot
+            {
+                
+                let jukeBoxitem = JukeboxItem(URL: HomeViewController.LoadData(mediaitem: HomeViewController.mediaItem))
+                
+                jukebox?.append(item: jukeBoxitem, loadingAssets: false)
+                
+                jukebox?.remove(item: oldItem!)
+                
+                let url = HomeViewController.mediaItem.SmallpicUrl
+                
+                HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: url)
+                
+                jukebox?.play()
+            }
+        }
+    }
+    
+    static func PlayCurrentMusic()
+    {
+        
     }
     
     func jukeboxDidLoadItem(_ jukebox: Jukebox, item: JukeboxItem) {
@@ -167,6 +301,8 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             
             HomeViewController.totalMusicPlayer.SetPlayButtonImage(isPlaying: imageName == "Pause" ? true : false)
             HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
+            HomeViewController.totalMusicPlayer.ArtistNameLabel = HomeViewController.mediaItem.ArtistName
+            HomeViewController.totalMusicPlayer.MusicTitleLabel = HomeViewController.mediaItem.MediaName
         }
         
         print("Jukebox state changed to \(jukebox.state)")
@@ -210,6 +346,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             
         }
     }
+    
     
     
 //    @IBAction func ToggleMenuAction(_ sender: AnyObject) {

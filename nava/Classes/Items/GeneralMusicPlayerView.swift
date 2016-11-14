@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Jukebox
 
 
 class GeneralMusicPlayerView: UIView {
@@ -23,7 +24,10 @@ class GeneralMusicPlayerView: UIView {
     var btnPlayPause : UIButton!
     var btnNext : UIButton!
     var btnNavigate : UIButton!
-
+    private var lblMusicName : UILabel!
+    private var lblArtistName : UILabel!
+    
+    
     override func draw(_ rect: CGRect)
     {
         
@@ -52,7 +56,7 @@ class GeneralMusicPlayerView: UIView {
         let hPercent = h / 100
         
         let backView = UIView(frame: self.frame)
-        backView.backgroundColor = .gray
+        backView.backgroundColor = .black
         backView.alpha = 0.5
         
         self.addSubview(backView)
@@ -65,7 +69,7 @@ class GeneralMusicPlayerView: UIView {
         
         btnPrev.setImage(UIImage(named: "Prev"), for: .normal)
         
-        //btnPrev.addTarget(self, action: #selector(self.ShowViewController), for: .touchUpInside)
+        btnPrev.addTarget(self, action: #selector(self.PrevTrack), for: .touchUpInside)
         
         
         
@@ -89,7 +93,7 @@ class GeneralMusicPlayerView: UIView {
         
         btnNext.setImage(UIImage(named: "Next"), for: .normal)
         
-        //btnNext.addTarget(self, action: #selector(self.ShowViewController), for: .touchUpInside)
+        btnNext.addTarget(self, action: #selector(self.NextTrack), for: .touchUpInside)
         
         
         
@@ -105,15 +109,60 @@ class GeneralMusicPlayerView: UIView {
         
         btnNavigate.addTarget(self, action: #selector(self.ShowViewController), for: .touchUpInside)
         
+        
+        self.lblMusicName = UILabel()
+        self.lblArtistName = UILabel()
+        self.lblArtistName.textColor = .white
+        self.lblMusicName.textColor = .white
+       // lblMusicName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 15)
+       // lblArtistName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 15)
+        
         self.addSubview(btnPrev)
         self.addSubview(btnPlayPause)
         self.addSubview(btnNext)
         self.addSubview(btnNavigate)
+        self.addSubview(lblArtistName)
+        self.addSubview(lblMusicName)
     }
+    
+    var MusicTitleLabel : String {
+        get {
+            return self.lblMusicName.text!
+        }
+        set {
+            self.lblMusicName.text = newValue
+            self.lblMusicName.sizeToFit()
+            self.lblMusicName.frame.origin = CGPoint(x: self.frame.size.width - self.btnNavigate.frame.size.width - self.frame.size.width * 0.02 - self.lblMusicName.frame.size.width, y:self.frame.size.height * 0.05)
+        }
+    }
+    
+    var ArtistNameLabel : String {
+        get {
+            return self.lblArtistName.text!
+        }
+        set {
+            self.lblArtistName.text = newValue
+            self.lblArtistName.sizeToFit()
+            self.lblArtistName.frame.origin = CGPoint(x: self.frame.size.width - self.btnNavigate.frame.size.width - self.frame.size.width * 0.02 - self.lblArtistName.frame.size.width, y:self.frame.size.height * 0.45)
+        }
+    }
+    
     
     @objc private func PlayPause()
     {
         HomeViewController.PlayPause()
+    }
+    
+    
+    @objc func NextTrack()
+    {
+        HomeViewController.NextTrack(isInRoot: true)
+        
+    }
+    
+    @objc func PrevTrack()
+    {
+        HomeViewController.PrevTrack(isInRoot: true)
     }
     
     

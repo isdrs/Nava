@@ -1,22 +1,24 @@
 //
-//  FavoriteCellitem.swift
+//  DownloadCellItem.swift
 //  nava
 //
-//  Created by Mohammad Lashgarbolouk on 11/10/16.
+//  Created by Mohammad Lashgarbolouk on 11/13/16.
 //  Copyright © 2016 manshor. All rights reserved.
+//
 
 import UIKit
-import Alamofire
 import SCLAlertView
 
-protocol FavoriteCellItemDelegate
+protocol DownloadCellItemDelegate
 {
     func LoadData()
 }
 
-class FavoriteCellItem: UITableViewCell
+
+class DownloadCellItem: UITableViewCell
 {
-    var delegate:FavoriteCellItemDelegate! = nil
+    
+    var delegate:DownloadCellItemDelegate! = nil
     
     var cellMedia : MediaItem!
     static let cellHeight = MediaCell.cellHeight
@@ -24,9 +26,8 @@ class FavoriteCellItem: UITableViewCell
     private var musicTitlelbl : UILabel!
     private var singerNamelbl : UILabel!
     private var infoPanelView : UIView!
-    private var removeFavoriteBtn : UIButton!
+    private var deleteBtn : UIButton!
     private var shareBtn : UIButton!
-    
     
     private var cellSize : CGSize!
     
@@ -61,22 +62,24 @@ class FavoriteCellItem: UITableViewCell
         
     }
     
-    @objc func RemoveAction()
+    @objc func DeleteAction()
     {
-        let res = MediaManager.DeleteDBFavorites(mediaItem: self.cellMedia)
+        MediaManager.DeleteMedia(mediaItem: cellMedia) { (res) in
+           
+            if res
+            {
+                SCLAlertView().showSuccess("", subTitle: "انجام شد", closeButtonTitle: "تایید", duration: 1.0)
+                self.delegate.LoadData()
+            }
+            else
+            {
+                SCLAlertView().showError("", subTitle: "انجام نشد", closeButtonTitle: "تایید", duration: 1.0)
+            }
+        }
         
-        if res
-        {
-            SCLAlertView().showSuccess("", subTitle: "انجام شد", closeButtonTitle: "تایید", duration: 1.0)
-            
-            self.delegate.LoadData()
-        }
-        else
-        {
-            SCLAlertView().showError("", subTitle: "انجام نشد", closeButtonTitle: "تایید", duration: 1.0)
-        }
-    }
 
+    }
+    
     @objc func SharingAction()
     {
         let text = cellMedia.ShareUrl
@@ -130,18 +133,18 @@ class FavoriteCellItem: UITableViewCell
         //Set Share Button properties
         shareBtn = UIButton()
         shareBtn.frame.size =  CGSize(width: buttonSize.width, height: buttonSize.height)
-        shareBtn.frame.origin = CGPoint(x: buttonSize.width * 1, y: infoPanelView.frame.size.height * 0.5)
-        shareBtn.setImage(UIImage(named: "Share"), for: .normal)
+        shareBtn.frame.origin = CGPoint(x: buttonSize.width * 3, y: infoPanelView.frame.size.height * 0.5)
+        self.shareBtn.setImage(UIImage(named: "Share"), for: .normal)
         self.shareBtn.addTarget(self, action: #selector(self.SharingAction), for: .touchUpInside)
-
+        
         
         //Set Share Button properties
-        removeFavoriteBtn = UIButton()
-        removeFavoriteBtn.frame.size =  CGSize(width: buttonSize.width, height: buttonSize.height)
-        removeFavoriteBtn.frame.origin = CGPoint(x: buttonSize.width * 3, y: infoPanelView.frame.size.height * 0.5)
-        removeFavoriteBtn.setImage(UIImage(named: "Trash"), for: .normal)
-        self.removeFavoriteBtn.addTarget(self, action: #selector(self.RemoveAction), for: .touchUpInside)
-
+        deleteBtn = UIButton()
+        deleteBtn.frame.size =  CGSize(width: buttonSize.width, height: buttonSize.height)
+        deleteBtn.frame.origin = CGPoint(x: buttonSize.width * 1, y: infoPanelView.frame.size.height * 0.5)
+        deleteBtn.setImage(UIImage(named: "Trash"), for: .normal)
+        self.deleteBtn.addTarget(self, action: #selector(self.DeleteAction), for: .touchUpInside)
+        
         
         
         // Music Title
@@ -160,7 +163,7 @@ class FavoriteCellItem: UITableViewCell
         
         self.contentView.addSubview(musicImage)
         self.infoPanelView.addSubview(shareBtn)
-        self.infoPanelView.addSubview(removeFavoriteBtn)
+        self.infoPanelView.addSubview(deleteBtn)
         self.infoPanelView.addSubview(singerNamelbl)
         self.infoPanelView.addSubview(musicTitlelbl)
         self.contentView.addSubview(infoPanelView)
@@ -175,3 +178,4 @@ class FavoriteCellItem: UITableViewCell
     }
     
 }
+

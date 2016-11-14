@@ -51,3 +51,26 @@ extension UIApplication {
         return base
     }
 }
+
+
+
+extension UILabel{    
+    dynamic var defaultFont: UIFont? {
+        get { return self.font }
+        set {
+            
+            var sizeOfOldFont = 12//self.font.pointSize
+            
+            if self.tag == 1000
+            {
+               sizeOfOldFont = 25
+            }
+            
+            
+            let fontNameOfNewFont = newValue?.fontName
+            self.font = UIFont(name: fontNameOfNewFont!, size: CGFloat(sizeOfOldFont))
+        }
+    }
+    
+}
+

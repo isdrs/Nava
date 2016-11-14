@@ -9,7 +9,8 @@
 import UIKit
 import XLPagerTabStrip
 
-class DownloadedViewController: ButtonBarPagerTabStripViewController{
+class DownloadedViewController: ButtonBarPagerTabStripViewController
+{
    
    
     
@@ -28,9 +29,6 @@ class DownloadedViewController: ButtonBarPagerTabStripViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         moveToViewControllerAtIndex(1)
-        
-        
-        
         
     }
     
@@ -57,6 +55,8 @@ class DownloadedViewController: ButtonBarPagerTabStripViewController{
         
         return [page_Video, page_Music ]//[page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
     }
+    
+
     
     
     

@@ -67,7 +67,7 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
     }
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title: "علاقه مندی ها")
+        return IndicatorInfo(title: "علاقه مندی")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

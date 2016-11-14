@@ -62,6 +62,8 @@ class AyadViewController: UIViewController, IndicatorInfoProvider, UITableViewDe
     }
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        
+        
         return IndicatorInfo(title: "اعیاد")
     }
     

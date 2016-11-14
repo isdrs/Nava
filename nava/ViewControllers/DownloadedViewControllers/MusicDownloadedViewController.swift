@@ -9,7 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
-class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource {
+class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource, DownloadCellItemDelegate {
     
     var downlodedMusic = [MediaItem]()
   
@@ -34,8 +34,8 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         // set tableview properties
         musicTbl = UITableView()
         musicTbl = UITableView(frame: .zero, style: .plain)
-        musicTbl.register(MediaCell.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
-        musicTbl.rowHeight = MediaCell.cellHeight
+        musicTbl.register(DownloadCellItem.self, forCellReuseIdentifier: Tools.StaticVariables.cellReuseIdendifier)
+        musicTbl.rowHeight = DownloadCellItem.cellHeight
         musicTbl.backgroundColor = .black
         musicTbl.dataSource = self
         musicTbl.delegate = self
@@ -44,11 +44,6 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         musicTbl.contentInset = UIEdgeInsetsMake(0, 0, 165, 0);
         self.view.addSubview(musicTbl)
     }
-
-    
-    
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -85,14 +80,16 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! MediaCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier) as! DownloadCellItem
         
         let mediaItem = downlodedMusic[indexPath.row]
         
+        cell.cellMedia = mediaItem
+        
         cell.MusicTitleLabel = mediaItem.MediaName
         cell.SingerNameLabel = mediaItem.ArtistName
-        cell.LikeCounterLabelText = mediaItem.Like
-        cell.DownloadCounterLabelText = mediaItem.Download
+        cell.delegate = self
+        
         //cell.time.text = mediaItem.Time
         
         cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)

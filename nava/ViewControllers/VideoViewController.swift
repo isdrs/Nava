@@ -24,7 +24,7 @@ class VideoViewController: ButtonBarPagerTabStripViewController {
         
         
         super.viewDidLoad()
-        //moveToViewControllerAtIndex(3)
+        moveToViewControllerAtIndex(3)
         // Do any additional setup after loading the view.
     }
         
@@ -49,7 +49,7 @@ class VideoViewController: ButtonBarPagerTabStripViewController {
         let page_Favorites = stb.instantiateViewController(withIdentifier: "FavoritesViewController") as! FavoritesViewController
         page_Favorites.mediaType = .video
         
-        return [page_Shahadat, page_Ayad, page_Moharram, page_Favorites]
+        return [page_Favorites, page_Shahadat, page_Ayad, page_Moharram]
     }
     
     /*

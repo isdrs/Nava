@@ -45,11 +45,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+        
         DBManager.setupDatabase(application: application)
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         NetworkActivityIndicatorManager.shared.isEnabled = true
+        
+        //UILabel.appearance().font = UIFont(name: Tools.StaticVariables.AppFont, size: 12)
+        
+        //UILabel.appearance().f
+        
+        
         
 //        self.window?.addSubview(generalPlayer)
 //        

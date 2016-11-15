@@ -26,7 +26,7 @@ class ServiceManager: NSObject
     
     private static var ParametersForSearchTypeList = "%@"
     
-    private static var ParametersForSearch = "search/%@/%@/%@/%@/20/%@/%@"
+    private static var ParametersForSearch = "search/%@/%@/%@/%@/"
     
     static func DownloadImage(urlString: String, completion: @escaping ((UIImage?) -> Void)) -> (Request) {
         
@@ -159,13 +159,14 @@ class ServiceManager: NSObject
             mediaItem.MediaServiceType = serviceType
             mediaItem.MediaUrl = subJson["url"].stringValue
             mediaItem.LargpicUrl = subJson["largpicUrl"].stringValue
-            mediaItem.SmallpicUrl = subJson["smallpicUrl"].stringValue
+            //mediaItem.LargpicUrl = subJson["LargpicUrl"].stringValue
             mediaItem.Time = subJson["time"].stringValue
             mediaItem.ShareUrl = subJson["shareUrl"].stringValue
             mediaItem.Like = subJson["like"].stringValue
             mediaItem.Download = subJson["download"].stringValue
             mediaItem.IrancellCode = subJson["irancellCode"].stringValue
             mediaItem.HamrahavalCode = subJson["hamrahavalCode"].stringValue
+            print(subJson["largpicUrl"].stringValue)
             
             mediaItemArray.append(mediaItem)
         }
@@ -288,9 +289,14 @@ class ServiceManager: NSObject
     
     static func GetSearchList(searchParams: Array<String>, callBack : @escaping (Bool, [MediaItem]) -> Void  )
     {
-        let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersForSearch, searchParams[0], searchParams[1], searchParams[2], searchParams[3], searchParams[4], searchParams[5])
+        let urlString = String(format: ServiceManager.baseURl + ServiceManager.ParametersForSearch, searchParams[0], searchParams[1], searchParams[2], searchParams[3])
         
-        Alamofire.request(urlString).responseJSON { (response) in
+        let p = urlString +  searchParams[5].addingPercentEncoding(withAllowedCharacters: .illegalCharacters)! + "/20/" + searchParams[4] + "/"
+        
+        //var escapedString = p.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+
+        
+        Alamofire.request(p).responseJSON { (response) in
             print("Request: \(response.request)")
             print("Response: \(response.response)")
             print("Data: \(response.data)")
@@ -330,13 +336,15 @@ class ServiceManager: NSObject
             mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: subJson["category"].stringValue)
             mediaItem.MediaUrl = subJson["url"].stringValue
             mediaItem.LargpicUrl = subJson["largpicUrl"].stringValue
-            mediaItem.SmallpicUrl = subJson["smallpicUrl"].stringValue
+            //mediaItem.LargpicUrl = subJson["LargpicUrl"].stringValue
             mediaItem.Time = subJson["time"].stringValue
             mediaItem.ShareUrl = subJson["shareUrl"].stringValue
             mediaItem.Like = subJson["like"].stringValue
             mediaItem.Download = subJson["download"].stringValue
             mediaItem.IrancellCode = subJson["irancellCode"].stringValue
             mediaItem.HamrahavalCode = subJson["hamrahavalCode"].stringValue
+            print(subJson["largpicUrl"].stringValue)
+            
             
             mediaItemArray.append(mediaItem)
         }

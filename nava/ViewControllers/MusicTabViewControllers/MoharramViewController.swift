@@ -16,6 +16,7 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableVi
     var mediaDataArray : [MediaItem] = []
     var mediaType = NavaEnums.ServiceMediaType.all
     
+    var refreshControl : UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,33 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableVi
         // Do any additional setup after loading the view.
         
         SetTableView()
+        
+        LoadData()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.LoadData), for: UIControlEvents.valueChanged)
+        tblMoharramMedia.addSubview(refreshControl)
+
+    }
+    
+    func LoadData()
+    {
+        ServiceManager.GetMediaList(mediaType: mediaType, serviceType: .moharam, pageNo: 1) { (status, newMusics) in
+            if status
+            {
+                self.mediaDataArray = newMusics
+                
+                DispatchQueue.main.async {
+                    self.tblMoharramMedia.reloadData()
+                }
+            }
+            
+            if self.refreshControl.isRefreshing
+            {
+                self.refreshControl.endRefreshing()
+            }
+        }
+        
     }
     
     func SetTableView()
@@ -40,21 +68,7 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableVi
         tblMoharramMedia.contentInset = UIEdgeInsetsMake(0, 0, 165, 0);
         self.view.addSubview(tblMoharramMedia)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        ServiceManager.GetMediaList(mediaType: mediaType, serviceType: .moharam, pageNo: 1) { (status, newMusics) in
-            if status
-            {
-                self.mediaDataArray = newMusics
-                
-                DispatchQueue.main.async {
-                    self.tblMoharramMedia.reloadData()
-                }
-            }
-        }
-    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -84,7 +98,7 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableVi
         cell.DownloadCounterLabelText = mediaItem.Download
         //cell.time.text = mediaItem.Time
         cell.musicImage.image = nil
-        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
+        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.LargpicUrl) as! URL)
         
         return cell
     }

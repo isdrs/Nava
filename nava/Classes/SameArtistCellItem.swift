@@ -224,7 +224,7 @@ class SameArtistCellItem : UITableViewCell {
         // Download Button
         downloadBtn = UIButton()
         downloadBtn.frame.size =  CGSize(width: buttonSize.width, height: buttonSize.height)
-        downloadBtn.frame.origin = CGPoint(x: buttonSize.width * 5, y: likeBtn.frame.origin.y)
+        downloadBtn.frame.origin = CGPoint(x: buttonSize.width, y: likeBtn.frame.origin.y)
 
         
         self.progresslbl = UILabel()
@@ -254,7 +254,7 @@ class SameArtistCellItem : UITableViewCell {
         
         
         self.contentView.addSubview(musicImage)
-        self.infoPanelView.addSubview(likeBtn)
+        //self.infoPanelView.addSubview(likeBtn)
         self.infoPanelView.addSubview(shareBtn)
         self.infoPanelView.addSubview(musicTitlelbl)
         self.infoPanelView.addSubview(singerNamelbl)

@@ -18,7 +18,7 @@ class MediaItem: NSObject
     private var mediaServiceType : NavaEnums.ServiceType = NavaEnums.ServiceType.shahadat
     private var mediaUrl : String = ""
     private var largpicUrl : String = ""
-    private var smallpicUrl : String = ""
+    private var sdmallpicUrl : String = ""
     private var time : String = ""
     private var shareUrl : String = ""
     private var like : String = ""
@@ -122,15 +122,15 @@ class MediaItem: NSObject
         }
     }
     
-    public var SmallpicUrl : String
+    public var SdmallpicUrl : String
         {
         get
         {
-            return self.smallpicUrl
+            return self.sdmallpicUrl
         }
         set(newValue)
         {
-            self.smallpicUrl = newValue
+            self.sdmallpicUrl = newValue
         }
     }
     

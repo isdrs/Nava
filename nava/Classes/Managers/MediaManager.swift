@@ -90,7 +90,7 @@ class MediaManager: NSObject {
                 mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
                 mediaItem.MediaUrl = row.value(named: "media_url")
                 mediaItem.LargpicUrl = row.value(named: "media_pic")
-                mediaItem.SmallpicUrl = mediaItem.LargpicUrl
+                //mediaItem.LargpicUrl = mediaItem.LargpicUrl
                 mediaItem.Time = row.value(named: "media_time")
                 mediaItem.ShareUrl = row.value(named: "media_share")
                 mediaItem.IrancellCode = row.value(named: "media_irancell")
@@ -128,7 +128,7 @@ class MediaManager: NSObject {
                 mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
                 mediaItem.MediaUrl = row.value(named: "media_url")
                 mediaItem.LargpicUrl = row.value(named: "media_pic")
-                mediaItem.SmallpicUrl = mediaItem.LargpicUrl
+                //mediaItem.LargpicUrl = mediaItem.LargpicUrl
                 mediaItem.Time = row.value(named: "media_time")
                 mediaItem.ShareUrl = row.value(named: "media_share")
                 mediaItem.IrancellCode = row.value(named: "media_irancell")

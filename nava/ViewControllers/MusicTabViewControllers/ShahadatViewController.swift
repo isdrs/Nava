@@ -17,6 +17,7 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
     var mediaDataArray : [MediaItem] = []
     var mediaType = NavaEnums.ServiceMediaType.all
     
+    var refreshControl : UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +25,33 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
         // Do any additional setup after loading the view.
         SetTableView()
         
-//        let vv = GeneralMusicPlayerView()
-//        
-//        self.view.addSubview(vv)
+
         
-//        self.view.bringSubview(toFront: vv)
+        LoadData()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.LoadData), for: UIControlEvents.valueChanged)
+        tblShahadatMusics.addSubview(refreshControl)
+    }
+    
+    func LoadData()
+    {
+        ServiceManager.GetMediaList(mediaType: mediaType, serviceType: .shahadat, pageNo: 1) { (status, newMusics) in
+            if status
+            {
+                self.mediaDataArray = newMusics
+                
+                DispatchQueue.main.async {
+                    self.tblShahadatMusics.reloadData()
+                }
+            }
+            
+            if self.refreshControl.isRefreshing
+            {
+                self.refreshControl.endRefreshing()
+            }
+        }
+        
     }
     
     func SetTableView()
@@ -47,30 +70,6 @@ class ShahadatViewController: UIViewController, IndicatorInfoProvider, UITableVi
         self.view.addSubview(tblShahadatMusics)
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        ServiceManager.GetMediaList(mediaType: mediaType, serviceType: .shahadat, pageNo: 1) { (status, newMusics) in
-            if status
-            {
-                self.mediaDataArray = newMusics
-                
-                DispatchQueue.main.async {
-                    self.tblShahadatMusics.reloadData()
-                }
-            }
-        }
-        
-//        let stb = UIStoryboard(name: "Main", bundle: nil)
-//        
-//        let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-//        musicPlayerViewController.mediaItem = MediaItem()
-//        
-//        self.present(musicPlayerViewController, animated: false) {
-//            
-//        }
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

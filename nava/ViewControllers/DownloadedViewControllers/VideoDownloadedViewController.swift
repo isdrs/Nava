@@ -92,7 +92,7 @@ class VideoDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         cell.delegate = self
         //cell.time.text = mediaItem.Time
         
-        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
+        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.LargpicUrl) as! URL)
         
         return cell
     }

@@ -26,7 +26,7 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         
         SetTableView()
         
-        
+        LoadData()
     }
     
     func LoadData()
@@ -55,11 +55,6 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        LoadData()
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -91,7 +86,7 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         //cell.time.text = mediaItem.Time
         cell.musicImage.image = nil
         
-        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.SmallpicUrl) as! URL)
+        cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.LargpicUrl) as! URL)
         
         cell.delegate = self
         

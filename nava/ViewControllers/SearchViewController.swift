@@ -199,9 +199,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchCatView = UIView()
         self.searchCatView.frame.size = CGSize(width: self.searchBarView.frame.size.width * 1.1, height: self.searchBarView.frame.size.height)
         self.searchCatView.frame.origin = CGPoint(x: -5, y: self.searchBarView.frame.size.height)
-        self.searchCatView.backgroundColor = UIColor.gray
-        self.searchCatView.layer.borderColor = UIColor.white.cgColor
-        self.searchCatView.layer.borderWidth = 1
+        self.searchCatView.backgroundColor = UIColor.black
+//        self.searchCatView.layer.borderColor = UIColor.white.cgColor
+//        self.searchCatView.layer.borderWidth = 1
         
         //Sort Button
         self.btnTypeSearchList = Tools.MakeUIButtonWithAttributes(btnName: Tools.StaticVariables.SortButtonTitle,fontSize: 14.0)
@@ -214,7 +214,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //Seperator one
         self.seperatorview1 = UIView()
         self.seperatorview1.frame.size = CGSize(width:viewSizePercent.width * 0.5, height: self.searchCatView.frame.size.height * 0.75)
-        self.seperatorview1.backgroundColor = UIColor.white
+        self.seperatorview1.backgroundColor = UIColor.red
         self.seperatorview1.frame.origin = CGPoint(x: self.btnTypeSearchList.frame.size.width, y: 0)
         self.seperatorview1.center.y = self.searchCatView.frame.size.height / 2
        
@@ -231,7 +231,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //Seperator two
         self.seperatorview2 = UIView()
         self.seperatorview2.frame.size = self.seperatorview1.frame.size
-        self.seperatorview2.backgroundColor = UIColor.white
+        self.seperatorview2.backgroundColor = UIColor.red
         self.seperatorview2.frame.origin = CGPoint(x: self.btnCategoriesList.frame.origin.x
                                                     + self.btnCategoriesList.frame.size.width , y: 0)
         
@@ -250,7 +250,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //Seperator three
         self.seperatorview3 = UIView()
         self.seperatorview3.frame.size = self.seperatorview1.frame.size
-        self.seperatorview3.backgroundColor = UIColor.white
+        self.seperatorview3.backgroundColor = UIColor.red
         self.seperatorview3.frame.origin = CGPoint(x: self.btnImamList.frame.origin.x + self.btnImamList.frame.size.width, y: 0)
         self.seperatorview3.center.y = self.searchCatView.frame.size.height / 2
         
@@ -311,7 +311,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.dataPickerView.frame.size = CGSize(width: self.searchCatView.frame.size.width, height: self.viewSizePercent.height * 30)
         
         self.dataPickerView.frame.origin = CGPoint(x: 0, y: -1 * self.dataPickerView.frame.size.height)
-        self.dataPickerView.backgroundColor = UIColor.white
+        self.dataPickerView.backgroundColor = UIColor.darkGray
         self.dataPickerView.contentMode = .center
         
         self.searchView.addSubview(self.tableView)
@@ -557,6 +557,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         ///ShowAndHidePickerView(mySearchType : searchType)
         
         //        ShowAndHidePickerView(mySearchType: searchType)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        
+        let string = pickerItems[row].TypeName as String
+        return NSAttributedString(string: string, attributes: [NSForegroundColorAttributeName:UIColor.white])
     }
     
 }

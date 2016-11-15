@@ -53,6 +53,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     private var popUpViewHeight = CGFloat()
     private var isLiked = false
     private var isDownloaded = false
+    private var canPlay = true
+    
     
     private var isStartPlaying = false
    
@@ -124,7 +126,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .black
         
         print("view frame: \( self.view.frame)")
         
@@ -143,6 +145,9 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateDownloadProgressLabel), name: NSNotification.Name(rawValue: Tools.StaticVariables.DownloadProgressNotificationKey ), object: nil)
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        
 //        let commandCenter = MPRemoteCommandCenter.shared()
 //
 //        commandCenter.nextTrackCommand.removeTarget(HomeViewController.self)
@@ -156,6 +161,12 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
 //        commandCenter.previousTrackCommand.isEnabled = true
 //        commandCenter.previousTrackCommand.addTarget(self, action: #selector(PrevTrack))
         
+    }
+    
+    func appMovedToBackground() {
+        print("App moved to background!")
+        
+        //self.canPlay = false
     }
     
     @objc private func buttonAction(sender: UIButton!) {
@@ -172,10 +183,11 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.dismiss(animated: true,completion: {})
         
-//        
+        
 //        let commandCenter = MPRemoteCommandCenter.shared()
 //        commandCenter.nextTrackCommand.removeTarget(self)
 //        commandCenter.previousTrackCommand.removeTarget(self)
+        
         
     }
     
@@ -348,14 +360,15 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let url =  LoadData()
         CheckNowPlayingMusic(myUrl: url)
         HomeViewController.jukebox?.play()
-        self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
+        SetImageForImageView()
+        //self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
         
         self.btnDownLoad.isHidden = isDownloaded
 
         
         self.lblMusicName.text = HomeViewController.mediaItem.MediaName
         self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
-        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
+        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
     }
     
     @objc private func PlayTrack()
@@ -391,7 +404,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let url =  LoadData()
         CheckNowPlayingMusic(myUrl: url)
         HomeViewController.jukebox?.play()
-        self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
+        //self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
+        SetImageForImageView()
         if isDownloaded
         {
             btnDownLoad.isHidden = true
@@ -403,7 +417,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.lblMusicName.text = HomeViewController.mediaItem.MediaName
         self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
-        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
+        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
     }
     
     @objc private func UpdateDownloadProgressLabel(notification: NSNotification)
@@ -478,7 +492,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         //Music Image
         self.musicImage = UIImageView()
         self.musicImage.frame = CGRect(x: 0, y: 0, width: Tools.screenWidth, height: playingMusicView.frame.height * 0.90)
-        self.musicImage.af_setImage(withURL: URL(string:HomeViewController.mediaItem.LargpicUrl)!)
+        //self.musicImage.af_setImage(withURL: URL(string:HomeViewController.mediaItem.LargpicUrl)!)
+        SetImageForImageView()
         self.playingMusicView.addSubview(musicImage)
         
         
@@ -704,7 +719,11 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         if let mImage = myImage
         {
-         musicImage.image = Tools.cropToBounds(image: mImage, width: Double(mySize.width), height: Double(mySize.height))
+            let artWork = MPMediaItemArtwork(image: mImage)
+            
+            MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = artWork
+            
+           musicImage.image = Tools.cropToBounds(image: mImage, width: Double(mySize.width), height: Double(mySize.height))
         }
         else
         {
@@ -712,6 +731,10 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
                 DataCacheManager.ShareInstance.cacheImage(image: newImage!, urlString: HomeViewController.mediaItem.LargpicUrl)
                 
                 self.musicImage.image = Tools.cropToBounds(image: newImage!, width: Double(mySize.width), height: Double(mySize.height))
+                
+                let artWork = MPMediaItemArtwork(image: newImage!)
+                
+                MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = artWork
                 
             })
         }
@@ -938,7 +961,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     func jukeboxStateDidChange(_ jukebox: Jukebox) {
         
         
-        
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
                  self.btnPlay.alpha = jukebox.state == .loading ? 0 : 1
                  self.btnPlay.isEnabled = jukebox.state == .loading ? false : true
@@ -966,12 +988,13 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             
             btnPlay.setImage(UIImage(named: imageName), for: .normal)
             HomeViewController.totalMusicPlayer.SetPlayButtonImage(isPlaying: imageName == "Pause" ? true : false)
-            HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
+            HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
             HomeViewController.totalMusicPlayer.ArtistNameLabel = HomeViewController.mediaItem.ArtistName
             HomeViewController.totalMusicPlayer.MusicTitleLabel = HomeViewController.mediaItem.MediaName
         }
         
         print("Jukebox state changed to \(jukebox.state)")
+        
     }
     
     func jukeboxDidUpdateMetadata(_ jukebox: Jukebox, forItem: JukeboxItem) {
@@ -986,13 +1009,14 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             switch event!.subtype {
             case .remoteControlPlay :
                 HomeViewController.jukebox?.play()
-                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
-                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 1
+//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
+//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 1
+                canPlay = true
             case .remoteControlPause :
                 HomeViewController.jukebox?.pause()
-                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 0
-                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
-        
+//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 0
+//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
+                canPlay = false
             case .remoteControlNextTrack :
                 HomeViewController.jukebox?.playNext()
             case .remoteControlPreviousTrack:
@@ -1079,7 +1103,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         CheckNowPlayingMusic(myUrl: url)
         
         //HomeViewController.jukebox?.play()
-        self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
+        //self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
+        SetImageForImageView()
         
         for sub in self.playingMusicView.subviews
         {
@@ -1094,8 +1119,10 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.lblMusicName.text = HomeViewController.mediaItem.MediaName
         self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
-        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
+        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
         
     }
+    
+
     
 }

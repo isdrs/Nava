@@ -183,7 +183,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
                 
                 jukebox?.remove(item: oldItem!)
                 
-                let url = HomeViewController.mediaItem.SmallpicUrl
+                let url = HomeViewController.mediaItem.LargpicUrl
                 
                 HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: url)
                 
@@ -250,7 +250,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
                 
                 jukebox?.remove(item: oldItem!)
                 
-                let url = HomeViewController.mediaItem.SmallpicUrl
+                let url = HomeViewController.mediaItem.LargpicUrl
                 
                 HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: url)
                 
@@ -300,7 +300,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             }
             
             HomeViewController.totalMusicPlayer.SetPlayButtonImage(isPlaying: imageName == "Pause" ? true : false)
-            HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.SmallpicUrl)
+            HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
             HomeViewController.totalMusicPlayer.ArtistNameLabel = HomeViewController.mediaItem.ArtistName
             HomeViewController.totalMusicPlayer.MusicTitleLabel = HomeViewController.mediaItem.MediaName
         }
@@ -320,12 +320,12 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             switch event!.subtype {
             case .remoteControlPlay :
                 HomeViewController.jukebox?.play()
-                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
-                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 1
+//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
+//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 1
             case .remoteControlPause :
                 HomeViewController.jukebox?.pause()
-                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 0
-                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
+//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 0
+//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
                 
             case .remoteControlNextTrack :
                 HomeViewController.jukebox?.playNext()

@@ -26,7 +26,7 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
         let p = self.tabBarController?.tabBar.frame.height
         
         HomeViewController.ReOriginPlayerView(tabbarHeight: p!)
-         moveToViewControllerAtIndex(3)
+         //moveToViewControllerAtIndex(3)
         super.viewDidLoad()
     }
 
@@ -51,7 +51,7 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
         let page_Favorites = stb.instantiateViewController(withIdentifier: "FavoritesViewController") as! FavoritesViewController
         page_Favorites.mediaType = .sound
         
-        return [page_Favorites, page_Shahadat, page_Ayad, page_Moharram]
+        return [page_Moharram, page_Shahadat, page_Ayad, page_Favorites]//[page_Favorites, page_Shahadat, page_Ayad, page_Moharram]
     }
 
     /*

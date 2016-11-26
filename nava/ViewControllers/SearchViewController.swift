@@ -423,14 +423,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         view.endEditing(true)
         
-        if pageNo == 0
-        {
-            pageNo += 1
+        
+            pageNo = 1
             
             self.searchParams[4] = String(pageNo)
-        }
         
-        if searchTxt.text == "" {
+        
+        if searchTxt.text == ""
+        {
             self.searchParams[5] = "all"
         }
         else
@@ -442,16 +442,18 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         ServiceManager.GetSearchList(searchParams: searchParams) { (status, myMedia) in
             if status
             {
-                for item in myMedia
-                {
-                    self.mediaItems.append(item)
-                }
+//                for item in myMedia
+//                {
+//                    self.mediaItems.append(item)
+//                }
+                
+                self.mediaItems = myMedia
                 
                 self.tableView.reloadData()
                 
-                self.pageNo += 1
+                //self.pageNo += 1
                 
-                self.searchParams[4] = String(self.pageNo)
+                //self.searchParams[4] = String(self.pageNo)
             }
         }
     }
@@ -502,9 +504,20 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         print("Cell Height: \(cell.frame.size.height)")
         
+        let mediaItem = mediaItems[indexPath.row]
+        
+        cell.MusicTitleLabel = mediaItem.MediaName
+        cell.SingerNameLabel = mediaItem.ArtistName
+        cell.DownloadCounterLabelText = mediaItem.Like
+        cell.DownloadCounterLabelText = mediaItem.Download
+        //cell.lblMusicTime.text = mediaItem.Time
+        cell.musicImage.image = nil
+        
         cell.frame.size = cellSize
         
         let p =  URL(string:mediaItems[indexPath.row].LargpicUrl)!
+        
+        
         
         cell.musicImage.af_setImage(withURL:p)
         
@@ -514,7 +527,32 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         print("Cell Height: \(cell.frame.size.height)")
         
+        if indexPath.row <= mediaItems.count - 1
+        {
+            self.pageNo += 1
+            
+            self.searchParams[4] = String(self.pageNo)
+            
+            self.UpdateList()
+        }
+        
         return cell
+    }
+    
+    private func UpdateList()
+    {
+        ServiceManager.GetSearchList(searchParams: searchParams) { (status, myMedia) in
+            if status
+            {
+                for item in myMedia
+                {
+                    self.mediaItems.append(item)
+                }
+                
+                self.tableView.reloadData()
+                
+            }
+        }
     }
     
     

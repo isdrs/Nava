@@ -31,6 +31,8 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     static var currentMusicIndex = 0
     
+    static var currentMediaImage : UIImage!
+    
     //var sideMenu : ENSideMenu!
     //var GeneralPlayeView : UIView!
    
@@ -138,6 +140,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyArtist: HomeViewController.mediaItem.ArtistName,
             MPMediaItemPropertyTitle: HomeViewController.mediaItem.MediaName,
+            MPMediaItemPropertyArtwork : MPMediaItemArtwork(image: HomeViewController.currentMediaImage),
             MPNowPlayingInfoPropertyPlaybackRate: NSNumber(value: 1)
         ]
         
@@ -206,7 +209,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             
             myUrl = documentsURL//JukeboxItem(URL: documentsURL)
             
-                    }
+        }
         else
         {
             
@@ -272,7 +275,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     func jukeboxPlaybackProgressDidChange(_ jukebox: Jukebox) {
        
-        SetMediaInfo()
+        //SetMediaInfo()
         
     }
     
@@ -305,6 +308,8 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             HomeViewController.totalMusicPlayer.MusicTitleLabel = HomeViewController.mediaItem.MediaName
         }
         
+        SetMediaInfo()
+        
         print("Jukebox state changed to \(jukebox.state)")
     }
     
@@ -314,7 +319,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     override func remoteControlReceived(with event: UIEvent?) {
         
-        let ctiem = CMTime(seconds: (HomeViewController.jukebox?.currentItem?.currentTime)!, preferredTimescale: CMTimeScale.allZeros)
+//        let ctiem = CMTime(seconds: (HomeViewController.jukebox?.currentItem?.currentTime)!, preferredTimescale: CMTimeScale.allZeros)
         
         if event?.type == .remoteControl {
             switch event!.subtype {

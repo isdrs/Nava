@@ -208,13 +208,16 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         HomeViewController.jukebox?.pause()
         
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlurButton(_:)))
         
         self.view.addGestureRecognizer(tapGesture)
         
+        tapGesture.cancelsTouchesInView = false
+        
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .black
         
         print("view frame: \( self.view.frame)")
         
@@ -239,7 +242,7 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let W = Tools.screenWidth
         let H =  Tools.screenHeight * 0.65
         let X = CGFloat()
-        let Y = Tools.screenHeight * 0.03
+        let Y = Tools.YDiffer
         let WPercent = W / 100.0
         let HPercent = H / 100.0
         
@@ -251,7 +254,7 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         self.videoMenuBarView = UIView()
-        self.videoMenuBarView.frame = CGRect(x: X ,y:  Y, width: W, height: H * 0.14)
+        self.videoMenuBarView.frame = CGRect(x: X ,y: 0, width: W, height: H * 0.1)
         self.videoMenuBarView.backgroundColor = .black
         
         
@@ -371,6 +374,7 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.lblArtistName.center.y =  self.videoControllerView.frame.size.height * 0.65
         
     }
+    
     
     func SetVideoListView() -> Void{
         
@@ -506,6 +510,12 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         super.viewWillAppear(animated)
         
+        GetOtherMedia()
+    }
+    
+    
+    private func GetOtherMedia()
+    {
         ServiceManager.GetMediaListByArtist(mediaItem: mediaItem, mediaType: .video, serviceType: mediaItem.MediaServiceType, pageNo: 1) { (status, newMedia) in
             if status
             {
@@ -590,6 +600,9 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         cell.cellMedia = singerMediaItems[indexPath.row]
         
+        cell.MusicTitleLabel = cell.cellMedia.MediaName
+        cell.SingerNameLabel = cell.cellMedia.ArtistName
+        
         cell.musicImage.image = nil
         
         print("Cell Height: \(cell.frame.size.height)")
@@ -618,6 +631,8 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         LoadData()
         
         PlayerVideoChangeSource(myUrl: URL(string: mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!)
+        
+        GetOtherMedia()
         
     }
 }

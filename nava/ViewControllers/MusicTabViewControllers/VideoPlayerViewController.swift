@@ -397,7 +397,7 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.delegate = self
         tableView.frame = CGRect(x: 0, y: 0, width: musicListView.frame.width , height: musicListView.frame.height)
         tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 120, 0);
         
         self.musicListView.addSubview(tableView)
         self.view.addSubview(musicListView)

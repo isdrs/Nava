@@ -33,9 +33,6 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     static var currentMediaImage : UIImage!
     
-    //var sideMenu : ENSideMenu!
-    //var GeneralPlayeView : UIView!
-   
     var btnPrev : UIButton!
     var btnPlayPause : UIButton!
     var btnNext : UIButton!
@@ -52,15 +49,25 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     {
         if isHidden
         {
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.4) {
+                HomeViewController.totalMusicPlayer.alpha = 1
+            }
+            UIView.animate(withDuration: 0.25) {
                 HomeViewController.totalMusicPlayer.frame.origin.y = HomeViewController.musicPlayerYOrigin
+                
             }
             isHidden = false
         }
         else
         {
+            UIView.animate(withDuration: 0.25) {
+                
+                HomeViewController.totalMusicPlayer.alpha = 0
+            }
+            
             UIView.animate(withDuration: 0.5) {
                 HomeViewController.totalMusicPlayer.frame.origin.y = Tools.screenHeight
+                
             }
             isHidden = true
         }
@@ -73,8 +80,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         musicPlayerYOrigin = HomeViewController.viewHeight - playerViewSize - tabbarHeight
         
         HomeViewController.totalMusicPlayer.frame.origin = CGPoint(x: 0, y: musicPlayerYOrigin )
-        
-    }
+     }
     
     override func viewDidLoad()
     {
@@ -88,8 +94,6 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         self.view.addSubview(HomeViewController.totalMusicPlayer)
         
         NotificationCenter.default.addObserver(self, selector: #selector(SetJukeBoxDelegate), name: NSNotification.Name(rawValue: Tools.StaticVariables.ChangeDelegateKey), object: nil)
-        
-        
 
         self.navigationController?.navigationBar.topItem?.title = "نواهای آسمانی"
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: Tools.StaticVariables.AppFont, size: 20)!,  NSForegroundColorAttributeName: UIColor.white]
@@ -111,6 +115,17 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        _ = self.becomeFirstResponder()
+        
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+    
     @objc func SetJukeBoxDelegate()
     {
         if HomeViewController.jukebox?.state == .playing
@@ -118,13 +133,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             HomeViewController.jukebox?.delegate = nil
             
             HomeViewController.jukebox?.delegate = self
-            
-//            let commandCenter = MPRemoteCommandCenter.shared()
-//            commandCenter.nextTrackCommand.isEnabled = true
-//            commandCenter.nextTrackCommand.addTarget(self, action: #selector(HomeViewController.NextTrack))
-//            
-//            commandCenter.previousTrackCommand.isEnabled = true
-//            commandCenter.previousTrackCommand.addTarget(self, action: #selector(HomeViewController.PrevTrack))
+          
         }
         
     }
@@ -318,20 +327,12 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     }
     
     override func remoteControlReceived(with event: UIEvent?) {
-        
-//        let ctiem = CMTime(seconds: (HomeViewController.jukebox?.currentItem?.currentTime)!, preferredTimescale: CMTimeScale.allZeros)
-        
         if event?.type == .remoteControl {
             switch event!.subtype {
             case .remoteControlPlay :
                 HomeViewController.jukebox?.play()
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 1
             case .remoteControlPause :
                 HomeViewController.jukebox?.pause()
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 0
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
-                
             case .remoteControlNextTrack :
                 HomeViewController.jukebox?.playNext()
             case .remoteControlPreviousTrack:
@@ -353,33 +354,4 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     }
     
     
-    
-//    @IBAction func ToggleMenuAction(_ sender: AnyObject) {
-//        
-//        sideMenu.toggleMenu()
-//    }
-    
-//    
-//    // MARK: - ENSideMenu Delegate
-//    func sideMenuWillOpen() {
-//        print("sideMenuWillOpen")
-//    }
-//    
-//    func sideMenuWillClose() {
-//        print("sideMenuWillClose")
-//    }
-//    
-//    func sideMenuShouldOpenSideMenu() -> Bool {
-//        print("sideMenuShouldOpenSideMenu")
-//        return true
-//    }
-//    
-//    func sideMenuDidClose() {
-//        print("sideMenuDidClose")
-//    }
-//    
-//    func sideMenuDidOpen() {
-//        print("sideMenuDidOpen")
-//    }
-
-}
+    }

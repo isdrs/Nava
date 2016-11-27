@@ -12,8 +12,7 @@ import XLPagerTabStrip
 class MusicViewController: ButtonBarPagerTabStripViewController {
 
     override func viewDidLoad() {
-        
-
+    
         self.settings.style.buttonBarItemsShouldFillAvailiableWidth = true
         self.settings.style.buttonBarLeftContentInset = 0
         self.settings.style.buttonBarRightContentInset = 0
@@ -21,12 +20,14 @@ class MusicViewController: ButtonBarPagerTabStripViewController {
         self.settings.style.selectedBarBackgroundColor = .red
         self.settings.style.buttonBarItemBackgroundColor = .black
         self.settings.style.selectedBarHeight = 0.5
-        
 
         let p = self.tabBarController?.tabBar.frame.height
         
+        
+        
+        
         HomeViewController.ReOriginPlayerView(tabbarHeight: p!)
-         //moveToViewControllerAtIndex(3)
+        
         super.viewDidLoad()
     }
 

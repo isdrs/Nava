@@ -12,13 +12,6 @@ import Jukebox
 
 class GeneralMusicPlayerView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     var btnPrev : UIButton!
     var btnPlayPause : UIButton!
@@ -103,10 +96,6 @@ class GeneralMusicPlayerView: UIView {
         
         btnNavigate.frame.origin = CGPoint(x: wPercent * 88 , y: hPercent * 3)
         
-        //btnNavigate.backgroundColor = .red
-        
-        //btnNavigate.setImage(UIImage(named: "Play"), for: .normal)
-        
         btnNavigate.addTarget(self, action: #selector(self.ShowViewController), for: .touchUpInside)
         
         
@@ -114,8 +103,7 @@ class GeneralMusicPlayerView: UIView {
         self.lblArtistName = UILabel()
         self.lblArtistName.textColor = .white
         self.lblMusicName.textColor = .white
-       // lblMusicName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 15)
-       // lblArtistName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 15)
+       
         
         self.addSubview(btnPrev)
         self.addSubview(btnPlayPause)
@@ -173,20 +161,11 @@ class GeneralMusicPlayerView: UIView {
         if HomeViewController.mediaItem.MediaType == .sound
         {
             let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-            
+
             UIApplication.topViewController()?.present(musicPlayerViewController, animated: false) {
                 
             }
         }
-//        else
-//        {
-//            let videoPlayerViewController = stb.instantiateViewController(withIdentifier: "VideoPlayerViewController") as! VideoPlayerViewController
-//            videoPlayerViewController.mediaItem = HomeViewController.mediaItem
-//            
-//            UIApplication.topViewController()?.present(videoPlayerViewController, animated: false) {
-//                
-//            }
-//        }
     }
     
     func SetPlayButtonImage(isPlaying :Bool)

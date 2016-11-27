@@ -18,6 +18,8 @@ import MessageUI
 
 class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MFMessageComposeViewControllerDelegate ,JukeboxDelegate {
     
+    
+    
     private var lblMusicName : TitleLable!
     private var lblArtistName : UILabel!
     
@@ -369,7 +371,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.dataSource = self
         tableView.delegate = self
         tableView.frame = CGRect(x: 0, y: 0, width: musicListView.frame.width , height: musicListView.frame.height)
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 120, 0);
         tableView.separatorColor = .clear
         
         self.musicListView.addSubview(tableView)
@@ -437,9 +439,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.dismiss(animated: true,completion: {})
         
         
-//        let commandCenter = MPRemoteCommandCenter.shared()
-//        commandCenter.nextTrackCommand.removeTarget(self)
-//        commandCenter.previousTrackCommand.removeTarget(self)
         
         
     }
@@ -684,37 +683,24 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         // if notification received, change label value
         let id = tmp[Tools.StaticVariables.MediaIdNotificationsKey] as String!
         let current = tmp[Tools.StaticVariables.ProgressNotificationsKey] as String!
-        
-        if let d = id
-        {
-            if String(HomeViewController.mediaItem.MediaID) == d
+
+        if String(HomeViewController.mediaItem.MediaID) == id
             {
                 if current == "100"
                 {
-                    //self.progresslbl.isHidden = false
+                    self.progresslbl.isHidden = false
                     self.progresslbl.text = ""
                 }
-                else{
+                else
+                {
                     self.btnDownLoad.isHidden = true
-                    //self.progresslbl.isHidden = false
+                    self.progresslbl.isHidden = false
                     self.progresslbl.text = current! + "%"
                     self.progresslbl.sizeToFit()
                     self.progresslbl.center = self.btnDownLoad.center
                 }
             }
-            else
-            {
-                self.progresslbl.isHidden = false
-                self.progresslbl.text = ""
-                
-                 self.btnDownLoad.isHidden = isDownloaded
-            }
-        }
-        else
-        {
-            self.progresslbl.text = ""
-            self.btnDownLoad.isHidden = isDownloaded
-        }
+
         
     }
     
@@ -730,18 +716,11 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         if let mImage = myImage
         {
-            
-            
-            
-//            let artWork = MPMediaItemArtwork(image: mImage)
-//            
             artWorkImage  = mImage
             
             HomeViewController.currentMediaImage = mImage
-//            
-//            MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = artWork
-            
-           musicImage.image = Tools.cropToBounds(image: mImage, width: Double(mySize.width), height: Double(mySize.height))
+
+            musicImage.image = Tools.cropToBounds(image: mImage, width: Double(mySize.width), height: Double(mySize.height))
         }
         else
         {
@@ -750,13 +729,9 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 self.musicImage.image = Tools.cropToBounds(image: newImage!, width: Double(mySize.width), height: Double(mySize.height))
                 
-//                let artWork = MPMediaItemArtwork(image: newImage!)
-//                
-                 self.artWorkImage  = newImage
+                self.artWorkImage  = newImage
                 
                 HomeViewController.currentMediaImage = newImage
-//                
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = artWork
                 
             })
         }
@@ -839,10 +814,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         super.viewWillAppear(animated)
         
-        UIApplication.shared.endReceivingRemoteControlEvents()
-        
-        self.resignFirstResponder()
-        
         GetOtherMedia()
     }
     
@@ -899,8 +870,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
        // jukebox.play()
     }
     
-    func CheckNowPlayingMusic(myUrl: URL)
-        {
+    func CheckNowPlayingMusic(myUrl: URL){
+        
             if ((HomeViewController.jukebox?.currentItem?.hashValue) != nil)
             {
                 if HomeViewController.jukebox?.currentItem?.URL == myUrl
@@ -930,16 +901,27 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
                     HomeViewController.jukebox?.stop()
                     HomeViewController.jukebox?.remove(item: (HomeViewController.jukebox?.currentItem)!)
                     HomeViewController.jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: myUrl)])
+                    
+                    ResetTableView()
                 }
             }
             else
             {
                 HomeViewController.jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: myUrl)])
+                
+                ResetTableView()
             }
             
             
             
         }
+    
+    func ResetTableView()
+    {
+        HomeViewController.singerMediaItems.removeAll()
+        
+        tableView.reloadData()
+    }
     
     func resetUI()
     {

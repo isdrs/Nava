@@ -95,12 +95,27 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let stb = UIStoryboard(name: "Main", bundle: nil)
         
         if mediaType == .sound
         {
             let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-            HomeViewController.mediaItem = mediaDataArray[indexPath.row]
+            
+            let p = mediaDataArray[indexPath.row]
+            
+            if p.ArtistId == HomeViewController.mediaItem.ArtistId
+            {
+                HomeViewController.isCurrentMedia = true
+            }
+            else
+            {
+                HomeViewController.isCurrentMedia = false
+            }
+            
+            HomeViewController.mediaItem = p
+            
             
             self.present(musicPlayerViewController, animated: false) {
                 

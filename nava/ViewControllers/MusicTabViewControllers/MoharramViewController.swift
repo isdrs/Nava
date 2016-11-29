@@ -105,12 +105,26 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let stb = UIStoryboard(name: "Main", bundle: nil)
         
         if mediaType == .sound
         {
             let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-            HomeViewController.mediaItem = mediaDataArray[indexPath.row]
+            
+            let p = mediaDataArray[indexPath.row]
+            
+            if p.ArtistId == HomeViewController.mediaItem.ArtistId
+            {
+                HomeViewController.isCurrentMedia = true
+            }
+            else
+            {
+                HomeViewController.isCurrentMedia = false
+            }
+            
+            HomeViewController.mediaItem = p
             
             self.present(musicPlayerViewController, animated: false) {
                 
@@ -126,15 +140,5 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableVi
             }
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

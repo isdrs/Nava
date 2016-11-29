@@ -99,6 +99,8 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let stb = UIStoryboard(name: "Main", bundle: nil)
         
         let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
@@ -111,15 +113,4 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         //self.navigationController?.pushViewController(musicPlayerViewController, animated: false)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -505,7 +505,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         //... handle sms screen actions
         switch (result.rawValue) {
@@ -526,7 +525,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
     }
-    
     
     @objc private func LikeAction()
     {
@@ -551,7 +549,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-   
     @objc private func DownloadAction()
     {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -704,7 +701,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    
     private var artWorkImage: UIImage!
     
     func SetImageForImageView()
@@ -814,9 +810,17 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         super.viewWillAppear(animated)
         
-        GetOtherMedia()
+        if HomeViewController.isCurrentMedia
+        {
+            
+        }
+        else
+        {
+            ResetTableView()
+            GetOtherMedia()
+        }
+        HomeViewController.isCurrentMedia = true
     }
-    
     
     private func GetOtherMedia()
     {
@@ -888,11 +892,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
                             btnPlay.setImage(UIImage(named: "Pause"), for: .normal)
                         }
                         
-                    
                         musicSlider.value = value
                        
-                        
-                        
                         populateLabelWithTime(lblRemainTime, time: currentTime)
                     }
                 }
@@ -901,20 +902,15 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
                     HomeViewController.jukebox?.stop()
                     HomeViewController.jukebox?.remove(item: (HomeViewController.jukebox?.currentItem)!)
                     HomeViewController.jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: myUrl)])
-                    
-                    ResetTableView()
                 }
             }
             else
             {
                 HomeViewController.jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: myUrl)])
                 
-                ResetTableView()
             }
-            
-            
-            
-        }
+    
+    }
     
     func ResetTableView()
     {
@@ -945,12 +941,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func jukeboxPlaybackProgressDidChange(_ jukebox: Jukebox) {
         
-//        print("currentTime:  \(jukebox.currentItem?.currentTime)")
-//        
-//        print("duration:  \(jukebox.currentItem?.meta.duration)")
-       
-        
-        if let currentTime = jukebox.currentItem?.currentTime, let duration = HomeViewController.mediaItem.TimeDouble//jukebox.currentItem?.meta.duration
+        if let currentTime = jukebox.currentItem?.currentTime, let duration = HomeViewController.mediaItem.TimeDouble
         {
             let value = Float(currentTime / duration)
             
@@ -959,15 +950,12 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
                musicSlider.value = value
             }
             
-            
-                populateLabelWithTime(lblRemainTime, time: currentTime)
+            populateLabelWithTime(lblRemainTime, time: currentTime)
         }
         else
         {
             resetUI()
         }
-        
-        //SetMediaInfo()
     }
     
     func jukeboxStateDidChange(_ jukebox: Jukebox) {
@@ -994,16 +982,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             {
             case .playing, .loading:
                 imageName = "Pause"
-//                let ctiem = CMTime(seconds: (HomeViewController.jukebox?.currentItem?.currentTime)!, preferredTimescale: CMTimeScale.allZeros)
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 1
             case .paused, .failed, .ready:
                 imageName = "Play"
-//                
-//                let ctiem = CMTime(seconds: (HomeViewController.jukebox?.currentItem?.currentTime)!, preferredTimescale: CMTimeScale.allZeros)
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 0
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(ctiem)
-                
             }
             
             btnPlay.setImage(UIImage(named: imageName), for: .normal)
@@ -1056,16 +1036,10 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     private func SetMediaInfo()
     {
-        
-//        let currentTime = 0//HomeViewController.jukebox?.currentItem?.currentTime
-//        let duration = HomeViewController.mediaItem.TimeDouble
-        
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyArtist: HomeViewController.mediaItem.ArtistName,
             MPMediaItemPropertyTitle: HomeViewController.mediaItem.MediaName,
-//        MPMediaItemPropertyPlaybackDuration : duration as AnyObject,
-//        MPNowPlayingInfoPropertyElapsedPlaybackTime : currentTime as AnyObject,
-        MPMediaItemPropertyArtwork : MPMediaItemArtwork(image: artWorkImage),
+            MPMediaItemPropertyArtwork : MPMediaItemArtwork(image: artWorkImage),
             MPNowPlayingInfoPropertyPlaybackRate: 1
         ]
     
@@ -1119,16 +1093,18 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         HomeViewController.jukebox?.stop()
         
-        HomeViewController.mediaItem = HomeViewController.singerMediaItems[indexPath.row]
+        let p = HomeViewController.singerMediaItems[indexPath.row]
+        
+        HomeViewController.mediaItem = p
         
         let url = LoadData()
         
         CheckNowPlayingMusic(myUrl: url)
         
-        //HomeViewController.jukebox?.play()
-        //self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
         SetImageForImageView()
         
         for sub in self.playingMusicView.subviews
@@ -1139,13 +1115,9 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         
-//        btnDownLoad.isHidden = isDownloaded
-        
-        
         self.lblMusicName.text = HomeViewController.mediaItem.MediaName
         self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
         HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
         
-        GetOtherMedia()
     }
 }

@@ -15,6 +15,9 @@ import MediaPlayer
 
 class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegate {
 {
+    
+    static var isCurrentMedia = true
+    
     static var mediaItem = MediaItem()
     
     static var singerMediaItems : [MediaItem] = [MediaItem]()

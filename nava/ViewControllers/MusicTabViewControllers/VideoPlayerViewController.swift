@@ -624,6 +624,8 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         self.mediaItem = singerMediaItems[indexPath.row]
         
         UpdateNamesLabel()
@@ -632,7 +634,7 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         PlayerVideoChangeSource(myUrl: URL(string: mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!)
         
-        GetOtherMedia()
+        //GetOtherMedia()
         
     }
 }

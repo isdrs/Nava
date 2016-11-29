@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireNetworkActivityIndicator
+import Foundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,22 +29,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         documentsURL.appendPathComponent("/MyMedia")
         
         let fileManager = FileManager.default
+        
         var isDir : ObjCBool = false
         
-        if fileManager.fileExists(atPath: documentsURL.absoluteString, isDirectory:&isDir) {
-            if isDir.boolValue {
+        if fileManager.fileExists(atPath: documentsURL.absoluteString, isDirectory:&isDir)
+        {
+            if isDir.boolValue
+            {
                 // file exists and is a directory
-            } else {
+            }
+            else
+            {
                 // file exists and is not a directory
             }
-        } else {
+        }
+        else
+        {
             // file does not exist
-            do {
+            do
+            {
                 try FileManager.default.createDirectory(at: documentsURL, withIntermediateDirectories: false, attributes: nil)
                 
             } catch let error as NSError {
                 print(error.description)
-                
             }
         }
         
@@ -55,15 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NetworkActivityIndicatorManager.shared.isEnabled = true
         
-        //UILabel.appearance().font = UIFont(name: Tools.StaticVariables.AppFont, size: 12)
-        
-        //UILabel.appearance().f
-        
-        
-        
-//        self.window?.addSubview(generalPlayer)
-//        
-//        self.window?.bringSubview(toFront: generalPlayer)
+        Thread.sleep(forTimeInterval: 3.0)
         
         return true
     }

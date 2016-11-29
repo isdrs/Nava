@@ -165,7 +165,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.searchBarView.addSubview(self.searchTxt)
         self.searchTxt.frame.size = CGSize(width: viewSizePercent.width * 70, height: viewSizePercent.height * 6.5)
         self.searchTxt.frame.origin = CGPoint(x: viewSizePercent.width * 5, y: (self.searchTxt.superview?.frame.size.height)! * 0.1 )
-        self.searchTxt.text = Tools.StaticVariables.SearchDefaultTitle
+        self.searchTxt.attributedPlaceholder = NSAttributedString(string:Tools.StaticVariables.SearchDefaultTitle,
+                                                                  attributes:[NSForegroundColorAttributeName: UIColor.white])
         self.searchTxt.textColor = UIColor.white
         self.searchTxt.textAlignment = .right
         self.searchTxt.returnKeyType = .search
@@ -467,6 +468,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
         
         let media = mediaItems[indexPath.row]
         

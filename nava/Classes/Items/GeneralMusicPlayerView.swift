@@ -90,6 +90,7 @@ class GeneralMusicPlayerView: UIView {
         
         
         
+        
         btnNavigate = UIButton()
         
         btnNavigate.frame.size = CGSize(width: h * 0.9, height: h * 0.9)
@@ -158,11 +159,14 @@ class GeneralMusicPlayerView: UIView {
     {
          let stb = UIStoryboard(name: "Main", bundle: nil)
         
-        if HomeViewController.mediaItem.MediaType == .sound
+        if PlayingMediaManager.PlayingMediaItem.MediaType == .sound
         {
             let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
 
-            UIApplication.topViewController()?.present(musicPlayerViewController, animated: false) {
+            PlayingMediaManager.ShowingMediaItem = PlayingMediaManager.PlayingMediaItem
+            
+            UIApplication.topViewController()?.present(musicPlayerViewController, animated: false)
+            {
                 
             }
         }

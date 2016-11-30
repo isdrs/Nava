@@ -212,7 +212,7 @@
             </objects>
             <point key="canvasLocation" x="1630" y="448"/>
         </scene>
-        <!--نواهای آسمانی-->
+        <!--Home View Controller-->
         <scene sceneID="Wmf-rS-Gg0">
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mBD-Tr-eYk" customClass="HomeViewController" customModule="نواهای_آسمانی" customModuleProvider="target" sceneMemberID="viewController">
@@ -239,7 +239,7 @@
                             <constraint firstItem="sS1-80-xzN" firstAttribute="width" secondItem="yJY-jc-DyK" secondAttribute="width" id="wFq-qI-Lc9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="نواهای آسمانی" id="rup-fL-3le">
+                    <navigationItem key="navigationItem" id="rup-fL-3le">
                         <barButtonItem key="rightBarButtonItem" image="Look" style="plain" id="Lm2-Od-Cq7">
                             <inset key="imageInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -250,6 +250,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="ContainerView" destination="sS1-80-xzN" id="FbI-Uf-4bZ"/>
+                        <outlet property="myNavigationBar" destination="rup-fL-3le" id="9w1-Pk-fdo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9b-hx-iFx" userLabel="First Responder" sceneMemberID="firstResponder"/>

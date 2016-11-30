@@ -624,7 +624,7 @@ class MediaManager: NSObject {
         {
             try FileManager().removeItem(at: localPath!)
             
-            DeleteDBMeida(mediaItem: mediaItem)
+           _ = DeleteDBMeida(mediaItem: mediaItem)
             
             completion(true)
         }

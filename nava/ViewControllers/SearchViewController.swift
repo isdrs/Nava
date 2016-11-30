@@ -480,7 +480,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if media.MediaType == .sound
         {
             let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-            HomeViewController.mediaItem = media
+            
+            PlayingMediaManager.ShowingMediaItem = media
             
             self.present(musicPlayerViewController, animated: false) {
                 

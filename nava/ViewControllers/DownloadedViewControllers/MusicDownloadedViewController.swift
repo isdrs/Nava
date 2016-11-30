@@ -90,8 +90,6 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         cell.SingerNameLabel = mediaItem.ArtistName
         cell.delegate = self
         
-        //cell.time.text = mediaItem.Time
-        
         cell.musicImage.af_setImage(withURL: NSURL(string: mediaItem.LargpicUrl) as! URL)
         
         return cell
@@ -104,13 +102,15 @@ class MusicDownloadedViewController: UIViewController, IndicatorInfoProvider, UI
         let stb = UIStoryboard(name: "Main", bundle: nil)
         
         let musicPlayerViewController = stb.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-        HomeViewController.mediaItem = downlodedMusic[indexPath.row]
         
-        self.present(musicPlayerViewController, animated: true) {
+        let p = downlodedMusic[indexPath.row]
+        
+        PlayingMediaManager.ShowingMediaItem = p
+        
+        self.present(musicPlayerViewController, animated: false) {
             
         }
-        
-        //self.navigationController?.pushViewController(musicPlayerViewController, animated: false)
+     
     }
     
 }

@@ -148,7 +148,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     private func MenuActionDo(menuAction :SwiftyAccordionCells.MenuAction)
     {
-        let stb = UIStoryboard(name: "Main", bundle: nil)
+        _ = UIStoryboard(name: "Main", bundle: nil)
         
         switch menuAction {
         case .LiveMakke:

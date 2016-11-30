@@ -41,7 +41,7 @@ class DBManager: NSObject {
             
             // Use DatabaseMigrator to setup the database
             
-            var migrator = DatabaseMigrator()
+            let migrator = DatabaseMigrator()
             
            try? dbQueue.inDatabase { db in
                 try db.create(table: "Media") { t in

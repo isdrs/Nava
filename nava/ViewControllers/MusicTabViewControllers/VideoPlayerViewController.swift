@@ -49,6 +49,8 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     private var isLiked = false
     private var isDownloaded = false
     
+    var refreshControl : UIRefreshControl!
+    
     private var isFavorited : Bool = false {
         
         didSet
@@ -235,6 +237,10 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         isFavorited = MediaManager.IsFavoritedMedia(mediaItem: mediaItem)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateDownloadProgressLabel), name: NSNotification.Name(rawValue: Tools.StaticVariables.DownloadProgressNotificationKey ), object: nil)
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.GetOtherMedia), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl)
         
     }
     
@@ -514,7 +520,7 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     
-    private func GetOtherMedia()
+    @objc private func GetOtherMedia()
     {
         ServiceManager.GetMediaListByArtist(mediaItem: mediaItem, mediaType: .video, serviceType: mediaItem.MediaServiceType, pageNo: 1) { (status, newMedia) in
             if status
@@ -524,6 +530,11 @@ class VideoPlayerViewController: UIViewController, UITableViewDelegate, UITableV
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
+            }
+            
+            if self.refreshControl.isRefreshing
+            {
+                self.refreshControl.endRefreshing()
             }
         }
     }

@@ -115,16 +115,7 @@ class MoharramViewController: UIViewController, IndicatorInfoProvider, UITableVi
             
             let p = mediaDataArray[indexPath.row]
             
-            if p.ArtistId == HomeViewController.mediaItem.ArtistId
-            {
-                HomeViewController.isCurrentMedia = true
-            }
-            else
-            {
-                HomeViewController.isCurrentMedia = false
-            }
-            
-            HomeViewController.mediaItem = p
+             PlayingMediaManager.ShowingMediaItem = p
             
             self.present(musicPlayerViewController, animated: false) {
                 

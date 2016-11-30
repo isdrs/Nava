@@ -16,12 +16,7 @@ import MediaPlayer
 class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegate {
 {
     
-    static var isCurrentMedia = true
-    
-    static var mediaItem = MediaItem()
-    
-    static var singerMediaItems : [MediaItem] = [MediaItem]()
-    
+    @IBOutlet weak var myNavigationBar: UINavigationItem!
     static var totalMusicPlayer : GeneralMusicPlayerView!
     
     static var jukebox = Jukebox()
@@ -32,10 +27,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     static var musicPlayerYOrigin = CGFloat()
     
-    static var currentMusicIndex = 0
-    
-    static var currentMediaImage : UIImage!
-    
+        
     var btnPrev : UIButton!
     var btnPlayPause : UIButton!
     var btnNext : UIButton!
@@ -97,9 +89,11 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         self.view.addSubview(HomeViewController.totalMusicPlayer)
         
         NotificationCenter.default.addObserver(self, selector: #selector(SetJukeBoxDelegate), name: NSNotification.Name(rawValue: Tools.StaticVariables.ChangeDelegateKey), object: nil)
-
-        self.navigationController?.navigationBar.topItem?.title = "نواهای آسمانی"
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: Tools.StaticVariables.AppFont, size: 20)!,  NSForegroundColorAttributeName: UIColor.white]
+        
+        
+        SetTitleViewForNavigationBar()
+//        self.navigationController?.navigationBar.topItem?.title = "نواهای آسمانی"
+//        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: Tools.StaticVariables.AppFont, size: 20)!,  NSForegroundColorAttributeName: UIColor.white]
 
         
         for familyName in UIFont.familyNames {
@@ -117,6 +111,22 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         UIButton.appearance().titleLabel?.font = myFont!
         
     }
+    
+    func SetTitleViewForNavigationBar() {
+        
+        let titleFrame = CGRect(x: 0, y: 0, width: Tools.screenWidth * 0.25, height: Tools.screenHeight * 0.05)//self.navigationController?.navigationItem.titleView?.frame
+        
+        let titleView = UIView(frame: titleFrame)
+        
+        let titleImage = UIImageView(frame: titleFrame)
+        
+        titleImage.image = UIImage(named: "Title")
+        
+        titleView.addSubview(titleImage)
+        
+        self.myNavigationBar.titleView = titleView//UIImageView(image: UIImage(named: "Title"))//titleView
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -150,11 +160,15 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     func SetMediaInfo()
     {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyArtist: HomeViewController.mediaItem.ArtistName,
-            MPMediaItemPropertyTitle: HomeViewController.mediaItem.MediaName,
-            MPMediaItemPropertyArtwork : MPMediaItemArtwork(image: HomeViewController.currentMediaImage),
+            MPMediaItemPropertyArtist: PlayingMediaManager.ShowingMediaItem.ArtistName,
+            MPMediaItemPropertyTitle: PlayingMediaManager.ShowingMediaItem.MediaName,
             MPNowPlayingInfoPropertyPlaybackRate: NSNumber(value: 1)
         ]
+        
+        if let p = PlayingMediaManager.CurrentMediaImage
+        {
+            MPNowPlayingInfoCenter.default().nowPlayingInfo? [MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: p)
+        }
         
         print(MPNowPlayingInfoCenter.default().nowPlayingInfo)
     }
@@ -178,30 +192,32 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     static func NextTrack(isInRoot: Bool)
     {
-        if currentMusicIndex < singerMediaItems.count - 1
+        if PlayingMediaManager.CurrentMusicIndex < PlayingMediaManager.PlayingArtistMediaItems.count - 1
         {
             jukebox?.stop()
             
-            currentMusicIndex += 1
+            PlayingMediaManager.CurrentMusicIndex += 1
             
             let oldItem = jukebox?.currentItem
             
-            mediaItem = singerMediaItems[currentMusicIndex]
+            PlayingMediaManager.PlayingMediaItem = PlayingMediaManager.PlayingArtistMediaItems[PlayingMediaManager.CurrentMusicIndex]
             
             if isInRoot
             {
-//                let myUrl = URL(string: HomeViewController.mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)
-//                
-                let jukeBoxitem = JukeboxItem(URL: HomeViewController.LoadData(mediaitem: HomeViewController.mediaItem))
+                
+                let jukeBoxitem = JukeboxItem(URL: HomeViewController.LoadData(mediaitem: PlayingMediaManager.PlayingMediaItem))
                 
                 jukebox?.append(item: jukeBoxitem, loadingAssets: false)
                 
                 jukebox?.remove(item: oldItem!)
                 
-                let url = HomeViewController.mediaItem.LargpicUrl
+                let url = PlayingMediaManager.PlayingMediaItem.LargpicUrl
                 
                 HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: url)
                 
+                HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: PlayingMediaManager.PlayingMediaItem.LargpicUrl)
+                HomeViewController.totalMusicPlayer.ArtistNameLabel = PlayingMediaManager.PlayingMediaItem.ArtistName
+                HomeViewController.totalMusicPlayer.MusicTitleLabel = PlayingMediaManager.PlayingMediaItem.MediaName
                 jukebox?.play()
             }
         }
@@ -213,11 +229,11 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         
         if let myMedia = MediaManager.IsDownloadedMedia(mediaItem: mediaitem)
         {
-            HomeViewController.mediaItem = myMedia
+            PlayingMediaManager.PlayingMediaItem = myMedia
             
             var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             
-            documentsURL.appendPathComponent("MyMedia/." + HomeViewController.mediaItem.MediaID + ".mp3")
+            documentsURL.appendPathComponent("MyMedia/." + PlayingMediaManager.PlayingMediaItem.MediaID + ".mp3")
             
             myUrl = documentsURL//JukeboxItem(URL: documentsURL)
             
@@ -225,11 +241,11 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         else
         {
             
-            myUrl = URL(string: HomeViewController.mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!
+            myUrl = URL(string: PlayingMediaManager.PlayingMediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             
-            if appDelegate.downloadQueue[String(HomeViewController.mediaItem.MediaID)] != nil {
+            if appDelegate.downloadQueue[String(PlayingMediaManager.PlayingMediaItem.MediaID)] != nil {
               
             }
             else
@@ -240,34 +256,36 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         }
         
         return myUrl
-        
-        // jukebox.play()
     }
     
     static func PrevTrack(isInRoot: Bool)
     {
-        if currentMusicIndex > 0
+        if PlayingMediaManager.CurrentMusicIndex > 0
         {
             jukebox?.stop()
             
             let oldItem = jukebox?.currentItem
             
-            currentMusicIndex -= 1
+            PlayingMediaManager.CurrentMusicIndex -= 1
             
-            mediaItem = singerMediaItems[currentMusicIndex]
+            PlayingMediaManager.PlayingMediaItem = PlayingMediaManager.PlayingArtistMediaItems[PlayingMediaManager.CurrentMusicIndex]
             
             if isInRoot
             {
                 
-                let jukeBoxitem = JukeboxItem(URL: HomeViewController.LoadData(mediaitem: HomeViewController.mediaItem))
+                let jukeBoxitem = JukeboxItem(URL: HomeViewController.LoadData(mediaitem: PlayingMediaManager.PlayingMediaItem))
                 
                 jukebox?.append(item: jukeBoxitem, loadingAssets: false)
                 
                 jukebox?.remove(item: oldItem!)
                 
-                let url = HomeViewController.mediaItem.LargpicUrl
+                let url = PlayingMediaManager.PlayingMediaItem.LargpicUrl
                 
                 HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: url)
+                
+                HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: PlayingMediaManager.PlayingMediaItem.LargpicUrl)
+                HomeViewController.totalMusicPlayer.ArtistNameLabel = PlayingMediaManager.PlayingMediaItem.ArtistName
+                HomeViewController.totalMusicPlayer.MusicTitleLabel = PlayingMediaManager.PlayingMediaItem.MediaName
                 
                 jukebox?.play()
             }
@@ -287,8 +305,18 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     func jukeboxPlaybackProgressDidChange(_ jukebox: Jukebox) {
        
-        //SetMediaInfo()
-        
+        if let currentTime = jukebox.currentItem?.currentTime, let duration = PlayingMediaManager.PlayingMediaItem.TimeDouble
+        {
+            //let value = Float(currentTime / duration)
+            print("\n current " + String(currentTime) + "   duration  " + String(duration))
+            if currentTime >= duration
+            {
+                if !PlayingMediaManager.IsCurrentMediaLast()
+                {
+                    HomeViewController.NextTrack(isInRoot: true)
+                }
+            }
+        }
     }
     
     func jukeboxStateDidChange(_ jukebox: Jukebox) {
@@ -315,9 +343,7 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             }
             
             HomeViewController.totalMusicPlayer.SetPlayButtonImage(isPlaying: imageName == "Pause" ? true : false)
-            HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
-            HomeViewController.totalMusicPlayer.ArtistNameLabel = HomeViewController.mediaItem.ArtistName
-            HomeViewController.totalMusicPlayer.MusicTitleLabel = HomeViewController.mediaItem.MediaName
+            
         }
         
         SetMediaInfo()

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1108338D1DD31417000DCA80 /* NavaEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1108338C1DD31417000DCA80 /* NavaEnums.swift */; };
 		1108338F1DD31957000DCA80 /* SearchTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1108338E1DD31957000DCA80 /* SearchTypeItem.swift */; };
+		116937F61DEDDFF5002369EF /* PlayingMediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116937F51DEDDFF5002369EF /* PlayingMediaManager.swift */; };
 		1172BC741DC349C20026617F /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172BC731DC349C20026617F /* MediaCell.swift */; };
 		1178C8C51DD1EA0F00096D0A /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178C8C41DD1EA0F00096D0A /* VideoPlayerViewController.swift */; };
 		1178C8C71DD1FE3D00096D0A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1178C8C61DD1FE3D00096D0A /* PlayerViewController.swift */; };
@@ -68,6 +69,7 @@
 		09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.release.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.release.xcconfig"; sourceTree = "<group>"; };
 		1108338C1DD31417000DCA80 /* NavaEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavaEnums.swift; path = Classes/NavaEnums.swift; sourceTree = "<group>"; };
 		1108338E1DD31957000DCA80 /* SearchTypeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTypeItem.swift; path = Classes/DataProvider/SearchTypeItem.swift; sourceTree = "<group>"; };
+		116937F51DEDDFF5002369EF /* PlayingMediaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingMediaManager.swift; path = Classes/Managers/PlayingMediaManager.swift; sourceTree = "<group>"; };
 		1172BC731DC349C20026617F /* MediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaCell.swift; path = Classes/Items/MediaCell.swift; sourceTree = "<group>"; };
 		1178C8C41DD1EA0F00096D0A /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoPlayerViewController.swift; path = ViewControllers/MusicTabViewControllers/VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		1178C8C61DD1FE3D00096D0A /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = ViewControllers/MusicTabViewControllers/PlayerViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 		84539E7A1DAF8D3500363617 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				116937F51DEDDFF5002369EF /* PlayingMediaManager.swift */,
 				117C76161DD8E7560091222E /* DataCacheManager.swift */,
 				84FB193A1DB38C7900F3D71A /* MediaManager.swift */,
 				84FB19361DB388E200F3D71A /* DBManager.swift */,
@@ -468,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1108338D1DD31417000DCA80 /* NavaEnums.swift in Sources */,
+				116937F61DEDDFF5002369EF /* PlayingMediaManager.swift in Sources */,
 				11F89FC41DBE24D500E74240 /* SwiftyAccordionCells.swift in Sources */,
 				11ABC3851DD9B594000C1D6E /* TitleLable.swift in Sources */,
 				1181D96E1DD4D70400CA2351 /* FavoriteCellItem.swift in Sources */,

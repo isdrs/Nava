@@ -31,7 +31,7 @@ class PlayerViewController: UIViewController {
         let W = Tools.screenWidth
         let H =  Tools.screenHeight * 0.65
         let X = CGFloat()
-        let Y = Tools.screenHeight * 0.03
+        //let Y = Tools.screenHeight * 0.03
         let WPercent = W / 100.0
         let HPercent = H / 100.0
         

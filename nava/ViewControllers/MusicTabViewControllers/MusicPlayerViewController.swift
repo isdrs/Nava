@@ -59,6 +59,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     private var isStartPlaying = false
+    
+    var refreshControl : UIRefreshControl!
    
     var MusicTitleLabel : String {
         get {
@@ -126,16 +128,13 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         tapGesture.cancelsTouchesInView = false
         
-        
         super.viewDidLoad()
         
         self.view.backgroundColor = .clear
         
-        
         print("view frame: \( self.view.frame)")
         
         // begin receiving remote events
-        
         
         let url = LoadData()
         
@@ -143,32 +142,28 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         SetMusicListView()
         SetPopUpMenuView()
         
-        isFavorited = MediaManager.IsFavoritedMedia(mediaItem: HomeViewController.mediaItem)
+        isFavorited = MediaManager.IsFavoritedMedia(mediaItem: PlayingMediaManager.ShowingMediaItem)
         
-        CheckNowPlayingMusic(myUrl: url)
+        if PlayingMediaManager.CheckPlayingMediaItemIsShowing()
+        {
+            CheckNowPlayingMusic(myUrl: url)
+        }
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateDownloadProgressLabel), name: NSNotification.Name(rawValue: Tools.StaticVariables.DownloadProgressNotificationKey ), object: nil)
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         
-//        let commandCenter = MPRemoteCommandCenter.shared()
-//
-//        commandCenter.nextTrackCommand.removeTarget(HomeViewController.self)
-//        commandCenter.previousTrackCommand.removeTarget(HomeViewController.self)
-//        
-//        commandCenter.nextTrackCommand.isEnabled = true
-//        commandCenter.nextTrackCommand.addTarget(self, action: #selector(NextTrack))
-//        
-//        
-//        
-//        commandCenter.previousTrackCommand.isEnabled = true
-//        commandCenter.previousTrackCommand.addTarget(self, action: #selector(PrevTrack))
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.GetOtherMedia), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl)
+        
         
     }
     
-    func SetPlayingMusicView() -> Void{
-        
+    func SetPlayingMusicView() -> Void
+    {
         
         let W = Tools.screenWidth
         let H =  Tools.screenHeight * 0.65
@@ -196,12 +191,13 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.btnMenu.addTarget(self, action: #selector(self.MenuAction), for: .touchUpInside)
         
         
+        
         //Music Image
         self.musicImage = UIImageView()
         self.musicImage.frame = CGRect(x: 0, y: 0, width: Tools.screenWidth, height: playingMusicView.frame.height * 0.90)
-        //self.musicImage.af_setImage(withURL: URL(string:HomeViewController.mediaItem.LargpicUrl)!)
         SetImageForImageView()
         self.playingMusicView.addSubview(musicImage)
+        
         
         
         //Irancell and Hamrah Aval Button
@@ -223,7 +219,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.btnIranCell.addTarget(self, action: #selector(self.IrancellAction), for: UIControlEvents.touchUpInside)
         
         
-        
         // seperator view
         let sepratoreView = UIView()
         sepratoreView.backgroundColor = UIColor.white
@@ -235,7 +230,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         //Like Button
         self.btnLike = UIButton()
         self.btnLike.frame = CGRect(x: btnBack.frame.origin.x, y: H - btnHamrah.frame.size.height - btnBack.frame.height - HPercent * 6, width: btnBack.frame.width, height: btnBack.frame.height)
-        isLiked = MediaManager.IsLikedMedia(mediaItem: HomeViewController.mediaItem)
+        isLiked = MediaManager.IsLikedMedia(mediaItem: PlayingMediaManager.ShowingMediaItem)
         if isLiked
         {
             self.btnLike.setImage(UIImage(named: "Like"), for: .normal)
@@ -278,18 +273,21 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.btnPlay.addTarget(self, action: #selector(self.PlayTrack), for: .touchUpInside)
         
         
+        
         // Next Music Button
         self.btnNext = UIButton()
         self.btnNext.frame = CGRect(x: btnPlay.frame.origin.x + WPercent * 15, y: btnLike.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
         self.btnNext.setImage(UIImage(named: "Next"), for: .normal)
         self.btnNext.addTarget(self, action: #selector(self.NextTrack), for: .touchUpInside)
-        
+        self.btnNext.isEnabled = false
         
         // Previous Music Button
         self.btnPrev = UIButton()
         self.btnPrev.frame = CGRect(x: btnPlay.frame.origin.x - WPercent * 15, y: btnLike.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
         self.btnPrev.setImage(UIImage(named: "Prev"), for: .normal)
         self.btnPrev.addTarget(self, action: #selector(self.PrevTrack), for: .touchUpInside)
+        self.btnPrev.isEnabled = false
+    
         
         //Slider bar
         self.musicSlider = UISlider()
@@ -315,8 +313,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.lblArtistName = TitleLable(tagNum: 0)
         self.lblMusicName = TitleLable(tagNum: 1000)
-        //self.lblMusicName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 45)
-        //self.lblArtistName.font = UIFont(name: Tools.StaticVariables.AppFont, size: 30)
+       
         
         self.lblArtistName.textColor = .white
         self.lblMusicName.textColor = .white
@@ -326,8 +323,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         self.lblArtistName.frame.size = CGSize(width: self.playingMusicView.frame.size.width, height: self.playingMusicView.frame.size.height * 0.05)
         
         
-        self.ArtistNameLabel = HomeViewController.mediaItem.ArtistName
-        self.MusicTitleLabel = HomeViewController.mediaItem.MediaName
+        self.ArtistNameLabel = PlayingMediaManager.ShowingMediaItem.ArtistName
+        self.MusicTitleLabel = PlayingMediaManager.ShowingMediaItem.MediaName
         
         // Add components to view
         
@@ -418,6 +415,158 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        
+        super.viewWillAppear(animated)
+        
+            ResetTableView()
+            GetOtherMedia()
+            PlayingMediaManager.CurrentMusicIndex = PlayingMediaManager.FindShowingMediaItemInShowingList()
+            print("\n Index  " + String(PlayingMediaManager.CurrentMusicIndex) )
+    }
+    
+    private func PrevAndNextButtonEnableDisable()
+    {
+        PlayingMediaManager.CurrentMusicIndex = PlayingMediaManager.FindShowingMediaItemInShowingList()
+        
+        print("Prev Index " + String(PlayingMediaManager.CurrentMusicIndex))
+        
+        if PlayingMediaManager.ShowingArtistMediaItems.count > 1
+        {
+            if PlayingMediaManager.IsCurrentMediaFirst()
+            {
+                self.btnPrev.isEnabled = false
+                self.btnNext.isEnabled = true
+            }
+            else if PlayingMediaManager.IsCurrentMediaLast()
+            {
+                self.btnPrev.isEnabled = true
+                self.btnNext.isEnabled = false
+            }
+            else if PlayingMediaManager.CurrentMusicIndex == -1
+            {
+                self.btnNext.isEnabled = false
+                self.btnPrev.isEnabled = false
+            }
+            else{
+                self.btnNext.isEnabled = true
+                
+                self.btnPrev.isEnabled = true
+            }
+        }
+    }
+    
+    @objc private func GetOtherMedia()
+    {
+        ServiceManager.GetMediaListByArtist(mediaItem: PlayingMediaManager.ShowingMediaItem, mediaType: .sound, serviceType: PlayingMediaManager.ShowingMediaItem.MediaServiceType, pageNo: 1) { (status, newMedia) in
+            if status
+            {
+                PlayingMediaManager.ShowingArtistMediaItems = newMedia
+                
+                
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.PrevAndNextButtonEnableDisable()
+                }
+            }
+            
+            if self.refreshControl.isRefreshing
+            {
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
+    
+    private func LoadData() -> URL
+    {
+        var myUrl : URL
+        
+        if let myMedia = MediaManager.IsDownloadedMedia(mediaItem: PlayingMediaManager.ShowingMediaItem)
+        {
+            PlayingMediaManager.ShowingMediaItem = myMedia
+            
+            var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            
+            documentsURL.appendPathComponent("MyMedia/." + PlayingMediaManager.ShowingMediaItem.MediaID + ".mp3")
+            
+            myUrl = documentsURL
+            
+            isDownloaded = true
+        }
+        else
+        {
+            
+            
+            myUrl = URL(string: PlayingMediaManager.ShowingMediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            if appDelegate.downloadQueue[String(PlayingMediaManager.ShowingMediaItem.MediaID)] != nil {
+                isDownloaded = true
+            }
+            else
+            {
+                isDownloaded = false
+            }
+        }
+        
+        return myUrl
+    }
+    
+    func CheckNowPlayingMusic(myUrl: URL){
+        
+        if ((HomeViewController.jukebox?.currentItem?.hashValue) != nil)
+        {
+            if HomeViewController.jukebox?.currentItem?.URL == myUrl
+            {
+                HomeViewController.jukebox?.delegate = nil
+                HomeViewController.jukebox?.delegate = self
+                
+                if let currentTime = HomeViewController.jukebox?.currentItem?.currentTime,
+                    let duration = PlayingMediaManager.PlayingMediaItem.TimeDouble
+                {
+                    let value = Float(currentTime / duration)
+                    
+                    if HomeViewController.jukebox?.state == .playing
+                    {
+                        btnPlay.setImage(UIImage(named: "Pause"), for: .normal)
+                    }
+                    
+                    musicSlider.value = value
+                    populateLabelWithTime(lblRemainTime, time: currentTime)
+                }
+            }
+            else
+            {
+                HomeViewController.jukebox?.stop()
+                HomeViewController.jukebox?.remove(item: (HomeViewController.jukebox?.currentItem)!)
+                HomeViewController.jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: myUrl)])
+
+                HomeViewController.jukebox?.play()
+            }
+        }
+        else
+        {
+            HomeViewController.jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: myUrl)])
+            HomeViewController.jukebox?.play()
+        }
+    }
+    
+    func ResetTableView()
+    {
+        PlayingMediaManager.ShowingArtistMediaItems.removeAll()
+        
+        tableView.reloadData()
+    }
+    
+    func resetUI()
+    {
+        lblRemainTime.text = "00:00"
+        musicSlider.value = 0
+    }
+    
     func appMovedToBackground() {
         print("App moved to background!")
         
@@ -436,10 +585,20 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: Tools.StaticVariables.ChangeDelegateKey), object: nil, userInfo: fileInfo)
         
         
+        
+        if HomeViewController.jukebox?.state.rawValue == Jukebox.State.playing.rawValue
+            && PlayingMediaManager.PlayingMediaItem.MediaID == PlayingMediaManager.ShowingMediaItem.MediaID
+            && PlayingMediaManager.ShowingArtistMediaItems.count > 1
+        {
+            PlayingMediaManager.PlayingArtistMediaItems = PlayingMediaManager.ShowingArtistMediaItems
+        }
+        
+        PlayingMediaManager.ShowingMediaItem = MediaItem()
+        PlayingMediaManager.ShowingArtistMediaItems.removeAll()
+        
+        PlayingMediaManager.CurrentMusicIndex = PlayingMediaManager.FindPlayingMediaItemInPlayingList()
+        
         self.dismiss(animated: true,completion: {})
-        
-        
-        
         
     }
     
@@ -471,7 +630,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc private func HamrahAvvalAction()
     {
-        if HomeViewController.mediaItem.HamrahavalCode == ""
+        if PlayingMediaManager.ShowingMediaItem.HamrahavalCode == ""
         {
             SCLAlertView().showInfo("", subTitle: "کد پیشواز وجود ندارد")
         }
@@ -479,7 +638,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         {
             let messageVC = MFMessageComposeViewController()
             
-            messageVC.body = HomeViewController.mediaItem.HamrahavalCode
+            messageVC.body = PlayingMediaManager.ShowingMediaItem.HamrahavalCode
             messageVC.recipients = ["8989"]
             messageVC.messageComposeDelegate = self;
             
@@ -489,7 +648,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc private func IrancellAction()
     {
-        if HomeViewController.mediaItem.HamrahavalCode == ""
+        if PlayingMediaManager.ShowingMediaItem.HamrahavalCode == ""
         {
             SCLAlertView().showInfo("", subTitle: "کد پیشواز وجود ندارد")
         }
@@ -497,7 +656,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         {
             let messageVC = MFMessageComposeViewController()
             
-            messageVC.body = HomeViewController.mediaItem.IrancellCode
+            messageVC.body = PlayingMediaManager.ShowingMediaItem.IrancellCode
             messageVC.recipients = ["7575"]
             messageVC.messageComposeDelegate = self;
             
@@ -530,13 +689,13 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     {
         if !isLiked
         {
-            ServiceManager.LikeOrDwonloadCountAdd(mediaItem: HomeViewController.mediaItem, isLike: true) { (result) in
+            ServiceManager.LikeOrDwonloadCountAdd(mediaItem: PlayingMediaManager.ShowingMediaItem, isLike: true) { (result) in
                 
                 if result
                 {
                     self.btnLike.setImage(UIImage(named: "Like"), for: .normal)
                     
-                    MediaManager.AddNewLikeToDB(mediaItem: HomeViewController.mediaItem)
+                    MediaManager.AddNewLikeToDB(mediaItem: PlayingMediaManager.ShowingMediaItem)
                     
                     self.isLiked = true
                     
@@ -552,19 +711,19 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     @objc private func DownloadAction()
     {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.downloadQueue[String(HomeViewController.mediaItem.MediaID)] = "true"
+        appDelegate.downloadQueue[String(PlayingMediaManager.ShowingMediaItem.MediaID)] = "true"
         
         self.btnDownLoad.isHidden = true
         
         
         
-        ServiceManager.DownloadMedia(mediaItem: HomeViewController.mediaItem) { (status) in
+        ServiceManager.DownloadMedia(mediaItem: PlayingMediaManager.ShowingMediaItem) { (status) in
             if status
             {
                 SCLAlertView().showSuccess("دانلود", subTitle: "موفقیت آمیز بود", closeButtonTitle: "تایید", duration: 1.0)
                 
                     //self.btnDownLoad.isHidden = true
-                    appDelegate.downloadQueue.removeValue(forKey: String(HomeViewController.mediaItem.MediaID))
+                    appDelegate.downloadQueue.removeValue(forKey: String(PlayingMediaManager.ShowingMediaItem.MediaID))
             }
             else
             {
@@ -577,19 +736,11 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc private func MusicSliderValueChange()
     {
-//        if !isMusicSliderTouched
-//        {
-//            if (jukebox.currentItem?.meta.duration) != nil
-//            {
-//                jukebox.seek(toSecond: Int(Double(musicSlider.value) * (jukebox.currentItem?.meta.duration)!))
-//            }
-//        }
 
     }
     
     @objc private func TouchDownMusicSlider()
     {
-        
         isMusicSliderTouched = true
     }
     
@@ -597,7 +748,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     {
         if HomeViewController.jukebox?.state == .playing
         {
-            HomeViewController.jukebox?.seek(toSecond: Int(Double(musicSlider.value) * HomeViewController.mediaItem.TimeDouble))
+            HomeViewController.jukebox?.seek(toSecond: Int(Double(musicSlider.value) * PlayingMediaManager.PlayingMediaItem.TimeDouble))
             
             isMusicSliderTouched = false
         }
@@ -605,39 +756,67 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc private func NextTrack()
     {
-        HomeViewController.NextTrack(isInRoot: false)
+        btnPrev.isEnabled = true
+        
+        //HomeViewController.NextTrack(isInRoot: false)
+        
+        PlayingMediaManager.CurrentMusicIndex += 1
+        
+        if PlayingMediaManager.CurrentMusicIndex >= PlayingMediaManager.ShowingArtistMediaItems.count - 1
+        {
+            btnNext.isEnabled = false
+        }
+        
+        PlayingMediaManager.ShowingMediaItem = PlayingMediaManager.ShowingArtistMediaItems[PlayingMediaManager.CurrentMusicIndex]
+        
+        PlayingMediaManager.SetShowingMediaItemToPlaying()
+     
         let url =  LoadData()
+        
         CheckNowPlayingMusic(myUrl: url)
-        HomeViewController.jukebox?.play()
+        
         SetImageForImageView()
-        //self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
-        
+     
         self.btnDownLoad.isHidden = isDownloaded
-
+   
+        self.lblMusicName.text = PlayingMediaManager.PlayingMediaItem.MediaName
+        self.lblArtistName.text = PlayingMediaManager.PlayingMediaItem.ArtistName
+        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: PlayingMediaManager.PlayingMediaItem.LargpicUrl)
+        HomeViewController.totalMusicPlayer.ArtistNameLabel = PlayingMediaManager.PlayingMediaItem.ArtistName
+        HomeViewController.totalMusicPlayer.MusicTitleLabel = PlayingMediaManager.PlayingMediaItem.MediaName
         
-        self.lblMusicName.text = HomeViewController.mediaItem.MediaName
-        self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
-        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
     }
     
     @objc private func PlayTrack()
     {
         let url = LoadData()
         
+        PlayingMediaManager.SetShowingMediaItemToPlaying()
+        
+        SetImageForImageView()
+        
         CheckNowPlayingMusic(myUrl: url)
-
+        
         switch HomeViewController.jukebox?.state.rawValue {
+
         case Jukebox.State.ready.rawValue? :
             HomeViewController.jukebox?.play(atIndex: 0)
 
-            //SetMediaInfo()
         case Jukebox.State.playing.rawValue? :
             HomeViewController.jukebox?.pause()
+        
         case Jukebox.State.paused.rawValue? :
             HomeViewController.jukebox?.play()
 
         default:
-            HomeViewController.jukebox?.stop()
+            if HomeViewController.jukebox?.currentItem != nil
+            {
+                HomeViewController.jukebox?.play()
+            }
+            else
+            {
+                HomeViewController.jukebox?.stop()
+            }
         }
         
         if !isStartPlaying
@@ -645,32 +824,42 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             isStartPlaying = true
             
             SetMediaInfo()
-//            DispatchQueue.main.async {
-//                self.SetMediaInfo()
-//            }
         }
     }
     
     @objc private func PrevTrack()
     {
-        HomeViewController.PrevTrack(isInRoot: false)
-        let url =  LoadData()
-        CheckNowPlayingMusic(myUrl: url)
-        HomeViewController.jukebox?.play()
-        //self.musicImage.af_setImage(withURL: URL(string: HomeViewController.mediaItem.LargpicUrl)!)
-        SetImageForImageView()
-        if isDownloaded
+        btnNext.isEnabled = true
+        
+        //HomeViewController.PrevTrack(isInRoot: false)
+        
+        PlayingMediaManager.CurrentMusicIndex -= 1
+        
+        if PlayingMediaManager.CurrentMusicIndex <= 0
         {
-            btnDownLoad.isHidden = true
-        }
-        else
-        {
-            btnDownLoad.isHidden = false
+            btnPrev.isEnabled = false
         }
         
-        self.lblMusicName.text = HomeViewController.mediaItem.MediaName
-        self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
-        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
+        PlayingMediaManager.ShowingMediaItem = PlayingMediaManager.ShowingArtistMediaItems[PlayingMediaManager.CurrentMusicIndex]
+     
+        PlayingMediaManager.SetShowingMediaItemToPlaying()
+        
+        let url =  LoadData()
+        
+        CheckNowPlayingMusic(myUrl: url)
+        
+        SetImageForImageView()
+        
+        btnDownLoad.isHidden = isDownloaded
+        
+        
+        self.lblMusicName.text = PlayingMediaManager.PlayingMediaItem.MediaName
+        self.lblArtistName.text = PlayingMediaManager.PlayingMediaItem.ArtistName
+     
+        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: PlayingMediaManager.PlayingMediaItem.LargpicUrl)
+        HomeViewController.totalMusicPlayer.ArtistNameLabel = PlayingMediaManager.PlayingMediaItem.ArtistName
+        HomeViewController.totalMusicPlayer.MusicTitleLabel = PlayingMediaManager.PlayingMediaItem.MediaName
+        
     }
     
     @objc private func UpdateDownloadProgressLabel(notification: NSNotification)
@@ -681,7 +870,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         let id = tmp[Tools.StaticVariables.MediaIdNotificationsKey] as String!
         let current = tmp[Tools.StaticVariables.ProgressNotificationsKey] as String!
 
-        if String(HomeViewController.mediaItem.MediaID) == id
+        if String(PlayingMediaManager.ShowingMediaItem.MediaID) == id
             {
                 if current == "100"
                 {
@@ -705,29 +894,29 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func SetImageForImageView()
     {
-        
         let mySize = musicImage.frame.size
         
-        let myImage = DataCacheManager.ShareInstance.cachedImage(urlString: HomeViewController.mediaItem.LargpicUrl)
+        let myImage = DataCacheManager.ShareInstance.cachedImage(urlString: PlayingMediaManager.ShowingMediaItem.LargpicUrl)
         
         if let mImage = myImage
         {
             artWorkImage  = mImage
             
-            HomeViewController.currentMediaImage = mImage
+            PlayingMediaManager.CurrentMediaImage = mImage
 
             musicImage.image = Tools.cropToBounds(image: mImage, width: Double(mySize.width), height: Double(mySize.height))
         }
         else
         {
-            ServiceManager.DownloadImage(urlString: HomeViewController.mediaItem.LargpicUrl, completion: { (newImage) in
-                DataCacheManager.ShareInstance.cacheImage(image: newImage!, urlString: HomeViewController.mediaItem.LargpicUrl)
+            ServiceManager.DownloadImage(urlString: PlayingMediaManager.ShowingMediaItem.LargpicUrl, completion: {
+                (newImage) in
+                DataCacheManager.ShareInstance.cacheImage(image: newImage!, urlString: PlayingMediaManager.ShowingMediaItem.LargpicUrl)
                 
                 self.musicImage.image = Tools.cropToBounds(image: newImage!, width: Double(mySize.width), height: Double(mySize.height))
                 
                 self.artWorkImage  = newImage
                 
-                HomeViewController.currentMediaImage = newImage
+                PlayingMediaManager.CurrentMediaImage = newImage
                 
             })
         }
@@ -749,7 +938,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func Sharing()
     {
-        let text = HomeViewController.mediaItem.ShareUrl
+        let text = PlayingMediaManager.ShowingMediaItem.ShareUrl
         
         // set up activity view controller
         let textToShare = [ text ]
@@ -767,7 +956,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     {
         if !isFavorited
         {
-            let res = MediaManager.AddNewFavoriteToDB(mediaItems: [HomeViewController.mediaItem])
+            let res = MediaManager.AddNewFavoriteToDB(mediaItems: [PlayingMediaManager.ShowingMediaItem])
             
             if res
             {
@@ -781,7 +970,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         }
         else
         {
-            let res = MediaManager.DeleteDBFavorites(mediaItem: HomeViewController.mediaItem)
+            let res = MediaManager.DeleteDBFavorites(mediaItem: PlayingMediaManager.ShowingMediaItem)
             
             if res
             {
@@ -797,132 +986,13 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidAppear(_ animated: Bool) {
         
-        self.becomeFirstResponder()
+       _ = self.becomeFirstResponder()
         
         UIApplication.shared.beginReceivingRemoteControlEvents()
     }
     
     override func becomeFirstResponder() -> Bool {
         return true
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        super.viewWillAppear(animated)
-        
-        if HomeViewController.isCurrentMedia
-        {
-            
-        }
-        else
-        {
-            ResetTableView()
-            GetOtherMedia()
-        }
-        HomeViewController.isCurrentMedia = true
-    }
-    
-    private func GetOtherMedia()
-    {
-        ServiceManager.GetMediaListByArtist(mediaItem: HomeViewController.mediaItem, mediaType: .sound, serviceType: HomeViewController.mediaItem.MediaServiceType, pageNo: 1) { (status, newMedia) in
-            if status
-            {
-                HomeViewController.singerMediaItems = newMedia
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
-    private func LoadData() -> URL
-    {
-        var myUrl : URL
-        
-        if let myMedia = MediaManager.IsDownloadedMedia(mediaItem: HomeViewController.mediaItem)
-        {
-            HomeViewController.mediaItem = myMedia
-            
-            var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            
-            documentsURL.appendPathComponent("MyMedia/." + HomeViewController.mediaItem.MediaID + ".mp3")
-            
-            myUrl = documentsURL//JukeboxItem(URL: documentsURL)
-            
-            isDownloaded = true
-        }
-        else
-        {
-            
-            myUrl = URL(string: HomeViewController.mediaItem.MediaUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            
-            if appDelegate.downloadQueue[String(HomeViewController.mediaItem.MediaID)] != nil {
-                isDownloaded = true
-            }
-            else
-            {
-                isDownloaded = false
-            }
-            
-        }
-       
-        return myUrl
-
-       // jukebox.play()
-    }
-    
-    func CheckNowPlayingMusic(myUrl: URL){
-        
-            if ((HomeViewController.jukebox?.currentItem?.hashValue) != nil)
-            {
-                if HomeViewController.jukebox?.currentItem?.URL == myUrl
-                {
-                    HomeViewController.jukebox?.delegate = nil
-                    HomeViewController.jukebox?.delegate = self
-                    
-                    if let currentTime = HomeViewController.jukebox?.currentItem?.currentTime, let duration = HomeViewController.mediaItem.TimeDouble//jukebox.currentItem?.meta.duration
-                    {
-                        let value = Float(currentTime / duration)
-                        
-                        if HomeViewController.jukebox?.state == .playing
-                        {
-                            btnPlay.setImage(UIImage(named: "Pause"), for: .normal)
-                        }
-                        
-                        musicSlider.value = value
-                       
-                        populateLabelWithTime(lblRemainTime, time: currentTime)
-                    }
-                }
-                else
-                {
-                    HomeViewController.jukebox?.stop()
-                    HomeViewController.jukebox?.remove(item: (HomeViewController.jukebox?.currentItem)!)
-                    HomeViewController.jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: myUrl)])
-                }
-            }
-            else
-            {
-                HomeViewController.jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: myUrl)])
-                
-            }
-    
-    }
-    
-    func ResetTableView()
-    {
-        HomeViewController.singerMediaItems.removeAll()
-        
-        tableView.reloadData()
-    }
-    
-    func resetUI()
-    {
-         lblRemainTime.text = "00:00"
-         musicSlider.value = 0
     }
     
     func populateLabelWithTime(_ label : UILabel, time: Double) {
@@ -941,16 +1011,25 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func jukeboxPlaybackProgressDidChange(_ jukebox: Jukebox) {
         
-        if let currentTime = jukebox.currentItem?.currentTime, let duration = HomeViewController.mediaItem.TimeDouble
+        if let currentTime = jukebox.currentItem?.currentTime, let duration = PlayingMediaManager.PlayingMediaItem.TimeDouble
         {
             let value = Float(currentTime / duration)
             
+            if currentTime >= duration
+            {
+                if btnNext.isEnabled
+                {
+                    NextTrack()
+                }
+            }
+            else{
             if !isMusicSliderTouched
             {
                musicSlider.value = value
             }
             
             populateLabelWithTime(lblRemainTime, time: currentTime)
+            }
         }
         else
         {
@@ -988,9 +1067,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             
             btnPlay.setImage(UIImage(named: imageName), for: .normal)
             HomeViewController.totalMusicPlayer.SetPlayButtonImage(isPlaying: imageName == "Pause" ? true : false)
-            HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
-            HomeViewController.totalMusicPlayer.ArtistNameLabel = HomeViewController.mediaItem.ArtistName
-            HomeViewController.totalMusicPlayer.MusicTitleLabel = HomeViewController.mediaItem.MediaName
         }
         
         print("Jukebox state changed to \(jukebox.state)")
@@ -1037,11 +1113,16 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     private func SetMediaInfo()
     {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyArtist: HomeViewController.mediaItem.ArtistName,
-            MPMediaItemPropertyTitle: HomeViewController.mediaItem.MediaName,
-            MPMediaItemPropertyArtwork : MPMediaItemArtwork(image: artWorkImage),
+            MPMediaItemPropertyArtist: PlayingMediaManager.PlayingMediaItem.ArtistName,
+            MPMediaItemPropertyTitle: PlayingMediaManager.PlayingMediaItem.MediaName,
+//            MPMediaItemPropertyArtwork : MPMediaItemArtwork(image: artWorkImage),
             MPNowPlayingInfoPropertyPlaybackRate: 1
         ]
+        
+        if let p = artWorkImage
+        {
+            MPNowPlayingInfoCenter.default().nowPlayingInfo? [MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: p)
+        }
     
         print(MPNowPlayingInfoCenter.default().nowPlayingInfo)
 
@@ -1058,7 +1139,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return HomeViewController.singerMediaItems.count
+        return PlayingMediaManager.ShowingArtistMediaItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -1067,7 +1148,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Tools.StaticVariables.cellReuseIdendifier, for: indexPath as IndexPath) as! SameArtistCellItem
         
-        cell.cellMedia = HomeViewController.singerMediaItems[indexPath.row]
+        cell.cellMedia = PlayingMediaManager.ShowingArtistMediaItems[indexPath.row]
         
         cell.MusicTitleLabel = cell.cellMedia.MediaName
         cell.SingerNameLabel = cell.cellMedia.ArtistName
@@ -1078,7 +1159,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         cell.frame.size = cellSize
         
-        let p =  URL(string:HomeViewController.singerMediaItems[indexPath.row].LargpicUrl)!
+        let p =  URL(string:PlayingMediaManager.ShowingArtistMediaItems[indexPath.row].LargpicUrl)!
         
         cell.musicImage.af_setImage(withURL:p)
         
@@ -1095,16 +1176,24 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        HomeViewController.jukebox?.stop()
+        //HomeViewController.jukebox?.stop()
         
-        let p = HomeViewController.singerMediaItems[indexPath.row]
+        PlayingMediaManager.CurrentMusicIndex = indexPath.row
         
-        HomeViewController.mediaItem = p
+        print("\n table in Music  " + String(PlayingMediaManager.CurrentMusicIndex))
         
-        let url = LoadData()
+        let p = PlayingMediaManager.ShowingArtistMediaItems[PlayingMediaManager.CurrentMusicIndex]
         
-        CheckNowPlayingMusic(myUrl: url)
+        PlayingMediaManager.ShowingMediaItem = p
         
+        PlayingMediaManager.SetShowingMediaItemToPlaying()
+        
+        PrevAndNextButtonEnableDisable()
+        
+            let url = LoadData()
+        
+            CheckNowPlayingMusic(myUrl: url)
+      
         SetImageForImageView()
         
         for sub in self.playingMusicView.subviews
@@ -1115,9 +1204,12 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         
-        self.lblMusicName.text = HomeViewController.mediaItem.MediaName
-        self.lblArtistName.text = HomeViewController.mediaItem.ArtistName
-        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: HomeViewController.mediaItem.LargpicUrl)
+        self.lblMusicName.text = PlayingMediaManager.PlayingMediaItem.MediaName
+        self.lblArtistName.text = PlayingMediaManager.PlayingMediaItem.ArtistName
+        HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: PlayingMediaManager.PlayingMediaItem.LargpicUrl)
+        HomeViewController.totalMusicPlayer.ArtistNameLabel = PlayingMediaManager.PlayingMediaItem.ArtistName
+        HomeViewController.totalMusicPlayer.MusicTitleLabel = PlayingMediaManager.PlayingMediaItem.MediaName
+        
         
     }
 }

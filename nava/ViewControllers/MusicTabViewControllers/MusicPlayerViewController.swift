@@ -276,14 +276,15 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         // Next Music Button
         self.btnNext = UIButton()
-        self.btnNext.frame = CGRect(x: btnPlay.frame.origin.x + WPercent * 15, y: btnLike.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
+        self.btnNext.frame = CGRect(x: btnPlay.frame.origin.x + WPercent * 14, y: btnLike.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
         self.btnNext.setImage(UIImage(named: "Next"), for: .normal)
         self.btnNext.addTarget(self, action: #selector(self.NextTrack), for: .touchUpInside)
         self.btnNext.isEnabled = false
         
+        
         // Previous Music Button
         self.btnPrev = UIButton()
-        self.btnPrev.frame = CGRect(x: btnPlay.frame.origin.x - WPercent * 15, y: btnLike.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
+        self.btnPrev.frame = CGRect(x: btnPlay.frame.origin.x - WPercent * 12, y: btnLike.frame.origin.y, width: btnBack.frame.width, height: btnBack.frame.height)
         self.btnPrev.setImage(UIImage(named: "Prev"), for: .normal)
         self.btnPrev.addTarget(self, action: #selector(self.PrevTrack), for: .touchUpInside)
         self.btnPrev.isEnabled = false
@@ -824,6 +825,10 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             isStartPlaying = true
             
             SetMediaInfo()
+            
+            HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: PlayingMediaManager.PlayingMediaItem.LargpicUrl)
+            HomeViewController.totalMusicPlayer.ArtistNameLabel = PlayingMediaManager.PlayingMediaItem.ArtistName
+            HomeViewController.totalMusicPlayer.MusicTitleLabel = PlayingMediaManager.PlayingMediaItem.MediaName
         }
     }
     
@@ -910,6 +915,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         {
             ServiceManager.DownloadImage(urlString: PlayingMediaManager.ShowingMediaItem.LargpicUrl, completion: {
                 (newImage) in
+                
+                
                 DataCacheManager.ShareInstance.cacheImage(image: newImage!, urlString: PlayingMediaManager.ShowingMediaItem.LargpicUrl)
                 
                 self.musicImage.image = Tools.cropToBounds(image: newImage!, width: Double(mySize.width), height: Double(mySize.height))

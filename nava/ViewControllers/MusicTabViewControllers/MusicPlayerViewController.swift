@@ -456,6 +456,11 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
                 self.btnPrev.isEnabled = true
             }
         }
+        else
+        {
+            self.btnNext.isEnabled = false
+            self.btnPrev.isEnabled = false
+        }
     }
     
     @objc private func GetOtherMedia()
@@ -464,8 +469,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
             if status
             {
                 PlayingMediaManager.ShowingArtistMediaItems = newMedia
-                
-                
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -518,7 +521,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
     
     func CheckNowPlayingMusic(myUrl: URL){
         
-        if ((HomeViewController.jukebox?.currentItem?.hashValue) != nil)
+        if ((HomeViewController.jukebox?.currentItem) != nil)
         {
             if HomeViewController.jukebox?.currentItem?.URL == myUrl
             {
@@ -544,7 +547,6 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
                 HomeViewController.jukebox?.stop()
                 HomeViewController.jukebox?.remove(item: (HomeViewController.jukebox?.currentItem)!)
                 HomeViewController.jukebox = Jukebox(delegate: self, items: [JukeboxItem(URL: myUrl)])
-
                 HomeViewController.jukebox?.play()
             }
         }
@@ -777,6 +779,8 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         CheckNowPlayingMusic(myUrl: url)
         
         SetImageForImageView()
+        
+        SetMediaInfo()
      
         self.btnDownLoad.isHidden = isDownloaded
    
@@ -857,6 +861,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         btnDownLoad.isHidden = isDownloaded
         
+        SetMediaInfo()
         
         self.lblMusicName.text = PlayingMediaManager.PlayingMediaItem.MediaName
         self.lblArtistName.text = PlayingMediaManager.PlayingMediaItem.ArtistName
@@ -1197,11 +1202,19 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         PrevAndNextButtonEnableDisable()
         
-            let url = LoadData()
+        let url = LoadData()
         
-            CheckNowPlayingMusic(myUrl: url)
+        CheckNowPlayingMusic(myUrl: url)
       
+        if isDownloaded
+        {
+                        self.btnDownLoad.isHidden = true
+        }
+        self.progresslbl.isHidden = true
+
         SetImageForImageView()
+        
+        SetMediaInfo()
         
         for sub in self.playingMusicView.subviews
         {
@@ -1213,6 +1226,7 @@ class MusicPlayerViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.lblMusicName.text = PlayingMediaManager.PlayingMediaItem.MediaName
         self.lblArtistName.text = PlayingMediaManager.PlayingMediaItem.ArtistName
+        
         HomeViewController.totalMusicPlayer.SetNavigateButtonImage(urlString: PlayingMediaManager.PlayingMediaItem.LargpicUrl)
         HomeViewController.totalMusicPlayer.ArtistNameLabel = PlayingMediaManager.PlayingMediaItem.ArtistName
         HomeViewController.totalMusicPlayer.MusicTitleLabel = PlayingMediaManager.PlayingMediaItem.MediaName

@@ -90,10 +90,9 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         
         NotificationCenter.default.addObserver(self, selector: #selector(SetJukeBoxDelegate), name: NSNotification.Name(rawValue: Tools.StaticVariables.ChangeDelegateKey), object: nil)
         
+        HomeViewController.PrevAndNextButtonEnableDisable()
         
         SetTitleViewForNavigationBar()
-//        self.navigationController?.navigationBar.topItem?.title = "نواهای آسمانی"
-//        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: Tools.StaticVariables.AppFont, size: 20)!,  NSForegroundColorAttributeName: UIColor.white]
 
         
         for familyName in UIFont.familyNames {
@@ -130,6 +129,8 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     
     override func viewDidAppear(_ animated: Bool) {
         
+        HomeViewController.PrevAndNextButtonEnableDisable()
+        
         _ = self.becomeFirstResponder()
         
         UIApplication.shared.beginReceivingRemoteControlEvents()
@@ -160,8 +161,8 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
     func SetMediaInfo()
     {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyArtist: PlayingMediaManager.ShowingMediaItem.ArtistName,
-            MPMediaItemPropertyTitle: PlayingMediaManager.ShowingMediaItem.MediaName,
+            MPMediaItemPropertyArtist: PlayingMediaManager.PlayingMediaItem.ArtistName,
+            MPMediaItemPropertyTitle: PlayingMediaManager.PlayingMediaItem.MediaName,
             MPNowPlayingInfoPropertyPlaybackRate: NSNumber(value: 1)
         ]
         
@@ -197,6 +198,8 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             jukebox?.stop()
             
             PlayingMediaManager.CurrentMusicIndex += 1
+            
+            HomeViewController.PrevAndNextButtonEnableDisable()
             
             let oldItem = jukebox?.currentItem
             
@@ -267,7 +270,9 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
             let oldItem = jukebox?.currentItem
             
             PlayingMediaManager.CurrentMusicIndex -= 1
-            
+
+            HomeViewController.PrevAndNextButtonEnableDisable()
+
             PlayingMediaManager.PlayingMediaItem = PlayingMediaManager.PlayingArtistMediaItems[PlayingMediaManager.CurrentMusicIndex]
             
             if isInRoot
@@ -382,5 +387,41 @@ class HomeViewController: UIViewController ,JukeboxDelegate//, ENSideMenuDelegat
         }
     }
     
+    static func PrevAndNextButtonEnableDisable()
+    {
+        //PlayingMediaManager.CurrentMusicIndex = PlayingMediaManager.FindPlayingMediaItemInPlayingList()
+        
+        print("Prev Index " + String(PlayingMediaManager.CurrentMusicIndex))
+        
+        if PlayingMediaManager.PlayingArtistMediaItems.count > 1
+        {
+            if PlayingMediaManager.IsCurrentMediaFirst()
+            {
+                HomeViewController.totalMusicPlayer.btnPrev.isEnabled = false
+                HomeViewController.totalMusicPlayer.btnNext.isEnabled = true
+            }
+            else if PlayingMediaManager.IsCurrentMediaLast()
+            {
+                HomeViewController.totalMusicPlayer.btnPrev.isEnabled = true
+                HomeViewController.totalMusicPlayer.btnNext.isEnabled = false
+            }
+            else if PlayingMediaManager.CurrentMusicIndex == -1
+            {
+                HomeViewController.totalMusicPlayer.btnNext.isEnabled = false
+                HomeViewController.totalMusicPlayer.btnPrev.isEnabled = false
+            }
+            else{
+                HomeViewController.totalMusicPlayer.btnNext.isEnabled = true
+                HomeViewController.totalMusicPlayer.btnPrev.isEnabled = true
+            }
+        }
+        else
+        {
+            HomeViewController.totalMusicPlayer.btnNext.isEnabled = false
+            HomeViewController.totalMusicPlayer.btnPrev.isEnabled = false
+            
+        }
+    }
+
     
     }

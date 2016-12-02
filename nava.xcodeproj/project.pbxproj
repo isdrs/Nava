@@ -28,6 +28,7 @@
 		11ABC3851DD9B594000C1D6E /* TitleLable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ABC3841DD9B594000C1D6E /* TitleLable.swift */; };
 		11F89FC21DBE0E1700E74240 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F89FC11DBE0E1700E74240 /* SlideMenuViewController.swift */; };
 		11F89FC41DBE24D500E74240 /* SwiftyAccordionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */; };
+		6C52268DAA008754A89E382E /* Pods_nava.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDFF549C31DBAC8592A2E5AE /* Pods_nava.framework */; };
 		840F10201DB4BBF7000D430B /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840F101F1DB4BBF7000D430B /* ContainerViewController.swift */; };
 		841322991DB2442400BE67C0 /* MusicDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841322981DB2442400BE67C0 /* MusicDownloadedViewController.swift */; };
 		8413229B1DB2443400BE67C0 /* VideoDownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413229A1DB2443400BE67C0 /* VideoDownloadedViewController.swift */; };
@@ -52,7 +53,6 @@
 		84FB19381DB388E200F3D71A /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB19361DB388E200F3D71A /* DBManager.swift */; };
 		84FB193B1DB38C7900F3D71A /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB193A1DB38C7900F3D71A /* MediaManager.swift */; };
 		84FB193D1DB3C10A00F3D71A /* MyExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB193C1DB3C10A00F3D71A /* MyExtentions.swift */; };
-		B3E6A3320ED6520C81232DCD /* Pods_nava.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.release.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.release.xcconfig"; sourceTree = "<group>"; };
 		1108338C1DD31417000DCA80 /* NavaEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavaEnums.swift; path = Classes/NavaEnums.swift; sourceTree = "<group>"; };
 		1108338E1DD31957000DCA80 /* SearchTypeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTypeItem.swift; path = Classes/DataProvider/SearchTypeItem.swift; sourceTree = "<group>"; };
 		116937F51DEDDFF5002369EF /* PlayingMediaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingMediaManager.swift; path = Classes/Managers/PlayingMediaManager.swift; sourceTree = "<group>"; };
@@ -88,7 +87,6 @@
 		11ABC3841DD9B594000C1D6E /* TitleLable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleLable.swift; path = Classes/Items/TitleLable.swift; sourceTree = "<group>"; };
 		11F89FC11DBE0E1700E74240 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlideMenuViewController.swift; path = ViewControllers/SlideMenuViewController.swift; sourceTree = "<group>"; };
 		11F89FC31DBE24D500E74240 /* SwiftyAccordionCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyAccordionCells.swift; path = Classes/Items/SwiftyAccordionCells.swift; sourceTree = "<group>"; };
-		3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nava.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840F101F1DB4BBF7000D430B /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContainerViewController.swift; path = ViewControllers/ContainerViewController.swift; sourceTree = "<group>"; };
 		841322981DB2442400BE67C0 /* MusicDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicDownloadedViewController.swift; path = ViewControllers/DownloadedViewControllers/MusicDownloadedViewController.swift; sourceTree = "<group>"; };
 		8413229A1DB2443400BE67C0 /* VideoDownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoDownloadedViewController.swift; path = ViewControllers/DownloadedViewControllers/VideoDownloadedViewController.swift; sourceTree = "<group>"; };
@@ -117,7 +115,9 @@
 		84FB19361DB388E200F3D71A /* DBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBManager.swift; path = Classes/Managers/DBManager.swift; sourceTree = "<group>"; };
 		84FB193A1DB38C7900F3D71A /* MediaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaManager.swift; path = Classes/Managers/MediaManager.swift; sourceTree = "<group>"; };
 		84FB193C1DB3C10A00F3D71A /* MyExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyExtentions.swift; path = Classes/MyExtentions.swift; sourceTree = "<group>"; };
-		CB24BF433A81DB82853B7BA1 /* Pods-nava.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.debug.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.debug.xcconfig"; sourceTree = "<group>"; };
+		C0167622BBC57759E9C75722 /* Pods-nava.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.debug.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.debug.xcconfig"; sourceTree = "<group>"; };
+		CDFF549C31DBAC8592A2E5AE /* Pods_nava.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nava.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E82D992AFCCB7918B734E555 /* Pods-nava.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nava.release.xcconfig"; path = "Pods/Target Support Files/Pods-nava/Pods-nava.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E6A3320ED6520C81232DCD /* Pods_nava.framework in Frameworks */,
+				6C52268DAA008754A89E382E /* Pods_nava.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,15 +150,6 @@
 				117C761E1DD927930091222E /* IRANSansMobile.ttf */,
 			);
 			name = Fonts;
-			sourceTree = "<group>";
-		};
-		1C91AB23F5E05FAE9A5A5C0B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				CB24BF433A81DB82853B7BA1 /* Pods-nava.debug.xcconfig */,
-				09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		841322971DB243ED00BE67C0 /* DownloadedViewControllers */ = {
@@ -246,8 +237,8 @@
 				84D377F41DAA50A40085C05D /* nava */,
 				84D3780B1DAA50A40085C05D /* navaTests */,
 				84D377F31DAA50A40085C05D /* Products */,
-				1C91AB23F5E05FAE9A5A5C0B /* Pods */,
-				E380BC93C22EE1A05830F75A /* Frameworks */,
+				E652C155EF5CF0C57CD565A2 /* Pods */,
+				E8908D71477481EFFBB68BF0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -293,10 +284,19 @@
 			name = DataProvider;
 			sourceTree = "<group>";
 		};
-		E380BC93C22EE1A05830F75A /* Frameworks */ = {
+		E652C155EF5CF0C57CD565A2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3FF1D941F9EDA06CE1711190 /* Pods_nava.framework */,
+				C0167622BBC57759E9C75722 /* Pods-nava.debug.xcconfig */,
+				E82D992AFCCB7918B734E555 /* Pods-nava.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E8908D71477481EFFBB68BF0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CDFF549C31DBAC8592A2E5AE /* Pods_nava.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -308,12 +308,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84D378111DAA50A40085C05D /* Build configuration list for PBXNativeTarget "nava" */;
 			buildPhases = (
-				4B18BE94BB0BE8F1E7834235 /* [CP] Check Pods Manifest.lock */,
+				30FB57FD975B7BA3C348F478 /* [CP] Check Pods Manifest.lock */,
 				84D377EE1DAA50A40085C05D /* Sources */,
 				84D377EF1DAA50A40085C05D /* Frameworks */,
 				84D377F01DAA50A40085C05D /* Resources */,
-				728E7B9E433CD34ACB359E8A /* [CP] Embed Pods Frameworks */,
-				E916DE4E01B42643AF0A8FDE /* [CP] Copy Pods Resources */,
+				38C9976B7F46CBF80244F176 /* [CP] Embed Pods Frameworks */,
+				0CD63C7C6185596D9225AE92 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -418,7 +418,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4B18BE94BB0BE8F1E7834235 /* [CP] Check Pods Manifest.lock */ = {
+		0CD63C7C6185596D9225AE92 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-nava/Pods-nava-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		30FB57FD975B7BA3C348F478 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -433,7 +448,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		728E7B9E433CD34ACB359E8A /* [CP] Embed Pods Frameworks */ = {
+		38C9976B7F46CBF80244F176 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -446,21 +461,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-nava/Pods-nava-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E916DE4E01B42643AF0A8FDE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-nava/Pods-nava-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -642,7 +642,7 @@
 		};
 		84D378121DAA50A40085C05D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB24BF433A81DB82853B7BA1 /* Pods-nava.debug.xcconfig */;
+			baseConfigurationReference = C0167622BBC57759E9C75722 /* Pods-nava.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -658,7 +658,7 @@
 		};
 		84D378131DAA50A40085C05D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09A609189DB1DB0F51C191F2 /* Pods-nava.release.xcconfig */;
+			baseConfigurationReference = E82D992AFCCB7918B734E555 /* Pods-nava.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

@@ -6,7 +6,6 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Ramotion/animated-tab-bar)
 [![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
 [![Travis](https://img.shields.io/travis/Ramotion/animated-tab-bar.svg)](https://travis-ci.org/Ramotion/animated-tab-bar)
-[![Analytics](https://ga-beacon.appspot.com/UA-84973210-1/ramotion/animated-tab-bar)](https://github.com/igrigorik/ga-beacon)
 
 ## About
 This project is maintained by Ramotion, Inc.<br>
@@ -35,7 +34,7 @@ Just add the RAMAnimatedTabBarController folder to your project.
 or use [CocoaPods](https://cocoapods.org) with Podfile:
 ``` ruby
 pod 'RAMAnimatedTabBarController', "~> 1.5.3"  swift 2.2
-pod 'RAMAnimatedTabBarController', "~> 2.0.2"  swift 3
+pod 'RAMAnimatedTabBarController', "~> 2.0.13"  swift 3
 ```
 
 or [Carthage](https://github.com/Carthage/Carthage) users can simply add to their `Cartfile`:

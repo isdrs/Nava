@@ -76,27 +76,37 @@ class MediaManager: NSObject {
         var dbMedia = [MediaItem]()
         
         dbQueue.inDatabase { db in
-            for row in Row.fetch(db, "SELECT * FROM Media WHERE media_type = ?",
-                                 arguments: ["\(mediaType.rawValue)"])
+            do
+            {
+                let rows = try Row.fetchAll(db,
+                                            "SELECT * FROM Media WHERE media_type = ?",
+                                            arguments: [mediaType.rawValue])
+                
+                for row in rows
+                {
+                    
+                    let mediaItem = MediaItem()
+                    
+                    mediaItem.MediaName = row.value(named: "media_name")
+                    mediaItem.ArtistName = row.value(named: "media_singer")
+                    mediaItem.ArtistId = row.value(named: "media_singer_id")
+                    mediaItem.MediaID = row.value(named: "media_id")
+                    mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+                    mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+                    mediaItem.MediaUrl = row.value(named: "media_url")
+                    mediaItem.LargpicUrl = row.value(named: "media_pic")
+                    //mediaItem.LargpicUrl = mediaItem.LargpicUrl
+                    mediaItem.Time = row.value(named: "media_time")
+                    mediaItem.ShareUrl = row.value(named: "media_share")
+                    mediaItem.IrancellCode = row.value(named: "media_irancell")
+                    mediaItem.HamrahavalCode = row.value(named: "media_hamrahaval")
+                    
+                    dbMedia.append(mediaItem)
+                }
+            }
+            catch
             {
                 
-                let mediaItem = MediaItem()
-                
-                mediaItem.MediaName = row.value(named: "media_name")
-                mediaItem.ArtistName = row.value(named: "media_singer")
-                mediaItem.ArtistId = row.value(named: "media_singer_id")
-                mediaItem.MediaID = row.value(named: "media_id")
-                mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
-                mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
-                mediaItem.MediaUrl = row.value(named: "media_url")
-                mediaItem.LargpicUrl = row.value(named: "media_pic")
-                //mediaItem.LargpicUrl = mediaItem.LargpicUrl
-                mediaItem.Time = row.value(named: "media_time")
-                mediaItem.ShareUrl = row.value(named: "media_share")
-                mediaItem.IrancellCode = row.value(named: "media_irancell")
-                mediaItem.HamrahavalCode = row.value(named: "media_hamrahaval")
-                
-                dbMedia.append(mediaItem)
             }
         }
         
@@ -114,27 +124,38 @@ class MediaManager: NSObject {
         var dbMedia = [MediaItem]()
         
         dbQueue.inDatabase { db in
-            for row in Row.fetch(db, "SELECT * FROM " + Tools.StaticVariables.FavoriteTableName + " WHERE media_type = ?",
-                                 arguments: ["\(mediaType.rawValue)"])
+            
+            do
+            {
+                let rows = try Row.fetchAll(db,
+                                            "SELECT * FROM " + Tools.StaticVariables.FavoriteTableName + " WHERE media_type = ?",
+                                            arguments: [mediaType.rawValue])
+                
+                for row in rows
+                {
+                    
+                    let mediaItem = MediaItem()
+                    
+                    mediaItem.MediaName = row.value(named: "media_name")
+                    mediaItem.ArtistName = row.value(named: "media_singer")
+                    mediaItem.ArtistId = row.value(named: "media_singer_id")
+                    mediaItem.MediaID = row.value(named: "media_id")
+                    mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+                    mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+                    mediaItem.MediaUrl = row.value(named: "media_url")
+                    mediaItem.LargpicUrl = row.value(named: "media_pic")
+                    //mediaItem.LargpicUrl = mediaItem.LargpicUrl
+                    mediaItem.Time = row.value(named: "media_time")
+                    mediaItem.ShareUrl = row.value(named: "media_share")
+                    mediaItem.IrancellCode = row.value(named: "media_irancell")
+                    mediaItem.HamrahavalCode = row.value(named: "media_hamrahaval")
+                    
+                    dbMedia.append(mediaItem)
+                }
+            }
+            catch
             {
                 
-                let mediaItem = MediaItem()
-                
-                mediaItem.MediaName = row.value(named: "media_name")
-                mediaItem.ArtistName = row.value(named: "media_singer")
-                mediaItem.ArtistId = row.value(named: "media_singer_id")
-                mediaItem.MediaID = row.value(named: "media_id")
-                mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
-                mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
-                mediaItem.MediaUrl = row.value(named: "media_url")
-                mediaItem.LargpicUrl = row.value(named: "media_pic")
-                //mediaItem.LargpicUrl = mediaItem.LargpicUrl
-                mediaItem.Time = row.value(named: "media_time")
-                mediaItem.ShareUrl = row.value(named: "media_share")
-                mediaItem.IrancellCode = row.value(named: "media_irancell")
-                mediaItem.HamrahavalCode = row.value(named: "media_hamrahaval")
-                
-                dbMedia.append(mediaItem)
             }
         }
         
@@ -204,19 +225,30 @@ class MediaManager: NSObject {
         var dbMedia = [MediaItem]()
         
         dbQueue.inDatabase { db in
-            for row in Row.fetch(db, "SELECT * FROM Likes WHERE media_type = ?",
-                                 arguments: ["\(mediaType.rawValue)"])
+            
+            do
+            {
+                let rows = try Row.fetchAll(db,
+                                             "SELECT * FROM Likes WHERE media_type = ?",
+                                            arguments: [mediaType.rawValue])
+                
+                for row in rows
+                {
+                    
+                    let mediaItem = MediaItem()
+                    
+                    
+                    mediaItem.MediaID = row.value(named: "media_id")
+                    mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
+                    mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
+                    
+                    
+                    dbMedia.append(mediaItem)
+                }
+            }
+            catch
             {
                 
-                let mediaItem = MediaItem()
-                
-
-                mediaItem.MediaID = row.value(named: "media_id")
-                mediaItem.MediaType = NavaEnums.ServiceMediaType.GetFromString(typeString: row.value(named: "media_type"))
-                mediaItem.MediaServiceType = NavaEnums.ServiceType.GetFromString(typeString: row.value(named: "media_service_type"))
-
-                
-                dbMedia.append(mediaItem)
             }
         }
         

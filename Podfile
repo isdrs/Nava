@@ -7,12 +7,13 @@ pod 'Alamofire', '~> 4.0'
 pod 'AlamofireImage', '~> 3.1'
 pod 'AlamofireNetworkActivityIndicator', '~> 2.0'
 pod 'RAMAnimatedTabBarController'
-pod 'ENSwiftSideMenu', '~> 0.1.1'
 pod 'SwiftyJSON'
 pod 'XLPagerTabStrip', :git => 'https://github.com/KelvinJin/XLPagerTabStrip', :branch => 'swift3'
 pod 'Jukebox', '~> 0.2.0'
 pod 'SCLAlertView'
 pod 'GRDB.swift'
+pod 'Firebase'
+pod 'FirebaseMessaging'
 end
 
 post_install do |installer|

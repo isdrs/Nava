@@ -290,6 +290,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
       let icon = UIImageView(image: item.image?.withRenderingMode(renderMode))
       icon.translatesAutoresizingMaskIntoConstraints = false
       icon.tintColor = item.iconColor
+
       
       // text
       let textLabel = UILabel()
@@ -322,9 +323,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
         icon.alpha      = 0.5
         textLabel.alpha = 0.5
       }
-        
       item.iconView = (icon:icon, textLabel:textLabel)
-    
       
       if 0 == index { // selected first elemet
         item.selectedState()
@@ -407,6 +406,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
     let viewContainer = UIView();
     viewContainer.backgroundColor = UIColor.clear // for test
     viewContainer.translatesAutoresizingMaskIntoConstraints = false
+    viewContainer.isExclusiveTouch = true
     view.addSubview(viewContainer)
     
     // add gesture

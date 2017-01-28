@@ -1,6 +1,0 @@
-framework module ColorMatchTabs {
-  umbrella header "ColorMatchTabs-umbrella.h"
-
-  export *
-  module * { export * }
-}
